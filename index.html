@@ -81,7 +81,6 @@
     .btn-choix[data-val="1"]:hover  { border-color: #2ecc71; background-color: #d5f5e3; }
     .btn-choix[data-val="2"]:hover  { border-color: #27ae60; background-color: #abebc6; }
 
-    /* Style du bouton Retour */
     .btn-retour {
       background-color: transparent;
       border: none;
@@ -139,7 +138,6 @@
       <div id="progress-text">Chargement...</div>
       <div id="question-texte">Connexion aux données...</div>
       <div id="choices-container" class="choices-grid"></div>
-      <!-- Zone pour le bouton retour -->
       <div id="nav-container"></div>
     </div>
 
@@ -150,6 +148,7 @@
         <h3 style="margin-top:0; color: #d35400;">Tensions détectées :</h3>
         <div id="alertes-liste"></div>
       </div>
+      <button class="btn-choix" style="margin-top: 40px; border-color: var(--primary); font-weight: bold;" onclick="recommencerSondage()">↺ Refaire le test</button>
     </div>
   </div>
 
@@ -158,7 +157,7 @@
     let reglesDissonance = [];
     let fileAttente = []; 
     let indexCourant = 0;
-    const reponsesUtilisateur = {}; 
+    let reponsesUtilisateur = {}; // Passé en let pour pouvoir être réinitialisé
 
     const elSondage = document.getElementById("sondage");
     const elQuestionTexte = document.getElementById("question-texte");
@@ -193,7 +192,7 @@
       const q = fileAttente[indexCourant];
       elQuestionTexte.textContent = q.texte;
       elChoicesContainer.innerHTML = ""; 
-      elNavContainer.innerHTML = ""; // On vide la zone du bouton retour
+      elNavContainer.innerHTML = ""; 
 
       if (q.type === "identite") {
         elProgress.textContent = "Introduction";
@@ -223,7 +222,6 @@
           elChoicesContainer.appendChild(btn);
         });
 
-        // Affichage du bouton Retour si on a passé la première question
         if (indexCourant > 0) {
           const btnRetour = document.createElement("button");
           btnRetour.className = "btn-retour";
@@ -257,12 +255,33 @@
       }
     }
 
-    // Fonction pour reculer d'une question
     function questionPrecedente() {
       if (indexCourant > 0) {
         indexCourant--;
         afficherQuestion();
       }
+    }
+
+    // Nouvelle fonction pour redémarrer le sondage
+    function recommencerSondage() {
+      // 1. Réinitialisation des variables
+      indexCourant = 0;
+      reponsesUtilisateur = {};
+      
+      const questionIdentite = toutesQuestions.find(q => q.type === "identite");
+      fileAttente = [questionIdentite];
+
+      // 2. Nettoyage de l'écran des résultats
+      document.getElementById("affinites-container").innerHTML = "";
+      document.getElementById("alertes-liste").innerHTML = "";
+      document.getElementById("alertes-dissonance").style.display = "none";
+      
+      // 3. Bascule des écrans
+      elResultats.style.display = "none";
+      elSondage.style.display = "block";
+
+      // 4. Relance
+      afficherQuestion();
     }
 
     function calculerAffinities(reponses) {
