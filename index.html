@@ -81,6 +81,21 @@
     .btn-choix[data-val="1"]:hover  { border-color: #2ecc71; background-color: #d5f5e3; }
     .btn-choix[data-val="2"]:hover  { border-color: #27ae60; background-color: #abebc6; }
 
+    /* Style du bouton Retour */
+    .btn-retour {
+      background-color: transparent;
+      border: none;
+      color: #7f8c8d;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: 20px;
+      font-size: 0.95em;
+      transition: color 0.2s;
+    }
+    .btn-retour:hover {
+      color: var(--text-main);
+    }
+
     #resultats { display: none; }
     
     .resultat-item {
@@ -124,6 +139,8 @@
       <div id="progress-text">Chargement...</div>
       <div id="question-texte">Connexion aux données...</div>
       <div id="choices-container" class="choices-grid"></div>
+      <!-- Zone pour le bouton retour -->
+      <div id="nav-container"></div>
     </div>
 
     <div id="resultats">
@@ -146,6 +163,7 @@
     const elSondage = document.getElementById("sondage");
     const elQuestionTexte = document.getElementById("question-texte");
     const elChoicesContainer = document.getElementById("choices-container");
+    const elNavContainer = document.getElementById("nav-container");
     const elProgress = document.getElementById("progress-text");
     const elResultats = document.getElementById("resultats");
 
@@ -175,6 +193,7 @@
       const q = fileAttente[indexCourant];
       elQuestionTexte.textContent = q.texte;
       elChoicesContainer.innerHTML = ""; 
+      elNavContainer.innerHTML = ""; // On vide la zone du bouton retour
 
       if (q.type === "identite") {
         elProgress.textContent = "Introduction";
@@ -203,6 +222,15 @@
           btn.onclick = () => enregistrerChoix(item.val, q.id);
           elChoicesContainer.appendChild(btn);
         });
+
+        // Affichage du bouton Retour si on a passé la première question
+        if (indexCourant > 0) {
+          const btnRetour = document.createElement("button");
+          btnRetour.className = "btn-retour";
+          btnRetour.textContent = "← Revenir à la question précédente";
+          btnRetour.onclick = questionPrecedente;
+          elNavContainer.appendChild(btnRetour);
+        }
       }
     }
 
@@ -226,6 +254,14 @@
         afficherQuestion();
       } else {
         terminerSondage();
+      }
+    }
+
+    // Fonction pour reculer d'une question
+    function questionPrecedente() {
+      if (indexCourant > 0) {
+        indexCourant--;
+        afficherQuestion();
       }
     }
 
