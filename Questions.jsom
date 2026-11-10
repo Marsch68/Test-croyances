@@ -1,0 +1,230 @@
+{
+  "questions": [
+    {
+      "id": "q_identite",
+      "type": "identite",
+      "texte": "De quel courant religieux ou philosophique vous considérez-vous aujourd'hui le plus proche (culturellement ou spirituellement) ?",
+      "options": [
+        { "valeur": "catholique", "label": "Catholicisme" },
+        { "valeur": "protestant", "label": "Protestantisme" },
+        { "valeur": "islam", "label": "Islam" },
+        { "valeur": "bouddhisme", "label": "Bouddhisme" },
+        { "valeur": "atheisme_agnosticisme", "label": "Athéisme / Agnosticisme" },
+        { "valeur": "autre", "label": "Autre / Sans étiquette" }
+      ]
+    },
+    {
+      "id": "ct_cath_transsubstantiation",
+      "type": "crash_test",
+      "cible_identite": "catholique",
+      "texte": "Lors de la communion, le pain et le vin deviennent véritablement, physiquement et substantiellement le corps et le sang du Christ ; il ne s'agit pas d'un simple rite symbolique.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Protestantisme": -5,
+        "Déisme": -5
+      }
+    },
+    {
+      "id": "ct_cath_magistere",
+      "type": "crash_test",
+      "cible_identite": "catholique",
+      "texte": "Le Pape, lorsqu'il s'exprime ex cathedra sur la foi ou la morale, est infaillible et son autorité est absolue.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Libéral": -4,
+        "Protestantisme": -5
+      }
+    },
+    {
+      "id": "ct_prot_sola_gratia",
+      "type": "crash_test",
+      "cible_identite": "protestant",
+      "texte": "Le salut de mon âme dépend exclusivement de la grâce divine et de ma foi ; mes bonnes actions ou ma participation à des rites ne peuvent en aucun cas y contribuer.",
+      "scores": {
+        "Calvinisme": 5,
+        "Luthéranisme": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Humanisme_Séculier": -5
+      }
+    },
+    {
+      "id": "ct_islam_coran",
+      "type": "crash_test",
+      "cible_identite": "islam",
+      "texte": "Le Coran est la parole incréée et littérale de Dieu. Son contenu légal et social est intemporel et ne peut être relativisé par son contexte historique.",
+      "scores": {
+        "Salafisme": 5,
+        "Islam_Orthodoxe": 4,
+        "Islam_Libéral": -5,
+        "Soufisme": -2
+      }
+    },
+    {
+      "id": "ct_boud_karma",
+      "type": "crash_test",
+      "cible_identite": "bouddhisme",
+      "texte": "Après la mort, la conscience renaît inévitablement selon la loi implacable du Karma ; le but ultime est de briser ce cycle des renaissances.",
+      "scores": {
+        "Bouddhisme_Traditionnel": 5,
+        "Bouddhisme_Séculier": -4,
+        "Matérialisme": -5
+      }
+    },
+    {
+      "id": "q_std_spinoza",
+      "type": "standard",
+      "texte": "Le mot « Dieu » ne désigne pas une entité personnelle qui juge ou écoute les prières, mais correspond simplement à l'ordre géométrique, absolu et nécessaire de la Nature.",
+      "scores": {
+        "Spinozisme": 5,
+        "Panthéisme": 4,
+        "Stoïcisme": 2,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "q_std_deisme",
+      "type": "standard",
+      "texte": "L'existence d'un Créateur (un « Grand Horloger ») se déduit par l'observation rationnelle de l'univers, mais il n'intervient jamais dans l'histoire humaine par des miracles ou des prophètes.",
+      "scores": {
+        "Déisme": 5,
+        "Spinozisme": 2,
+        "Salafisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Athéisme_Matérialiste": -4
+      }
+    },
+    {
+      "id": "q_std_existentialisme",
+      "type": "standard",
+      "texte": "L'être humain naît sans nature prédéfinie ni destin ; c'est à nous, par nos choix absolument libres, de créer le sens de notre existence dans un univers indifférent.",
+      "scores": {
+        "Existentialisme": 5,
+        "Agnosticisme": 2,
+        "Catholicisme_Orthodoxe": -4,
+        "Calvinisme": -5,
+        "Spinozisme": -5
+      }
+    },
+    {
+      "id": "q_std_agnosticisme",
+      "type": "standard",
+      "texte": "L'esprit humain est par nature limité ; il est fondamentalement impossible de prouver ou de réfuter l'existence d'un principe créateur, il faut donc suspendre son jugement.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Athéisme_Militant": -3,
+        "Salafisme": -5,
+        "Catholicisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "q_std_determinisme_absolu",
+      "type": "standard",
+      "texte": "Le libre-arbitre est une illusion ; chacun de nos choix est le résultat inévitable d'une chaîne de causes (biologiques, sociales, ou divines) qui nous échappent.",
+      "scores": {
+        "Spinozisme": 5,
+        "Calvinisme": 5,
+        "Matérialisme": 3,
+        "Existentialisme": -5,
+        "Catholicisme_Orthodoxe": -4
+      }
+    },
+    {
+      "id": "q_std_epicurisme",
+      "type": "standard",
+      "texte": "L'univers est purement matériel. Puisqu'il n'y a pas de jugement après la mort, le seul but raisonnable de l'existence est de cultiver des plaisirs simples et rationnels pour atteindre l'absence de trouble.",
+      "scores": {
+        "Épicurisme": 5,
+        "Athéisme_Matérialiste": 4,
+        "Calvinisme": -5,
+        "Catholicisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "q_std_stoicisme",
+      "type": "standard",
+      "texte": "Il est inutile de chercher à modifier magiquement le cours des événements ; la véritable sagesse consiste à accepter ce qui ne dépend pas de nous et à fortifier notre seule volonté intérieure.",
+      "scores": {
+        "Stoïcisme": 5,
+        "Spinozisme": 3,
+        "Bouddhisme_Séculier": 3,
+        "Islam_Orthodoxe": -2,
+        "Catholicisme_Orthodoxe": -2
+      }
+    },
+    {
+      "id": "q_std_esoterisme",
+      "type": "standard",
+      "texte": "Les textes sacrés révèlent leur véritable sens non pas dans leur lecture littérale, mais par une quête spirituelle ésotérique cherchant l'union intime avec le divin.",
+      "scores": {
+        "Soufisme": 5,
+        "Gnosticisme": 5,
+        "Christianisme_Mystique": 4,
+        "Salafisme": -5,
+        "Athéisme_Matérialiste": -4
+      }
+    },
+    {
+      "id": "q_std_ame_immortelle",
+      "type": "standard",
+      "texte": "Je possède une âme individuelle, immatérielle et permanente qui survivra d'une manière ou d'une autre à la destruction de mon corps physique.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 4,
+        "Islam_Orthodoxe": 4,
+        "Déisme": 2,
+        "Bouddhisme_Traditionnel": -3,
+        "Athéisme_Matérialiste": -5,
+        "Épicurisme": -5
+      }
+    },
+    {
+      "id": "q_std_bouddhisme_anatta",
+      "type": "standard",
+      "texte": "L'idée même d'un « Moi » permanent ou d'une âme individuelle est une illusion génératrice de souffrance ; tout dans l'univers est fondamentalement éphémère et interdépendant.",
+      "scores": {
+        "Bouddhisme_Traditionnel": 5,
+        "Bouddhisme_Séculier": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "q_std_probleme_du_mal",
+      "type": "standard",
+      "texte": "L'existence de souffrances extrêmes et injustes dans le monde prouve mathématiquement qu'il ne peut pas exister de Dieu qui soit simultanément tout-puissant ET infiniment bon.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Agnosticisme": 3,
+        "Catholicisme_Orthodoxe": -4,
+        "Islam_Orthodoxe": -4
+      }
+    }
+  ],
+  "dissonances": [
+    {
+      "code": "CATH_TRADI_VS_SYMBOLE",
+      "condition": "rep['q_identite'] === 'catholique' && rep['ct_cath_transsubstantiation'] < 0",
+      "message": "Vous vous identifiez comme catholique, mais vous rejetez la réalité matérielle de l'Eucharistie (la transsubstantiation). Votre profil correspond davantage à un christianisme libéral ou culturel qu'à l'orthodoxie romaine."
+    },
+    {
+      "code": "PANTHÉISME_VS_LIBRE_ARBITRE",
+      "condition": "rep['q_std_spinoza'] > 0 && rep['q_std_existentialisme'] > 0",
+      "message": "Vous concevez Dieu comme l'ordre géométrique et nécessaire de la Nature, mais vous affirmez simultanément que l'humain est radicalement libre de créer son destin. Philosophiquement, si l'univers obéit à la stricte nécessité naturelle, la volonté humaine ne peut pas en être soustraite."
+    },
+    {
+      "code": "AME_VS_IMPERMANENCE",
+      "condition": "rep['q_std_ame_immortelle'] > 0 && rep['q_std_bouddhisme_anatta'] > 0",
+      "message": "Vous adhérez à l'idée d'une âme individuelle et immortelle, tout en validant le concept d'impermanence absolue et l'illusion du 'Moi'. C'est un syncrétisme courant entre les doctrines abrahamiques (l'âme substantielle) et orientales (l'interdépendance vide d'essence)."
+    },
+    {
+      "code": "LITTERALISME_VS_ESOTERISME",
+      "condition": "rep['ct_islam_coran'] > 0 && rep['q_std_esoterisme'] > 0",
+      "message": "Vous affirmez que le texte sacré doit être lu au premier degré comme une loi intemporelle indépassable, mais vous validez également l'idée que sa véritable nature est ésotérique et allégorique. Ces deux lectures sont historiquement et théologiquement opposées."
+    },
+    {
+      "code": "DEISME_VS_MIRACLES",
+      "condition": "rep['q_std_deisme'] > 0 && (rep['ct_cath_magistere'] > 0 || rep['ct_islam_coran'] > 0)",
+      "message": "Vous considérez que Dieu n'intervient jamais par des miracles ou des révélations (Déisme), tout en validant l'autorité absolue d'un texte révélé ou d'un dogme (qui nécessitent précisément une intervention surnaturelle dans l'histoire)."
+    }
+  ]
+}
