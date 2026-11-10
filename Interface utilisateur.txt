@@ -224,7 +224,11 @@ function calculerAffinities(reponses) {
       });
     }
   }
-
+// 'rep' représente votre objet reponsesUtilisateur (ex: { "q_std_spinoza": 2 })
+const evaluateur = new Function("rep", "return " + regle.condition + ";");
+if (evaluateur(reponsesUtilisateur)) {
+    // La contradiction est avérée, on affiche regle.message
+}
   // Trier du plus grand pourcentage au plus petit
   resultats.sort((a, b) => b.pourcentage - a.pourcentage);
   return resultats;
