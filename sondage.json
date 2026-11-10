@@ -263,6 +263,16 @@
       "code": "DEISME_VS_MIRACLES",
       "condition": "rep['q_std_deisme'] > 0 && (rep['ct_cath_magistere'] > 0 || rep['ct_islam_coran'] > 0)",
       "message": "Vous considérez que Dieu n'intervient jamais par des miracles ou des révélations (Déisme), tout en validant l'autorité absolue d'un texte révélé ou d'un dogme (qui nécessitent précisément une intervention surnaturelle dans l'histoire)."
+    },
+    {
+      "code": "MATERIALISME_VS_AME",
+      "condition": "rep['q_std_epicurisme'] > 0 && rep['q_std_ame_immortelle'] > 0",
+      "message": "Vous affirmez que l'univers est purement matériel et qu'il n'y a pas de survivance après la mort (Matérialisme/Épicurisme), tout en croyant posséder une âme immatérielle et immortelle. C'est une contradiction philosophique directe entre le monisme matériel et le dualisme spirituel."
+    },
+    {
+      "code": "DETERMINISME_VS_EXISTENTIALISME",
+      "condition": "rep['q_std_determinisme_absolu'] > 0 && rep['q_std_existentialisme'] > 0",
+      "message": "Vous affirmez simultanément que l'humain est radicalement libre de créer son destin (Existentialisme) et que le libre-arbitre n'est qu'une illusion soumise à des causes inévitables (Déterminisme). Ces deux conceptions de la condition humaine s'excluent logiquement."
     }
   ]
 }
