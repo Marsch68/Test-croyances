@@ -1,0 +1,271 @@
+HTML
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sondage - Système de Croyances</title>
+  <style>
+    /* ----- CSS : Typographie et Mise en page ----- */
+    :root {
+      --bg-color: #f4f4f9;
+      --text-main: #2c3e50;
+      --btn-bg: #ffffff;
+      --btn-hover: #eef2f5;
+      --border-color: #dcdde1;
+      --primary: #3498db;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    #app-container {
+      background: #fff;
+      max-width: 600px;
+      width: 90%;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    /* Barre de progression */
+    #progress-text {
+      font-size: 0.9em;
+      color: #7f8c8d;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Texte de la question */
+    #question-texte {
+      font-size: 1.3em;
+      line-height: 1.5;
+      margin-bottom: 30px;
+      min-height: 80px; /* Évite que les boutons sautent si le texte est court */
+      font-weight: 500;
+    }
+
+    /* Grille des boutons de choix */
+    .choices-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-choix {
+      appearance: none;
+      background-color: var(--btn-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px;
+      font-size: 1em;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-choix:hover {
+      background-color: var(--btn-hover);
+      border-color: var(--primary);
+    }
+
+    .btn-choix:active {
+      transform: scale(0.98);
+    }
+
+    /* Couleurs optionnelles pour le gradient d'accord */
+    .btn-choix[data-val="-2"]:hover { border-color: #e74c3c; background-color: #fadbd8; }
+    .btn-choix[data-val="-1"]:hover { border-color: #e67e22; background-color: #fdebd0; }
+    .btn-choix[data-val="0"]:hover  { border-color: #95a5a6; background-color: #f2f4f4; }
+    .btn-choix[data-val="1"]:hover  { border-color: #2ecc71; background-color: #d5f5e3; }
+    .btn-choix[data-val="2"]:hover  { border-color: #27ae60; background-color: #abebc6; }
+
+    /* Écran de fin */
+    #resultats {
+      display: none;
+    }
+/* Affichage des résultats */
+    .resultat-item {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .resultat-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .barre-fond {
+      width: 100%;
+      background-color: var(--btn-hover);
+      border-radius: 6px;
+      overflow: hidden;
+      height: 12px;
+    }
+    .barre-remplissage {
+      height: 100%;
+      background-color: var(--primary);
+      transition: width 1s ease-out;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app-container">
+    
+   // 1. Les données avec les scores (Simulation du JSON)
+const questionsBase = [
+  {
+    id: "q_exist",
+    texte: "L'être humain naît sans nature prédéfinie ; par nos choix libres, nous créons le sens de notre existence dans un univers indifférent.",
+    scores: {
+      "Existentialisme": 5,
+      "Catholicisme": -4,
+      "Spinozisme": -5,
+      "Agnosticisme": 2
+    }
+  },
+  {
+    id: "q_dogme",
+    texte: "La vérité provient d'une révélation (textes sacrés, prophètes). Elle est immuable et les textes doivent être lus au premier degré.",
+    scores: {
+      "Salafisme": 5,
+      "Catholicisme": 3,
+      "Déisme": -5,
+      "Existentialisme": -5
+    }
+  },
+  {
+    id: "q_spinoza",
+    texte: "Dieu n'est pas une personne, c'est l'ordre absolu, nécessaire et géométrique de la Nature.",
+    scores: {
+      "Spinozisme": 5,
+      "Déisme": 2,
+      "Catholicisme": -5,
+      "Salafisme": -5
+    }
+  }
+];
+
+// Variables d'état
+let indexCourant = 0;
+const reponsesUtilisateur = {}; 
+
+const elSondage = document.getElementById("sondage");
+const elResultats = document.getElementById("resultats");
+const elQuestionTexte = document.getElementById("question-texte");
+const elProgress = document.getElementById("progress-text");
+
+function afficherQuestion() {
+  const q = questionsBase[indexCourant];
+  elQuestionTexte.textContent = q.texte;
+  elProgress.textContent = `Question ${indexCourant + 1} / ${questionsBase.length}`;
+}
+
+function enregistrerChoix(valeur) {
+  const qId = questionsBase[indexCourant].id;
+  reponsesUtilisateur[qId] = valeur;
+  indexCourant++;
+
+  if (indexCourant < questionsBase.length) {
+    afficherQuestion();
+  } else {
+    terminerSondage();
+  }
+}
+
+// --- LE MOTEUR DE CALCUL ---
+function calculerAffinities(reponses) {
+  const totaux = {};
+  const maxPossibles = {};
+
+  // Étape A : Parcourir les réponses et cumuler les points
+  for (const [qId, valeurChoisie] of Object.entries(reponses)) {
+    const question = questionsBase.find(q => q.id === qId);
+    
+    if (question && question.scores) {
+      for (const [profil, poids] of Object.entries(question.scores)) {
+        // Initialiser les compteurs si le profil est rencontré pour la première fois
+        if (!totaux[profil]) {
+          totaux[profil] = 0;
+          maxPossibles[profil] = 0;
+        }
+
+        // Le calcul clé :
+        // Si le poids est négatif (ex: -5) et qu'on répond "Pas d'accord" (-2), 
+        // les signes s'annulent et on gagne 10 points pour ce profil !
+        totaux[profil] += poids * valeurChoisie;
+        
+        // Le max possible pour cette question (valeur absolue du poids * 2)
+        maxPossibles[profil] += Math.abs(poids) * 2;
+      }
+    }
+  }
+
+  // Étape B : Convertir en pourcentages
+  const resultats = [];
+  for (const profil in totaux) {
+    if (maxPossibles[profil] > 0) {
+      // (Total / Max) * 100. On utilise Math.max(0, ...) pour ne pas afficher de scores en dessous de 0%.
+      let pourcentage = Math.max(0, (totaux[profil] / maxPossibles[profil]) * 100);
+      resultats.push({ 
+        profil: profil, 
+        pourcentage: Math.round(pourcentage) 
+      });
+    }
+  }
+// 'rep' représente votre objet reponsesUtilisateur (ex: { "q_std_spinoza": 2 })
+const evaluateur = new Function("rep", "return " + regle.condition + ";");
+if (evaluateur(reponsesUtilisateur)) {
+    // La contradiction est avérée, on affiche regle.message
+}
+  // Trier du plus grand pourcentage au plus petit
+  resultats.sort((a, b) => b.pourcentage - a.pourcentage);
+  return resultats;
+}
+
+// --- AFFICHAGE DES RÉSULTATS ---
+function terminerSondage() {
+  elSondage.style.display = "none";
+  elResultats.style.display = "block";
+  
+  const affinites = calculerAffinities(reponsesUtilisateur);
+  
+  // Vider le conteneur de résultats
+  elResultats.innerHTML = "<h2>Votre profil philosophique</h2><p>Voici les systèmes de pensée dont vous êtes le plus proche :</p>";
+  
+  // Générer les barres HTML pour chaque profil
+  affinites.forEach(aff => {
+    // On ne montre que les profils au-dessus de 0% pour ne pas polluer l'affichage
+    if (aff.pourcentage > 0) {
+      const htmlCode = `
+        <div class="resultat-item">
+          <div class="resultat-header">
+            <span>${aff.profil}</span>
+            <span>${aff.pourcentage}%</span>
+          </div>
+          <div class="barre-fond">
+            <div class="barre-remplissage" style="width: ${aff.pourcentage}%;"></div>
+          </div>
+        </div>
+      `;
+      elResultats.innerHTML += htmlCode;
+    }
+  });
+}
+
+// Lancement
+window.onload = afficherQuestion;
+  </script>
+</body>
+</html>
