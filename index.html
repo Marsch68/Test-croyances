@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Boussole Philosophique & Religieuse</title>
+  
+  <!-- 1. Importation de la bibliothèque Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
   <style>
     /* ----- CSS : Typographie et Mise en page ----- */
     :root {
@@ -97,6 +101,14 @@
 
     #resultats { display: none; }
     
+    /* Conteneur pour le graphique Chart.js */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 30px auto;
+    }
+    
     .resultat-item {
       margin-bottom: 20px;
       text-align: left;
@@ -143,6 +155,12 @@
 
     <div id="resultats">
       <h2>Votre bilan philosophique</h2>
+      
+      <!-- 2. La zone de dessin du graphique -->
+      <div class="chart-container">
+        <canvas id="radarChart"></canvas>
+      </div>
+
       <div id="affinites-container"></div>
       <div id="alertes-dissonance" style="display: none;">
         <h3 style="margin-top:0; color: #d35400;">Tensions détectées :</h3>
@@ -157,7 +175,8 @@
     let reglesDissonance = [];
     let fileAttente = []; 
     let indexCourant = 0;
-    let reponsesUtilisateur = {}; // Passé en let pour pouvoir être réinitialisé
+    let reponsesUtilisateur = {}; 
+    let radarChartInstance = null; // Variable pour stocker le graphique
 
     const elSondage = document.getElementById("sondage");
     const elQuestionTexte = document.getElementById("question-texte");
@@ -262,25 +281,20 @@
       }
     }
 
-    // Nouvelle fonction pour redémarrer le sondage
     function recommencerSondage() {
-      // 1. Réinitialisation des variables
       indexCourant = 0;
       reponsesUtilisateur = {};
       
       const questionIdentite = toutesQuestions.find(q => q.type === "identite");
       fileAttente = [questionIdentite];
 
-      // 2. Nettoyage de l'écran des résultats
       document.getElementById("affinites-container").innerHTML = "";
       document.getElementById("alertes-liste").innerHTML = "";
       document.getElementById("alertes-dissonance").style.display = "none";
       
-      // 3. Bascule des écrans
       elResultats.style.display = "none";
       elSondage.style.display = "block";
 
-      // 4. Relance
       afficherQuestion();
     }
 
@@ -314,6 +328,59 @@
       return resultats.sort((a, b) => b.pourcentage - a.pourcentage);
     }
 
+    // 3. Fonction pour dessiner le graphique
+    function dessinerGraphique(affinites) {
+      const ctx = document.getElementById('radarChart').getContext('2d');
+
+      // On détruit l'ancien graphique s'il existe (pour le bouton "Refaire")
+      if (radarChartInstance) {
+        radarChartInstance.destroy();
+      }
+
+      // On extrait seulement les 6 premiers résultats pour que la toile d'araignée reste lisible
+      const top6 = affinites.slice(0, 6);
+      const labels = top6.map(a => a.profil);
+      const data = top6.map(a => a.pourcentage);
+
+      radarChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Affinité (%)',
+            data: data,
+            backgroundColor: 'rgba(52, 152, 219, 0.3)', // Bleu semi-transparent
+            borderColor: 'rgba(52, 152, 219, 1)',
+            pointBackgroundColor: '#2c3e50',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#2c3e50',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          scales: {
+            r: {
+              angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+              grid: { color: 'rgba(0, 0, 0, 0.1)' },
+              pointLabels: {
+                font: { size: 13, family: "'Segoe UI', sans-serif" },
+                color: '#2c3e50'
+              },
+              ticks: {
+                display: false, // Cache les chiffres sur les cercles pour un design plus épuré
+                min: 0,
+                max: 100
+              }
+            }
+          },
+          plugins: {
+            legend: { display: false } // Cache la légende inutile
+          }
+        }
+      });
+    }
+
     function genererBilanDissonance(reponses) {
       const anomalies = [];
       reglesDissonance.forEach(regle => {
@@ -334,8 +401,12 @@
       elResultats.style.display = "block";
       
       const affinites = calculerAffinities(reponsesUtilisateur);
-      const containerScores = document.getElementById("affinites-container");
       
+      // Appel de la création du graphique
+      dessinerGraphique(affinites);
+
+      // On garde aussi les barres classiques en dessous pour le détail complet
+      const containerScores = document.getElementById("affinites-container");
       affinites.forEach(aff => {
         if (aff.pourcentage > 0) {
           containerScores.innerHTML += `
