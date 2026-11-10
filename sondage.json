@@ -14,6 +14,44 @@
       ]
     },
     {
+      "id": "q_std_matiere_divine",
+      "type": "standard",
+      "texte": "Le monde matériel et physique n'est pas une illusion dont il faudrait se détacher, mais une expression divine et parfaite en soi. Embrasser la réalité de la matière telle qu'elle est, c'est comprendre le divin.",
+      "scores": {
+        "Spinozisme": 5,
+        "Panthéisme": 4,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -4,
+        "Gnosticisme": -5
+      }
+    },
+    {
+      "id": "q_std_raison_mysticisme",
+      "type": "standard",
+      "texte": "Ma connexion au « Tout » ou à la Nature ne passe pas par une adoration mystique, romantique ou priante, mais par la raison pure : c'est en comprenant scientifiquement et logiquement les lois de l'univers que j'atteins la vraie sérénité.",
+      "scores": {
+        "Spinozisme": 5,
+        "Stoïcisme": 3,
+        "Bouddhisme_Séculier": 2,
+        "Panthéisme": -3,
+        "Soufisme": -4,
+        "Catholicisme_Orthodoxe": -4
+      }
+    },
+    {
+      "id": "q_std_extinction_desir",
+      "type": "standard",
+      "texte": "Le but ultime de la pratique spirituelle ou philosophique est l'extinction totale du désir et de l'attachement, afin de se libérer définitivement de la souffrance et de l'agitation du monde.",
+      "scores": {
+        "Bouddhisme_Traditionnel": 5,
+        "Bouddhisme_Séculier": 4,
+        "Stoïcisme": 2,
+        "Spinozisme": -4,
+        "Épicurisme": -3,
+        "Panthéisme": -2
+      }
+    }
+    {
       "id": "ct_cath_transsubstantiation",
       "type": "crash_test",
       "cible_identite": "catholique",
