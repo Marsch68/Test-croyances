@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Boussole Philosophique & Religieuse</title>
   
-  <!-- 1. Importation de la bibliothèque Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <style>
@@ -100,8 +99,34 @@
     }
 
     #resultats { display: none; }
+
+    /* Style de la jauge de dissonance */
+    #bloc-dissonance-global {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: var(--btn-hover);
+      border-radius: 12px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+    #titre-dissonance {
+      font-size: 0.85em;
+      text-transform: uppercase;
+      color: #7f8c8d;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+    #valeur-dissonance {
+      font-size: 3em;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    #texte-dissonance {
+      font-size: 0.95em;
+      margin: 0;
+      color: var(--text-main);
+    }
     
-    /* Conteneur pour le graphique Chart.js */
     .chart-container {
       position: relative;
       width: 100%;
@@ -156,16 +181,24 @@
     <div id="resultats">
       <h2>Votre bilan philosophique</h2>
       
-      <!-- 2. La zone de dessin du graphique -->
+      <!-- Nouveau bloc : Indice de Dissonance -->
+      <div id="bloc-dissonance-global">
+        <div id="titre-dissonance">Indice de Dissonance Cognitive</div>
+        <div id="valeur-dissonance">0%</div>
+        <div id="texte-dissonance">Analyse en cours...</div>
+      </div>
+
       <div class="chart-container">
         <canvas id="radarChart"></canvas>
       </div>
 
       <div id="affinites-container"></div>
+      
       <div id="alertes-dissonance" style="display: none;">
-        <h3 style="margin-top:0; color: #d35400;">Tensions détectées :</h3>
+        <h3 style="margin-top:0; color: #d35400;">Explication des Tensions :</h3>
         <div id="alertes-liste"></div>
       </div>
+      
       <button class="btn-choix" style="margin-top: 40px; border-color: var(--primary); font-weight: bold;" onclick="recommencerSondage()">↺ Refaire le test</button>
     </div>
   </div>
@@ -176,7 +209,7 @@
     let fileAttente = []; 
     let indexCourant = 0;
     let reponsesUtilisateur = {}; 
-    let radarChartInstance = null; // Variable pour stocker le graphique
+    let radarChartInstance = null; 
 
     const elSondage = document.getElementById("sondage");
     const elQuestionTexte = document.getElementById("question-texte");
@@ -328,16 +361,13 @@
       return resultats.sort((a, b) => b.pourcentage - a.pourcentage);
     }
 
-    // 3. Fonction pour dessiner le graphique
     function dessinerGraphique(affinites) {
       const ctx = document.getElementById('radarChart').getContext('2d');
 
-      // On détruit l'ancien graphique s'il existe (pour le bouton "Refaire")
       if (radarChartInstance) {
         radarChartInstance.destroy();
       }
 
-      // On extrait seulement les 6 premiers résultats pour que la toile d'araignée reste lisible
       const top6 = affinites.slice(0, 6);
       const labels = top6.map(a => a.profil);
       const data = top6.map(a => a.pourcentage);
@@ -349,7 +379,7 @@
           datasets: [{
             label: 'Affinité (%)',
             data: data,
-            backgroundColor: 'rgba(52, 152, 219, 0.3)', // Bleu semi-transparent
+            backgroundColor: 'rgba(52, 152, 219, 0.3)',
             borderColor: 'rgba(52, 152, 219, 1)',
             pointBackgroundColor: '#2c3e50',
             pointBorderColor: '#fff',
@@ -368,14 +398,14 @@
                 color: '#2c3e50'
               },
               ticks: {
-                display: false, // Cache les chiffres sur les cercles pour un design plus épuré
+                display: false,
                 min: 0,
                 max: 100
               }
             }
           },
           plugins: {
-            legend: { display: false } // Cache la légende inutile
+            legend: { display: false }
           }
         }
       });
@@ -401,11 +431,37 @@
       elResultats.style.display = "block";
       
       const affinites = calculerAffinities(reponsesUtilisateur);
-      
-      // Appel de la création du graphique
       dessinerGraphique(affinites);
 
-      // On garde aussi les barres classiques en dessous pour le détail complet
+      const alertes = genererBilanDissonance(reponsesUtilisateur);
+      
+      // --- Calcul et affichage de l'Indice Global de Dissonance ---
+      const maxDissonancesPossibles = reglesDissonance.length; 
+      let indiceDissonance = 0;
+      if (maxDissonancesPossibles > 0) {
+        indiceDissonance = Math.round((alertes.length / maxDissonancesPossibles) * 100);
+      }
+
+      const elValeurDiss = document.getElementById("valeur-dissonance");
+      const elTexteDiss = document.getElementById("texte-dissonance");
+      const blocDiss = document.getElementById("bloc-dissonance-global");
+      
+      elValeurDiss.textContent = indiceDissonance + "%";
+      
+      if (indiceDissonance === 0) {
+        elValeurDiss.style.color = "#27ae60"; // Vert
+        blocDiss.style.backgroundColor = "#eafaf1";
+        elTexteDiss.textContent = "Cohérence parfaite. Vos réponses sont idéalement alignées.";
+      } else if (indiceDissonance <= 25) {
+        elValeurDiss.style.color = "#e67e22"; // Orange
+        blocDiss.style.backgroundColor = "#fef5e7";
+        elTexteDiss.textContent = "Cohérence modérée, mais quelques paradoxes existent entre vos principes.";
+      } else {
+        elValeurDiss.style.color = "#c0392b"; // Rouge
+        blocDiss.style.backgroundColor = "#fdedec";
+        elTexteDiss.textContent = "Forte dissonance. Vos croyances reposent sur des paradoxes philosophiques profonds.";
+      }
+
       const containerScores = document.getElementById("affinites-container");
       affinites.forEach(aff => {
         if (aff.pourcentage > 0) {
@@ -423,7 +479,6 @@
         }
       });
 
-      const alertes = genererBilanDissonance(reponsesUtilisateur);
       if (alertes.length > 0) {
         const divAlertes = document.getElementById("alertes-dissonance");
         const listeAlertes = document.getElementById("alertes-liste");
