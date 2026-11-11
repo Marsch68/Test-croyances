@@ -29,7 +29,7 @@
         "Existentialisme": -2
       }
     },
-    {
+   {
       "id": "q_epis_neuro_determinisme",
       "type": "standard",
       "texte": "Ce que nous appelons notre « libre-arbitre » n'est qu'une illusion générée par notre cerveau. Chacun de nos choix est l'aboutissement mécanique d'une chaîne ininterrompue de causes neurobiologiques, hormonales et environnementales.",
@@ -40,12 +40,6 @@
         "Catholicisme_Orthodoxe": -5,
         "Humanisme_Séculier": -3
       }
-    },
-    {
-      "code": "MATERIALISME_VS_KARMA",
-      "condition": "rep['ct_boud_karma'] > 0 && (rep['q_meta_fantome_machine'] > 0 || rep['q_std_epicurisme'] > 0)",
-      "message": "Vous croyez à la loi du Karma et au cycle des renaissances, tout en affirmant que l'esprit n'est qu'un pur phénomène biochimique matériel voué à disparaître avec le corps. Si la conscience n'est qu'une mécanique organique éphémère dictée par la biologie, elle ne possède aucun support physique pour transmigrer ni pour porter le poids moral de ses actes d'une vie à l'autre."
-    }
     },
     {
       "id": "q_ethi_responsabilite_morale",
@@ -392,5 +386,10 @@
       "condition": "rep['q_identite'] === 'atheisme' && (rep['q_std_ame_immortelle'] > 0 || rep['ct_boud_karma'] > 0 || rep['q_std_esoterisme'] > 0)",
       "message": "Vous vous définissez formellement comme athée, mais vous adhérez à des concepts métaphysiques surnaturels (l'âme immortelle, le cycle du Karma ou l'ésotérisme). C'est un paradoxe contemporain très courant : l'athéisme philosophique strict s'accompagne logiquement d'un matérialisme qui exclut toute mécanique cosmique invisible ou survivance de l'esprit."
     },
+    {
+      "code": "MATERIALISME_VS_KARMA",
+      "condition": "rep['ct_boud_karma'] > 0 && (rep['q_meta_fantome_machine'] > 0 || rep['q_std_epicurisme'] > 0)",
+      "message": "Vous croyez à la loi du Karma et au cycle des renaissances, tout en affirmant que l'esprit n'est qu'un pur phénomène biochimique matériel voué à disparaître avec le corps. Si la conscience n'est qu'une mécanique organique éphémère dictée par la biologie, elle ne possède aucun support physique pour transmigrer ni pour porter le poids moral de ses actes d'une vie à l'autre."
+    }
   ]
 }
