@@ -100,7 +100,6 @@
 
     #resultats { display: none; }
 
-    /* Jauge de dissonance */
     #bloc-dissonance-global {
       margin-bottom: 20px;
       padding: 20px;
@@ -127,7 +126,6 @@
       color: var(--text-main);
     }
     
-    /* NOUVEAU : Bloc de Synthèse Rédigée */
     #bloc-synthese {
       background-color: #f9fbfc;
       border-left: 4px solid var(--primary);
@@ -187,6 +185,32 @@
       border-radius: 0 8px 8px 0;
     }
     .alerte-item { margin-bottom: 10px; font-size: 0.95em; }
+
+    /* ----- CSS D'IMPRESSION (PDF) ----- */
+    @media print {
+      body {
+        background-color: #fff;
+      }
+      #app-container {
+        box-shadow: none;
+        max-width: 100%;
+        width: 100%;
+        padding: 0;
+      }
+      /* Masquer les boutons de navigation lors de l'impression */
+      .zone-boutons-fin {
+        display: none !important;
+      }
+      /* Forcer l'impression des couleurs de fond (barres, jauges) */
+      #bloc-dissonance-global, .barre-fond, .barre-remplissage, #bloc-synthese, #alertes-dissonance {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+      /* Éviter que le graphique ou un bloc soit coupé en deux sur deux pages */
+      .chart-container, .resultat-item, #bloc-dissonance-global, #bloc-synthese {
+        page-break-inside: avoid;
+      }
+    }
   </style>
 </head>
 <body>
@@ -208,7 +232,6 @@
         <div id="texte-dissonance">Analyse en cours...</div>
       </div>
 
-      <!-- NOUVEAU : Bloc de Synthèse HTML -->
       <div id="bloc-synthese" style="display: none;">
         <h3>Synthèse de votre profil</h3>
         <p id="texte-synthese-redigee" style="margin: 0;"></p>
@@ -225,7 +248,11 @@
         <div id="alertes-liste"></div>
       </div>
       
-      <button class="btn-choix" style="margin-top: 40px; border-color: var(--primary); font-weight: bold;" onclick="recommencerSondage()">↺ Refaire le test</button>
+      <!-- Nouvelle zone de boutons -->
+      <div class="zone-boutons-fin" style="display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
+        <button class="btn-choix" style="border-color: #95a5a6; font-weight: bold;" onclick="imprimerResultats()">🖨️ Imprimer / PDF</button>
+        <button class="btn-choix" style="border-color: var(--primary); font-weight: bold;" onclick="recommencerSondage()">↺ Refaire le test</button>
+      </div>
     </div>
   </div>
 
@@ -264,6 +291,14 @@
         console.error("Erreur :", erreur);
         elQuestionTexte.textContent = "Impossible de charger sondage.json. Assurez-vous de l'avoir créé dans le même dossier sur GitHub.";
       }
+    }
+
+    function melangerTableau(tableau) {
+      for (let i = tableau.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [tableau[i], tableau[j]] = [tableau[j], tableau[i]];
+      }
+      return tableau;
     }
 
     function afficherQuestion() {
@@ -309,37 +344,18 @@
         }
       }
     }
-    // Nouvelle fonction de mélange aléatoire (Fisher-Yates)
-    function melangerTableau(tableau) {
-      for (let i = tableau.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [tableau[i], tableau[j]] = [tableau[j], tableau[i]];
-      }
-      return tableau;
-    }
 
     function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
-      
-      // Récupération des questions
-      const crashTests = toutesQuestions.filter(q => 
-        q.type === "crash_test" && q.cible_identite === valeurIdentite
-      );
+      const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
       const questionsStandards = toutesQuestions.filter(q => q.type === "standard");
-      
-      // On fusionne les crash tests et les questions standards
       let suiteQuestions = [...crashTests, ...questionsStandards];
-      
-      // On bat les cartes : l'ordre devient totalement imprévisible
       suiteQuestions = melangerTableau(suiteQuestions);
-      
-      // On reconstruit la file : Identité (toujours fixée en 1er) + le reste mélangé
       fileAttente = [fileAttente[0], ...suiteQuestions];
-      
       indexCourant++;
       afficherQuestion();
     }
-    
+
     function enregistrerChoix(valeur, qId) {
       reponsesUtilisateur[qId] = valeur;
       indexCourant++;
@@ -365,50 +381,43 @@
       document.getElementById("affinites-container").innerHTML = "";
       document.getElementById("alertes-liste").innerHTML = "";
       document.getElementById("alertes-dissonance").style.display = "none";
-      document.getElementById("bloc-synthese").style.display = "none"; // Cache la synthèse
+      document.getElementById("bloc-synthese").style.display = "none";
       elResultats.style.display = "none";
       elSondage.style.display = "block";
       afficherQuestion();
     }
 
- function calculerAffinities(reponses) {
+    // Nouvelle fonction d'impression
+    function imprimerResultats() {
+      window.print();
+    }
+
+    function calculerAffinities(reponses) {
       const totaux = {};
       const maxPossibles = {};
-
       for (const [qId, valeurChoisie] of Object.entries(reponses)) {
         if (qId === "q_identite") continue; 
-        
         const question = toutesQuestions.find(q => q.id === qId);
         if (question && question.scores) {
           for (const [profil, poids] of Object.entries(question.scores)) {
-            if (!totaux[profil]) {
-              totaux[profil] = 0;
-              maxPossibles[profil] = 0;
-            }
+            if (!totaux[profil]) { totaux[profil] = 0; maxPossibles[profil] = 0; }
             totaux[profil] += poids * valeurChoisie;
             maxPossibles[profil] += Math.abs(poids) * 2;
           }
         }
       }
-
       const resultats = [];
       for (const profil in totaux) {
         if (maxPossibles[profil] > 0) {
-          // 1. Calcul du ratio de base (entre -1 et 1)
           let ratio = totaux[profil] / maxPossibles[profil];
-          
-          // 2. On élimine le négatif (si on rejette le profil, le score est 0)
           if (ratio < 0) ratio = 0;
-
-          // 3. NOUVEAU : Le filtre quadratique (Amplificateur de conviction)
-          // On élève le ratio au carré pour écraser les scores tièdes et discriminer les extrêmes
           let pourcentage = Math.pow(ratio, 2) * 100;
-          
           resultats.push({ profil: profil, pourcentage: Math.round(pourcentage) });
         }
       }
       return resultats.sort((a, b) => b.pourcentage - a.pourcentage);
     }
+
     function dessinerGraphique(affinites) {
       const ctx = document.getElementById('radarChart').getContext('2d');
       if (radarChartInstance) radarChartInstance.destroy();
@@ -456,7 +465,12 @@
               ticks: { display: false, min: 0, max: 100 }
             }
           },
-          plugins: { legend: { display: false } }
+          plugins: { legend: { display: false } },
+          animation: {
+            onComplete: function() {
+              // Force Chart.js à terminer son animation avant l'impression
+            }
+          }
         }
       });
     }
@@ -504,22 +518,21 @@
         elTexteDiss.textContent = "Forte dissonance. Vos croyances reposent sur des paradoxes philosophiques profonds.";
       }
 
-      // NOUVEAU : Logique de la synthèse rédigée
       if (affinites.length > 0) {
         const top1 = affinites[0];
         const top2 = affinites.length > 1 ? affinites[1] : null;
-        let texteSynthese = `Votre boussole intérieure pointe très nettement vers le <strong>${top1.profil}</strong> (${top1.pourcentage}%). `;
+        let texteSynthese = `Votre boussole intérieure pointe vers le <strong>${top1.profil}</strong> (${top1.pourcentage}%). `;
         
         if (top2 && top2.pourcentage >= 15) {
           texteSynthese += `Cette vision du monde s'articule chez vous avec des influences issues du <strong>${top2.profil}</strong> (${top2.pourcentage}%). `;
         }
 
         if (indiceDissonance === 0) {
-          texteSynthese += `<br><br>Votre architecture intellectuelle et spirituelle est d'une cohérence remarquable : vous assumez vos principes jusqu'au bout de leur logique doctrinale, sans faire de compromis philosophiques contradictoires.`;
+          texteSynthese += `<br><br>Votre architecture intellectuelle et spirituelle est d'une cohérence remarquable : vous assumez vos principes jusqu'au bout de leur logique doctrinale.`;
         } else if (indiceDissonance <= 25) {
-          texteSynthese += `<br><br>C'est une pensée vivante et syncrétique : vous piochez certains concepts dans des traditions différentes, créant de légers paradoxes qui reflètent une quête de sens personnelle et nuancée plutôt qu'un dogmatisme rigide.`;
+          texteSynthese += `<br><br>C'est une pensée vivante et syncrétique : vous piochez certains concepts dans des traditions différentes, créant de légers paradoxes qui reflètent une quête de sens personnelle.`;
         } else {
-          texteSynthese += `<br><br>Toutefois, votre profil est marqué par un éclectisme philosophique extrême. Vous conjuguez intimement des visions du monde que les philosophes ou les théologiens considèrent habituellement comme incompatibles (comme l'indiquent les alertes de dissonance ci-dessous). Vous avez bâti une spiritualité "à la carte" très personnelle, au prix de plusieurs grands écarts logiques.`;
+          texteSynthese += `<br><br>Toutefois, votre profil est marqué par un éclectisme extrême. Vous conjuguez intimement des visions du monde que les philosophes considèrent habituellement comme incompatibles.`;
         }
 
         document.getElementById("texte-synthese-redigee").innerHTML = texteSynthese;
