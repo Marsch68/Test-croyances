@@ -9,7 +9,7 @@
         { "valeur": "islam", "label": "Islam" },
         { "valeur": "sagesses_asiatiques", "label": "Bouddhisme et Sagesses asiatiques (Hindouisme, Zen...)" },
         { "valeur": "antiquite", "label": "Philosophies antiques (Stoïcisme, Épicurisme...)" },
-        { "valeur": "theisme_agnostique", "label": "Spiritualité agnostique (Conviction qu'un principe supérieur existe, mais qu'il dépasse totalement l'entendement)" },
+        { "valeur": "theisme_agnostique", "label": "Spiritualité agnostique (Conviction qu'un principe supérieur existe, mais qu'il dépasse l'entendement)" },
         { "valeur": "atheisme", "label": "Athéisme (Conviction que le divin n'existe pas)" },
         { "valeur": "agnosticisme", "label": "Agnosticisme strict (Suspension totale du jugement)" },
         { "valeur": "autre", "label": "Autre / Sans étiquette" },
@@ -232,6 +232,18 @@
       }
     },
     {
+      "id": "ct_islam_pratique",
+      "type": "crash_test",
+      "cible_identite": "islam",
+      "texte": "La loi divine (la Charia) et les pratiques rituelles (prière, jeûne, aumône) ne sont pas de simples démarches de bien-être personnel ou des métaphores, mais des obligations sacrées supérieures aux lois humaines.",
+      "scores": {
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Islam_Libéral": -4,
+        "Humanisme_Séculier": -5
+      }
+    },
+    {
       "id": "ct_boud_karma",
       "type": "crash_test",
       "cible_identite": "sagesses_asiatiques",
@@ -240,6 +252,173 @@
         "Bouddhisme_Traditionnel": 5,
         "Bouddhisme_Séculier": -4,
         "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "ct_asie_atman",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "Au-delà des illusions du monde matériel, il existe en chaque être vivant une âme véritable, un « Soi » profond et éternel (l'Atman) qui est relié à l'Absolu de l'univers.",
+      "scores": {
+        "Hindouisme": 5,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -5,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "ct_asie_maya",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "Le monde phénoménal tel que nous le percevons (la matière, l'ego) est fondamentalement impermanent ou illusoire (Maya). La véritable sagesse consiste à s'en détacher plutôt qu'à chercher à y bâtir un bonheur matériel durable.",
+      "scores": {
+        "Bouddhisme_Traditionnel": 5,
+        "Hindouisme": 5,
+        "Athéisme_Matérialiste": -5,
+        "Épicurisme": -5
+      }
+    },
+    {
+      "id": "ct_antiq_providence",
+      "type": "crash_test",
+      "cible_identite": "antiquite",
+      "texte": "L'univers n'est pas le fruit du hasard, il est ordonné par une Raison universelle (le Logos ou la Nature). Mon devoir est de comprendre et d'aligner ma volonté sur cet ordre que je ne contrôle pas.",
+      "scores": {
+        "Stoïcisme": 5,
+        "Spinozisme": 4,
+        "Épicurisme": -5,
+        "Nihilisme": -5
+      }
+    },
+    {
+      "id": "ct_antiq_epicure",
+      "type": "crash_test",
+      "cible_identite": "antiquite",
+      "texte": "L'univers n'est qu'un assemblage matériel d'atomes. Il n'y a ni destin préécrit, ni dieux qui jugent les hommes. L'âme disparaît totalement à la mort, ce qui fait que la mort n'est pas à craindre.",
+      "scores": {
+        "Épicurisme": 5,
+        "Stoïcisme": -5,
+        "Catholicisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "ct_antiq_ataraxie",
+      "type": "crash_test",
+      "cible_identite": "antiquite",
+      "texte": "L'objectif ultime de l'existence n'est ni le salut divin, ni la gloire, mais l'Ataraxie : la paix absolue de l'âme, l'absence de troubles, obtenue par la maîtrise de nos désirs et de nos jugements.",
+      "scores": {
+        "Stoïcisme": 4,
+        "Épicurisme": 5,
+        "Existentialisme": -3,
+        "Calvinisme": -5
+      }
+    },
+    {
+      "id": "ct_theisme_principe",
+      "type": "crash_test",
+      "cible_identite": "theisme_agnostique",
+      "texte": "L'ordre, la complexité et l'existence même de l'univers prouvent de manière évidente qu'une Cause Première ou un principe structurant existe au-delà du pur hasard matériel.",
+      "scores": {
+        "Déisme": 5,
+        "Panthéisme": 4,
+        "Spinozisme": 3,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "ct_theisme_inconnaissable",
+      "type": "crash_test",
+      "cible_identite": "theisme_agnostique",
+      "texte": "Ce principe supérieur échappe totalement aux concepts humains. Il est absurde de croire qu'il éprouve des sentiments (colère, amour) ou qu'il s'intéresse à notre vie personnelle.",
+      "scores": {
+        "Déisme": 5,
+        "Spinozisme": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "ct_theisme_revelation",
+      "type": "crash_test",
+      "cible_identite": "theisme_agnostique",
+      "texte": "Le Divin ne s'est jamais révélé de manière exclusive à un peuple ou dans un livre sacré. Toutes les religions organisées sont des inventions humaines pour tenter d'expliquer l'inexplicable.",
+      "scores": {
+        "Déisme": 5,
+        "Agnosticisme": 3,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Judaïsme": -5
+      }
+    },
+    {
+      "id": "ct_athe_materiel",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "La matière et l'énergie sont les seules réalités de l'univers. Toute notion de « spirituel », d'« âme » ou de « surnaturel » n'est qu'une illusion ou une superstition.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Hindouisme": -5
+      }
+    },
+    {
+      "id": "ct_athe_finitude",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "À l'instant de la mort physique, la conscience s'éteint de manière absolue et définitive. Il n'existe strictement aucune survivance, ni au paradis, ni par la réincarnation.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Nihilisme": 5,
+        "Bouddhisme_Traditionnel": -5,
+        "Catholicisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "ct_athe_humanisme",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "Puisqu'il n'y a pas de divinité pour nous juger, c'est aux êtres humains de définir leurs propres valeurs morales et de construire leur destin par la seule raison et la solidarité.",
+      "scores": {
+        "Humanisme_Séculier": 5,
+        "Athéisme_Matérialiste": 4,
+        "Existentialisme": 4,
+        "Calvinisme": -5
+      }
+    },
+    {
+      "id": "ct_agno_doute_absolu",
+      "type": "crash_test",
+      "cible_identite": "agnosticisme",
+      "texte": "Il est fondamentalement et définitivement impossible pour le cerveau humain de savoir si un Dieu existe ou non. Toute certitude dogmatique à ce sujet est un abus de la raison.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Salafisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Athéisme_Matérialiste": -4
+      }
+    },
+    {
+      "id": "ct_agno_renvoi_dos",
+      "type": "crash_test",
+      "cible_identite": "agnosticisme",
+      "texte": "L'athéisme militant (la certitude absolue que rien n'existe) est une croyance presque aussi dogmatique que le fondamentalisme religieux. Les deux camps affirment savoir l'inconnaissable.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Athéisme_Matérialiste": -5,
+        "Nihilisme": -4
+      }
+    },
+    {
+      "id": "ct_agno_pragmatisme",
+      "type": "crash_test",
+      "cible_identite": "agnosticisme",
+      "texte": "L'absence de certitude sur l'au-delà ne doit pas nous paralyser. La sagesse consiste à vivre et à agir moralement ici-bas sans faire dépendre nos choix de croyances métaphysiques invérifiables.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Humanisme_Séculier": 4,
+        "Stoïcisme": 3,
+        "Calvinisme": -4
       }
     },
     {
@@ -369,30 +548,6 @@
         "Agnosticisme": 3,
         "Catholicisme_Orthodoxe": -4,
         "Islam_Orthodoxe": -4
-      }
-    },
-    {
-      "id": "ct_asie_atman",
-      "type": "crash_test",
-      "cible_identite": "sagesses_asiatiques",
-      "texte": "Au-delà des illusions du monde matériel, il existe en chaque être vivant une âme véritable, un « Soi » profond et éternel (l'Atman) qui est relié à l'Absolu de l'univers.",
-      "scores": {
-        "Hindouisme": 5,
-        "Bouddhisme_Traditionnel": -5,
-        "Bouddhisme_Séculier": -5,
-        "Athéisme_Matérialiste": -5
-      }
-    },
-    {
-      "id": "ct_antiq_providence",
-      "type": "crash_test",
-      "cible_identite": "antiquite",
-      "texte": "L'univers n'est pas le fruit du hasard, il est ordonné par une Raison universelle (le Logos ou la Nature). Mon devoir est de comprendre et d'aligner ma volonté sur cet ordre que je ne contrôle pas.",
-      "scores": {
-        "Stoïcisme": 5,
-        "Spinozisme": 4,
-        "Épicurisme": -5,
-        "Nihilisme": -5
       }
     },
     {
