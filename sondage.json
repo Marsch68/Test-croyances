@@ -1,6 +1,6 @@
 {
   "questions": [
-   {
+    {
       "id": "q_identite",
       "type": "identite",
       "texte": "De quel courant religieux ou philosophique vous considérez-vous aujourd'hui le plus proche (culturellement ou spirituellement) ?",
@@ -83,7 +83,6 @@
     {
       "id": "q_ethi_calcul_plaisirs",
       "type": "standard",
-      "note_auteur": "Sépare l'épicurisme (gestion rationnelle du désir) du bouddhisme (extinction du désir) et du stoïcisme (primauté de la vertu sur le plaisir).",
       "texte": "Le bonheur ne consiste pas à éteindre notre soif de vivre, mais à calculer rationnellement nos plaisirs. En cultivant exclusivement les désirs naturels et nécessaires (l'amitié, le savoir, une nourriture simple), on atteint la paix de l'âme sans nier notre nature matérielle.",
       "scores": {
         "Épicurisme": 5,
@@ -97,7 +96,6 @@
     {
       "id": "q_ethi_attachement_souffrance",
       "type": "standard",
-      "note_auteur": "Sanctionne les philosophies vitalistes ou matérialistes au profit du détachement oriental et ascétique.",
       "texte": "Tout plaisir lié au monde physique ou à nos relations humaines porte en germe la souffrance, car tout est voué à disparaître. La véritable guérison de l'esprit exige de trancher à la racine notre attachement affectif et matériel aux choses éphémères.",
       "scores": {
         "Bouddhisme_Traditionnel": 5,
@@ -347,7 +345,6 @@
     {
       "id": "q_ethi_devoir_absolu",
       "type": "standard",
-      "note_auteur": "Sépare la morale déontologique (Kant, religions abrahamiques) du pragmatisme utilitariste (Matérialisme, Transhumanisme).",
       "texte": "Il existe des devoirs moraux absolus et universels qu'il ne faut jamais transgresser, quelles qu'en soient les conséquences positives. Par exemple, sacrifier délibérément la vie d'un innocent pour en sauver cent autres reste un crime moralement inacceptable.",
       "scores": {
         "Catholicisme_Orthodoxe": 5,
@@ -361,7 +358,6 @@
     {
       "id": "q_meta_nature_objective",
       "type": "standard",
-      "note_auteur": "Sanctionne la téléologie (les causes finales) en s'appuyant sur Jacques Monod.",
       "texte": "La nature est purement « objective » et non « projective ». L'évolution de l'univers et de la vie est le fruit d'une mécanique aveugle (hasard et nécessité). Il n'y a aucun grand dessein, aucune intention cachée ni aucun but final à l'existence.",
       "scores": {
         "Athéisme_Matérialiste": 5,
@@ -377,7 +373,6 @@
     {
       "id": "q_esthe_beaute_objective",
       "type": "standard",
-      "note_auteur": "Sépare l'idéalisme platonicien/religieux du relativisme subjectif, existentialiste ou matérialiste.",
       "texte": "La Beauté n'est pas qu'une simple affaire de goût subjectif, de biologie ou de conditionnement culturel. Il existe une Beauté objective, universelle et transcendante, et le rôle de l'Art est de nous élever vers cette vérité supérieure.",
       "scores": {
         "Catholicisme_Orthodoxe": 5,
@@ -395,57 +390,57 @@
     {
       "code": "CATH_TRADI_VS_SYMBOLE",
       "condition": "rep['q_identite'] === 'catholique' && rep['ct_cath_transsubstantiation'] < 0",
-      "message": "Vous vous identifiez comme catholique, mais vous rejetez la réalité matérielle de l'Eucharistie (la transsubstantiation). Votre profil correspond davantage à un christianisme libéral ou culturel qu'à l'orthodoxie romaine."
+      "message": "<strong>Catholicisme Culturel vs Orthodoxie :</strong> Vous vous identifiez comme catholique, mais vous rejetez la réalité matérielle de l'Eucharistie (la transsubstantiation). Votre profil correspond davantage à un christianisme libéral ou culturel qu'à l'orthodoxie romaine."
     },
     {
       "code": "PANTHÉISME_VS_LIBRE_ARBITRE",
       "condition": "rep['q_std_spinoza'] > 0 && rep['q_std_existentialisme'] > 0",
-      "message": "Vous concevez Dieu comme l'ordre géométrique et nécessaire de la Nature, mais vous affirmez simultanément que l'humain est radicalement libre de créer son destin. Philosophiquement, si l'univers obéit à la stricte nécessité naturelle, la volonté humaine ne peut pas en être soustraite."
+      "message": "<strong>L'Ordre Nécessaire vs Le Libre-Arbitre :</strong> Vous concevez Dieu comme l'ordre géométrique et nécessaire de la Nature, mais vous affirmez simultanément que l'humain est radicalement libre de créer son destin. Philosophiquement, si l'univers obéit à la stricte nécessité naturelle, la volonté humaine ne peut pas en être soustraite."
     },
     {
       "code": "AME_VS_IMPERMANENCE",
       "condition": "rep['q_std_ame_immortelle'] > 0 && rep['q_std_bouddhisme_anatta'] > 0",
-      "message": "Vous adhérez à l'idée d'une âme individuelle et immortelle, tout en validant le concept d'impermanence absolue et l'illusion du 'Moi'. C'est un syncrétisme courant entre les doctrines abrahamiques (l'âme substantielle) et orientales (l'interdépendance vide d'essence)."
+      "message": "<strong>Âme Éternelle vs Impermanence (Anatta) :</strong> Vous adhérez à l'idée d'une âme individuelle et immortelle, tout en validant le concept d'impermanence absolue et l'illusion du 'Moi'. C'est un syncrétisme courant entre les doctrines abrahamiques (l'âme substantielle) et orientales (l'interdépendance vide d'essence)."
     },
     {
       "code": "LITTERALISME_VS_ESOTERISME",
       "condition": "rep['ct_islam_coran'] > 0 && rep['q_std_esoterisme'] > 0",
-      "message": "Vous affirmez que le texte sacré doit être lu au premier degré comme une loi intemporelle indépassable, mais vous validez également l'idée que sa véritable nature est ésotérique et allégorique. Ces deux lectures sont historiquement et théologiquement opposées."
+      "message": "<strong>Littéralisme Dogmatique vs Ésotérisme :</strong> Vous affirmez que le texte sacré doit être lu au premier degré comme une loi intemporelle indépassable, mais vous validez également l'idée que sa véritable nature est ésotérique et allégorique. Ces deux lectures sont historiquement et théologiquement opposées."
     },
     {
       "code": "DEISME_VS_MIRACLES",
       "condition": "rep['q_std_deisme'] > 0 && (rep['ct_cath_magistere'] > 0 || rep['ct_islam_coran'] > 0)",
-      "message": "Vous considérez que Dieu n'intervient jamais par des miracles ou des révélations (Déisme), tout en validant l'autorité absolue d'un texte révélé ou d'un dogme (qui nécessitent précisément une intervention surnaturelle dans l'histoire)."
+      "message": "<strong>Déisme vs Révélation Divine :</strong> Vous considérez que Dieu n'intervient jamais par des miracles ou des révélations (Déisme), tout en validant l'autorité absolue d'un texte révélé ou d'un dogme (qui nécessitent précisément une intervention surnaturelle dans l'histoire)."
     },
     {
       "code": "MATERIALISME_VS_AME",
       "condition": "rep['q_std_epicurisme'] > 0 && rep['q_std_ame_immortelle'] > 0",
-      "message": "Vous affirmez que l'univers est purement matériel et qu'il n'y a pas de survivance après la mort (Matérialisme/Épicurisme), tout en croyant posséder une âme immatérielle et immortelle. C'est une contradiction philosophique directe entre le monisme matériel et le dualisme spirituel."
+      "message": "<strong>Matérialisme Strict vs Dualisme Spirituel :</strong> Vous affirmez que l'univers est purement matériel et qu'il n'y a pas de survivance après la mort (Matérialisme/Épicurisme), tout en croyant posséder une âme immatérielle et immortelle. C'est une contradiction philosophique directe entre le monisme matériel et le dualisme spirituel."
     },
     {
       "code": "DETERMINISME_VS_EXISTENTIALISME",
       "condition": "rep['q_std_determinisme_absolu'] > 0 && rep['q_std_existentialisme'] > 0",
-      "message": "Vous affirmez simultanément que l'humain est radicalement libre de créer son destin (Existentialisme) et que le libre-arbitre n'est qu'une illusion soumise à des causes inévitables (Déterminisme). Ces deux conceptions de la condition humaine s'excluent logiquement."
+      "message": "<strong>Déterminisme Absolu vs Liberté Existentialiste :</strong> Vous affirmez simultanément que l'humain est radicalement libre de créer son destin (Existentialisme) et que le libre-arbitre n'est qu'une illusion soumise à des causes inévitables (Déterminisme). Ces deux conceptions de la condition humaine s'excluent logiquement."
     },
     {
       "code": "ATHEISME_VS_SPIRITUALITE",
       "condition": "rep['q_identite'] === 'atheisme' && (rep['q_std_ame_immortelle'] > 0 || rep['ct_boud_karma'] > 0 || rep['q_std_esoterisme'] > 0)",
-      "message": "Vous vous définissez formellement comme athée, mais vous adhérez à des concepts métaphysiques surnaturels (l'âme immortelle, le cycle du Karma ou l'ésotérisme). C'est un paradoxe contemporain très courant : l'athéisme philosophique strict s'accompagne logiquement d'un matérialisme qui exclut toute mécanique cosmique invisible ou survivance de l'esprit."
+      "message": "<strong>Athéisme Philosophique vs Spiritualité Surnaturelle :</strong> Vous vous définissez formellement comme athée, mais vous adhérez à des concepts métaphysiques surnaturels (l'âme immortelle, le cycle du Karma ou l'ésotérisme). C'est un paradoxe contemporain très courant : l'athéisme philosophique strict s'accompagne logiquement d'un matérialisme qui exclut toute mécanique cosmique invisible ou survivance de l'esprit."
     },
     {
       "code": "MATERIALISME_VS_KARMA",
       "condition": "rep['ct_boud_karma'] > 0 && (rep['q_meta_fantome_machine'] > 0 || rep['q_std_epicurisme'] > 0)",
-      "message": "Vous croyez à la loi du Karma et au cycle des renaissances, tout en affirmant que l'esprit n'est qu'un pur phénomène biochimique matériel voué à disparaître avec le corps. Si la conscience n'est qu'une mécanique organique éphémère dictée par la biologie, elle ne possède aucun support physique pour transmigrer ni pour porter le poids moral de ses actes d'une vie à l'autre."
+      "message": "<strong>Matérialisme Biologique vs Loi du Karma :</strong> Vous croyez à la loi du Karma et au cycle des renaissances, tout en affirmant que l'esprit n'est qu'un pur phénomène biochimique matériel voué à disparaître avec le corps. Si la conscience n'est qu'une mécanique organique éphémère dictée par la biologie, elle ne possède aucun support physique pour transmigrer ni pour porter le poids moral de ses actes d'une vie à l'autre."
     },
     {
       "code": "INEFFABLE_VS_DOGME",
       "condition": "rep['q_identite'] === 'theisme_agnostique' && (rep['q_std_spinoza'] > 0 || rep['q_std_ame_immortelle'] > 0)",
-      "message": "Vous adhérez à une spiritualité agnostique affirmant que le principe supérieur dépasse totalement notre entendement, mais vous validez simultanément des certitudes métaphysiques très précises (l'existence d'une âme immortelle, ou la définition géométrique de Dieu chez Spinoza). C'est un paradoxe : on ne peut pas déclarer le divin inconnaissable tout en définissant avec certitude la nature de l'au-delà ou la structure rationnelle de l'univers."
+      "message": "<strong>L'Ineffable face au Dogme :</strong> Vous adhérez à une spiritualité agnostique affirmant que le principe supérieur dépasse totalement notre entendement, mais vous validez simultanément des certitudes métaphysiques très précises (l'existence d'une âme immortelle, ou la définition géométrique de Dieu chez Spinoza). C'est un paradoxe : on ne peut pas déclarer le divin inconnaissable tout en définissant avec certitude la nature de l'au-delà ou la structure rationnelle de l'univers."
     },
     {
       "code": "MORALE_ABSOLUE_VS_DETERMINISME",
       "condition": "rep['q_ethi_devoir_absolu'] > 0 && (rep['q_epis_neuro_determinisme'] > 0 || rep['q_std_determinisme_absolu'] > 0)",
-      "message": "Vous affirmez l'existence de devoirs moraux absolus (vision kantienne) tout en soutenant que le libre-arbitre n'est qu'une illusion soumise au déterminisme (biologique ou naturel). C'est une contradiction philosophique majeure : la morale absolue exige la liberté de choix ('Tu dois, donc tu peux'). Si nos actes sont entièrement déterminés par nos neurones ou par la Nature, la notion même de 'faute' ou de 'devoir' moral perd toute consistance."
+      "message": "<strong>Le Devoir Kantien face au Neuro-déterminisme :</strong> Vous affirmez l'existence de devoirs moraux absolus tout en soutenant que le libre-arbitre n'est qu'une illusion soumise au déterminisme (biologique ou naturel). C'est une contradiction philosophique majeure : la morale absolue exige la liberté de choix. Si nos actes sont entièrement déterminés par nos neurones, la notion même de 'faute' ou de 'devoir' moral perd toute consistance."
     }
   ]
 }
