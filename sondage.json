@@ -455,6 +455,11 @@
       "code": "MORALE_ABSOLUE_VS_DETERMINISME",
       "condition": "rep['q_ethi_devoir_absolu'] > 0 && (rep['q_epis_neuro_determinisme'] > 0 || rep['q_std_determinisme_absolu'] > 0)",
       "message": "<strong>Le Devoir Kantien face au Neuro-déterminisme :</strong> Vous affirmez l'existence de devoirs moraux absolus tout en soutenant que le libre-arbitre n'est qu'une illusion soumise au déterminisme (biologique ou naturel). C'est une contradiction philosophique majeure : la morale absolue exige la liberté de choix. Si nos actes sont entièrement déterminés par nos neurones, la notion même de 'faute' ou de 'devoir' moral perd toute consistance."
+    },
+    {
+      "code": "PREDESTINATION_VS_EXISTENTIALISME",
+      "condition": "rep['ct_chret_predestination'] > 0 && rep['q_std_existentialisme'] > 0",
+      "message": "<strong>Prédestination Divine vs Liberté Existentialiste :</strong> Vous affirmez que Dieu a défini le salut et la damnation de toute éternité sans que nos choix n'y changent rien (Prédestination), mais vous validez simultanément l'idée que l'humain naît sans destin et crée librement son essence (Existentialisme). Ces deux visions s'excluent formellement : on ne peut pas être l'auteur absolu et libre de sa vie si le scénario a déjà été écrit souverainement par un Créateur."
     }
   ]
 }
