@@ -12,9 +12,8 @@
         { "valeur": "theisme_agnostique", "label": "Spiritualité agnostique (Conviction qu'un principe supérieur existe, mais qu'il dépasse totalement l'entendement)" },
         { "valeur": "atheisme", "label": "Athéisme (Conviction que le divin n'existe pas)" },
         { "valeur": "agnosticisme", "label": "Agnosticisme strict (Suspension totale du jugement)" },
-        { "valeur": "autre", "label": "Autre / Sans étiquette" }
         { "valeur": "autre", "label": "Autre / Sans étiquette" },
-        { "valeur": "sans_apriori", "label": "🔍 Découvrir mes croyances profondes (Test aveugle)" },
+        { "valeur": "sans_apriori", "label": "🔍 Découvrir mes croyances profondes (Test aveugle)" }
       ]
     },
     {
