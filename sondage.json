@@ -432,6 +432,22 @@
         "Stoïcisme": -3,
         "Agnosticisme": -4
       }
+    },
+    {
+      "id": "q_ethi_peche_originel",
+      "type": "standard",
+      "note_auteur": "Oppose l'anthropologie chrétienne (l'homme est déchu par nature) à l'optimisme humaniste (l'homme naît bon ou perfectible) et au matérialisme.",
+      "texte": "L'être humain ne naît pas fondamentalement bon ou moralement neutre. Par nature, depuis ses origines, sa volonté est corrompue et encline au mal (le péché originel). Sans l'intervention de la grâce divine, il est incapable de s'élever moralement par ses seules forces.",
+      "scores": {
+        "Calvinisme": 5,
+        "Luthéranisme": 5,
+        "Catholicisme_Orthodoxe": 4,
+        "Humanisme_Séculier": -5,
+        "Athéisme_Matérialiste": -5,
+        "Spinozisme": -5,
+        "Bouddhisme_Séculier": -4,
+        "Islam_Orthodoxe": -2
+      }
     }
   ],
   "dissonances": [
@@ -499,6 +515,12 @@
       "code": "STOICISME_VS_EXISTENTIALISME",
       "condition": "(rep['ct_antiq_providence'] > 0 || rep['q_std_stoicisme'] > 0) && rep['q_std_existentialisme'] > 0",
       "message": "<strong>L'Ordre Stoïcien face à la Révolte Absurde :</strong> Vous validez l'idée d'accepter avec sagesse ce qui ne dépend pas de nous dans un univers ordonné (Stoïcisme), mais vous affirmez simultanément que l'univers est radicalement indifférent et que nous devons y créer librement notre propre sens (Existentialisme). C'est un grand écart philosophique : on ne peut pas à la fois faire confiance à l'ordre cosmique (Logos) pour y trouver la paix, et affirmer l'absurdité muette du monde qui appelle à la révolte et à l'affirmation de la volonté libre (Camus, Sartre)."
+    },
+    ,
+    {
+      "code": "MORALE_REVELEE_VS_EPICURISME",
+      "condition": "rep['q_ethi_morale_revelee'] > 0 && (rep['q_ethi_calcul_plaisirs'] > 0 || rep['q_std_epicurisme'] > 0)",
+      "message": "<strong>Loi Divine face au Calcul des Plaisirs :</strong> Vous affirmez d'un côté que le Bien et le Mal sont des décrets divins absolus auxquels il faut obéir (Morale Révélée), mais de l'autre, vous adhérez à l'Épicurisme, pour qui le but de la vie est la maximisation des plaisirs naturels et la fuite de la douleur. C'est une contradiction fondamentale : la loi divine exige très souvent le sacrifice, l'ascèse ou le devoir (qui génèrent de la peine), ce qui s'oppose formellement au pragmatisme hédoniste qui ne juge une action qu'à son utilité pour le bonheur."
     }
   ]
 }
