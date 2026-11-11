@@ -350,30 +350,44 @@
       afficherQuestion();
     }
 
-    function calculerAffinities(reponses) {
+ function calculerAffinities(reponses) {
       const totaux = {};
       const maxPossibles = {};
+
       for (const [qId, valeurChoisie] of Object.entries(reponses)) {
         if (qId === "q_identite") continue; 
+        
         const question = toutesQuestions.find(q => q.id === qId);
         if (question && question.scores) {
           for (const [profil, poids] of Object.entries(question.scores)) {
-            if (!totaux[profil]) { totaux[profil] = 0; maxPossibles[profil] = 0; }
+            if (!totaux[profil]) {
+              totaux[profil] = 0;
+              maxPossibles[profil] = 0;
+            }
             totaux[profil] += poids * valeurChoisie;
             maxPossibles[profil] += Math.abs(poids) * 2;
           }
         }
       }
+
       const resultats = [];
       for (const profil in totaux) {
         if (maxPossibles[profil] > 0) {
-          let pourcentage = Math.max(0, (totaux[profil] / maxPossibles[profil]) * 100);
+          // 1. Calcul du ratio de base (entre -1 et 1)
+          let ratio = totaux[profil] / maxPossibles[profil];
+          
+          // 2. On élimine le négatif (si on rejette le profil, le score est 0)
+          if (ratio < 0) ratio = 0;
+
+          // 3. NOUVEAU : Le filtre quadratique (Amplificateur de conviction)
+          // On élève le ratio au carré pour écraser les scores tièdes et discriminer les extrêmes
+          let pourcentage = Math.pow(ratio, 2) * 100;
+          
           resultats.push({ profil: profil, pourcentage: Math.round(pourcentage) });
         }
       }
       return resultats.sort((a, b) => b.pourcentage - a.pourcentage);
     }
-
     function dessinerGraphique(affinites) {
       const ctx = document.getElementById('radarChart').getContext('2d');
       if (radarChartInstance) radarChartInstance.destroy();
