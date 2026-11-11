@@ -16,6 +16,20 @@
       ]
     },
     {
+      "id": "q_poli_etat_raison",
+      "type": "standard",
+      "note_auteur": "Sépare le Spinozisme (qui valorise l'État rationnel et la coopération) de l'Anarchisme, du Nihilisme et de l'Épicurisme (qui fuit la politique).",
+      "texte": "L'État et les lois, même imparfaits, sont absolument nécessaires pour garantir la sécurité. Rien n'est plus utile à un être humain qu'un autre être humain guidé par la raison : la véritable liberté s'atteint par la coopération civique et la politique, non par la destruction des institutions.",
+      "scores": {
+        "Spinozisme": 5,
+        "Humanisme_Séculier": 4,
+        "Stoïcisme": 3,
+        "Nihilisme": -5,
+        "Épicurisme": -4,
+        "Existentialisme": -2
+      }
+    },
+    {
       "id": "q_epis_neuro_determinisme",
       "type": "standard",
       "texte": "Ce que nous appelons notre « libre-arbitre » n'est qu'une illusion générée par notre cerveau. Chacun de nos choix est l'aboutissement mécanique d'une chaîne ininterrompue de causes neurobiologiques, hormonales et environnementales.",
@@ -372,5 +386,11 @@
       "condition": "rep['q_std_determinisme_absolu'] > 0 && rep['q_std_existentialisme'] > 0",
       "message": "Vous affirmez simultanément que l'humain est radicalement libre de créer son destin (Existentialisme) et que le libre-arbitre n'est qu'une illusion soumise à des causes inévitables (Déterminisme). Ces deux conceptions de la condition humaine s'excluent logiquement."
     }
+    ,
+    {
+      "code": "ATHEISME_VS_SPIRITUALITE",
+      "condition": "rep['q_identite'] === 'atheisme' && (rep['q_std_ame_immortelle'] > 0 || rep['ct_boud_karma'] > 0 || rep['q_std_esoterisme'] > 0)",
+      "message": "Vous vous définissez formellement comme athée, mais vous adhérez à des concepts métaphysiques surnaturels (l'âme immortelle, le cycle du Karma ou l'ésotérisme). C'est un paradoxe contemporain très courant : l'athéisme philosophique strict s'accompagne logiquement d'un matérialisme qui exclut toute mécanique cosmique invisible ou survivance de l'esprit."
+    },
   ]
 }
