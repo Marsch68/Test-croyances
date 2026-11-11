@@ -460,6 +460,11 @@
       "code": "PREDESTINATION_VS_EXISTENTIALISME",
       "condition": "rep['ct_chret_predestination'] > 0 && rep['q_std_existentialisme'] > 0",
       "message": "<strong>Prédestination Divine vs Liberté Existentialiste :</strong> Vous affirmez que Dieu a défini le salut et la damnation de toute éternité sans que nos choix n'y changent rien (Prédestination), mais vous validez simultanément l'idée que l'humain naît sans destin et crée librement son essence (Existentialisme). Ces deux visions s'excluent formellement : on ne peut pas être l'auteur absolu et libre de sa vie si le scénario a déjà été écrit souverainement par un Créateur."
+    },
+    {
+      "code": "STOICISME_VS_EXISTENTIALISME",
+      "condition": "(rep['ct_antiq_providence'] > 0 || rep['q_std_stoicisme'] > 0) && rep['q_std_existentialisme'] > 0",
+      "message": "<strong>L'Ordre Stoïcien face à la Révolte Absurde :</strong> Vous validez l'idée d'accepter avec sagesse ce qui ne dépend pas de nous dans un univers ordonné (Stoïcisme), mais vous affirmez simultanément que l'univers est radicalement indifférent et que nous devons y créer librement notre propre sens (Existentialisme). C'est un grand écart philosophique : on ne peut pas à la fois faire confiance à l'ordre cosmique (Logos) pour y trouver la paix, et affirmer l'absurdité muette du monde qui appelle à la révolte et à l'affirmation de la volonté libre (Camus, Sartre)."
     }
   ]
 }
