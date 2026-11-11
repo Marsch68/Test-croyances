@@ -8,6 +8,19 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <style>
+   /* Le style spécial pour le bouton de découverte */
+    .btn-decouverte {
+      background: linear-gradient(135deg, #ff7e5f, #feb47b) !important;
+      color: white !important;
+      font-weight: bold;
+      border: none !important;
+      margin-top: 25px !important;
+      box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+    }
+    .btn-decouverte:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 126, 95, 0.6);
+    }
     /* ----- CSS : Typographie et Mise en page ----- */
     :root {
       --bg-color: #f4f4f9;
@@ -314,12 +327,19 @@
       elChoicesContainer.innerHTML = ""; 
       elNavContainer.innerHTML = ""; 
 
-      if (q.type === "identite") {
+     if (q.type === "identite") {
         elProgress.textContent = "Introduction";
         q.options.forEach(opt => {
           const btn = document.createElement("button");
           btn.className = "btn-choix";
           btn.textContent = opt.label;
+          
+          // --- C'EST ICI QU'ON APPLIQUE LE STYLE SPÉCIAL ---
+          if (opt.valeur === "sans_apriori") {
+              btn.classList.add("btn-decouverte");
+          }
+          // -----------------------------------------------
+
           btn.onclick = () => traiterIdentite(opt.valeur, q.id);
           elChoicesContainer.appendChild(btn);
         });
@@ -352,17 +372,22 @@
       }
     }
 
-    traiterIdentite
     function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
       
-      // On filtre les crash tests pertinents et les questions standards
-      const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
-      const questionsStandards = toutesQuestions.filter(q => q.type === "standard");
+      let questionsPourTest = [];
       
-      // On remplit le réservoir et on le mélange pour la base de "hasard"
-      questionsDisponibles = melangerTableau([...crashTests, ...questionsStandards]);
+      if (valeurIdentite === "sans_apriori") {
+          // MODE DÉCOUVERTE : On ne prend que les questions standards (pas de crash tests)
+          questionsPourTest = toutesQuestions.filter(q => q.type === "standard");
+      } else {
+          // MODE ENTONNOIR CLASSIQUE : Crash tests de son identité + questions standards
+          const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
+          const questionsStandards = toutesQuestions.filter(q => q.type === "standard");
+          questionsPourTest = [...crashTests, ...questionsStandards];
+      }
       
+      questionsDisponibles = melangerTableau(questionsPourTest);
       preparerQuestionSuivante();
     }
 
