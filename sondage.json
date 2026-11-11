@@ -132,6 +132,20 @@
       }
     },
     {
+      "id": "ct_chret_incarnation",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Jésus-Christ n'est pas un simple prophète ou un maître spirituel : il est véritablement le Fils de Dieu, Dieu fait homme (l'Incarnation), mort et ressuscité pour le salut de l'humanité.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Calvinisme": 5,
+        "Luthéranisme": 5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
+      }
+    },
+    {
       "id": "ct_chret_transsubstantiation",
       "type": "crash_test",
       "cible_identite": "chretien",
@@ -140,7 +154,9 @@
         "Catholicisme_Orthodoxe": 5,
         "Christianisme_Orthodoxe": 5,
         "Calvinisme": -5,
-        "Christianisme_Libéral": -3
+        "Christianisme_Libéral": -3,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
       }
     },
     {
@@ -152,7 +168,9 @@
         "Catholicisme_Orthodoxe": 5,
         "Christianisme_Orthodoxe": -5,
         "Luthéranisme": -5,
-        "Calvinisme": -5
+        "Calvinisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
       }
     },
     {
@@ -164,7 +182,9 @@
         "Luthéranisme": 5,
         "Calvinisme": 5,
         "Catholicisme_Orthodoxe": -5,
-        "Christianisme_Orthodoxe": -5
+        "Christianisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
       }
     },
     {
@@ -181,15 +201,33 @@
       }
     },
     {
+      "id": "ct_islam_tawhid",
+      "type": "crash_test",
+      "cible_identite": "islam",
+      "texte": "Dieu est strictement Un et indivisible (Tawhid). Il n'a ni associé, ni fils, et ne s'est jamais incarné en homme. Reconnaître Jésus comme Fils de Dieu ou partie d'une Trinité est une hérésie absolue. Muhammad est le sceau et le dernier des prophètes.",
+      "scores": {
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5
+      }
+    },
+    {
       "id": "ct_islam_coran",
       "type": "crash_test",
       "cible_identite": "islam",
-      "texte": "Le Coran est la parole incréée et littérale de Dieu. Son contenu légal et social est intemporel et ne peut être relativisé par son contexte historique.",
+      "texte": "Le Coran est la parole incréée et littérale de Dieu. Son contenu légal et social est intemporel et ne peut être relativisé par son contexte historique ou les lois humaines modernes.",
       "scores": {
         "Salafisme": 5,
         "Islam_Orthodoxe": 4,
         "Islam_Libéral": -5,
-        "Soufisme": -2
+        "Soufisme": -3,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5
       }
     },
     {
@@ -446,7 +484,8 @@
         "Athéisme_Matérialiste": -5,
         "Spinozisme": -5,
         "Bouddhisme_Séculier": -4,
-        "Islam_Orthodoxe": -2
+        "Islam_Orthodoxe": -4,
+        "Salafisme": -4
       }
     }
   ],
@@ -473,7 +512,7 @@
     },
     {
       "code": "DEISME_VS_MIRACLES",
-      "condition": "rep['q_std_deisme'] > 0 && (rep['ct_cath_magistere'] > 0 || rep['ct_islam_coran'] > 0)",
+      "condition": "rep['q_std_deisme'] > 0 && (rep['ct_chret_magistere'] > 0 || rep['ct_islam_coran'] > 0)",
       "message": "<strong>Déisme vs Révélation Divine :</strong> Vous considérez que Dieu n'intervient jamais par des miracles ou des révélations (Déisme), tout en validant l'autorité absolue d'un texte révélé ou d'un dogme (qui nécessitent précisément une intervention surnaturelle dans l'histoire)."
     },
     {
