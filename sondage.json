@@ -398,6 +398,40 @@
         "Existentialisme": -4,
         "Épicurisme": -3
       }
+    },
+    {
+      "id": "q_ethi_morale_revelee",
+      "type": "standard",
+      "note_auteur": "Renforce massivement les orthodoxies abrahamiques face à l'humanisme et à la morale rationnelle de Kant ou d'Épicure.",
+      "texte": "Le Bien et le Mal ne sont pas de simples conventions humaines, des idéaux philosophiques ou des impératifs biologiques. Ce qui est moralement bon, c'est très exactement ce que Dieu ordonne dans Ses révélations, même si la raison humaine ne le comprend pas toujours.",
+      "scores": {
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Catholicisme_Orthodoxe": 5,
+        "Calvinisme": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Humanisme_Séculier": -5,
+        "Athéisme_Matérialiste": -5,
+        "Spinozisme": -5,
+        "Existentialisme": -5
+      }
+    },
+    {
+      "id": "q_epis_tradition_revelation",
+      "type": "standard",
+      "note_auteur": "Sépare la soumission à la Tradition dogmatique de l'autonomie de la raison (Lumières) et de l'introspection (Bouddhisme/Stoïcisme).",
+      "texte": "La vérité ultime sur le sens de la vie ne se découvre pas par l'introspection personnelle, la philosophie ou la méthode scientifique. Elle s'accueille par la soumission obéissante aux Textes sacrés et à la Tradition religieuse authentique qui nous a été transmise.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Athéisme_Matérialiste": -5,
+        "Humanisme_Séculier": -5,
+        "Bouddhisme_Séculier": -4,
+        "Stoïcisme": -3,
+        "Agnosticisme": -4
+      }
     }
   ],
   "dissonances": [
