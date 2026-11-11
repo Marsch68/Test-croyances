@@ -309,14 +309,36 @@
         }
       }
     }
+    // Nouvelle fonction de mélange aléatoire (Fisher-Yates)
+    function melangerTableau(tableau) {
+      for (let i = tableau.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [tableau[i], tableau[j]] = [tableau[j], tableau[i]];
+      }
+      return tableau;
+    }
 
     function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
-      const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
+      
+      // Récupération des questions
+      const crashTests = toutesQuestions.filter(q => 
+        q.type === "crash_test" && q.cible_identite === valeurIdentite
+      );
       const questionsStandards = toutesQuestions.filter(q => q.type === "standard");
-      fileAttente = [fileAttente[0], ...crashTests, ...questionsStandards];
+      
+      // On fusionne les crash tests et les questions standards
+      let suiteQuestions = [...crashTests, ...questionsStandards];
+      
+      // On bat les cartes : l'ordre devient totalement imprévisible
+      suiteQuestions = melangerTableau(suiteQuestions);
+      
+      // On reconstruit la file : Identité (toujours fixée en 1er) + le reste mélangé
+      fileAttente = [fileAttente[0], ...suiteQuestions];
+      
       indexCourant++;
       afficherQuestion();
+    }
     }
 
     function enregistrerChoix(valeur, qId) {
