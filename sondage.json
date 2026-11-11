@@ -688,6 +688,62 @@
         "Islam_Orthodoxe": -5,
         "Salafisme": -5
       }
+    },
+    {
+      "id": "q_std_sacerdoce_universel",
+      "type": "standard",
+      "note_auteur": "Le sacerdoce universel protestant : détruit la nécessité d'un clergé sacré ou de l'intercession des saints.",
+      "texte": "Chaque croyant a un accès direct et personnel à Dieu sans aucune nécessité de passer par un prêtre, un saint ou une institution ecclésiastique. La hiérarchie religieuse (le clergé) ne possède aucun statut spirituel supérieur à celui des laïcs.",
+      "scores": {
+        "Luthéranisme": 5,
+        "Calvinisme": 5,
+        "Déisme": 4,
+        "Islam_Libéral": 3,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "q_std_sola_scriptura",
+      "type": "standard",
+      "note_auteur": "Sola Scriptura : l'Écriture contre la Tradition du Magistère.",
+      "texte": "Les Textes sacrés sont la seule et unique source infaillible d'autorité spirituelle. Les dogmes, les conciles, les traditions ecclésiastiques et les chefs religieux (comme le Pape) sont purement humains et peuvent tout à fait se tromper.",
+      "scores": {
+        "Luthéranisme": 5,
+        "Calvinisme": 5,
+        "Islam_Orthodoxe": 3,
+        "Salafisme": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Christianisme_Mystique": -3
+      }
+    },
+    {
+      "id": "q_ethi_simul_justus",
+      "type": "standard",
+      "note_auteur": "Simul justus et peccator (Luthéranisme) : s'oppose à l'idéal de sainteté par les œuvres, l'ascèse ou l'élévation stoïcienne.",
+      "texte": "Même s'il est pardonné par Dieu, l'être humain reste jusqu'à son dernier souffle un pécheur corrompu. Il est strictement impossible d'atteindre un état de « sainteté », de perfection morale ou de pureté spirituelle ici-bas par la discipline ou les bonnes actions.",
+      "scores": {
+        "Luthéranisme": 5,
+        "Calvinisme": 4,
+        "Catholicisme_Orthodoxe": -4,
+        "Bouddhisme_Traditionnel": -5,
+        "Stoïcisme": -5,
+        "Humanisme_Séculier": -4,
+        "Islam_Orthodoxe": -3
+      },
+    {
+      "id": "ct_calvin_expiation_ limitee",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Jésus-Christ n'est pas mort pour sauver aveuglément toute l'humanité, mais exclusivement pour les élus que Dieu a souverainement choisis de toute éternité. Son sacrifice n'est pas universel, il est parfaitement efficace pour ceux qu'Il a prédestinés.",
+      "scores": {
+        "Calvinisme": 5,
+        "Luthéranisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5
+      }
+    }
     }
   ],
   "dissonances": [
@@ -765,6 +821,21 @@
       "code": "ALLIANCE_VS_DETERMINISME",
       "condition": "rep['q_std_revelation_torah'] > 0 && (rep['q_epis_neuro_determinisme'] > 0 || rep['q_std_determinisme_absolu'] > 0)",
       "message": "<strong>L'Alliance Divine face au Déterminisme :</strong> Vous affirmez la validité éternelle de la Torah et de l'Alliance (Judaïsme), mais vous soutenez simultanément que le libre-arbitre est une illusion soumise au déterminisme. C'est une contradiction théologique fondamentale : l'observance de la Loi (Halakha) et l'idée même d'une Alliance exigent que l'homme soit radicalement libre de choisir entre l'obéissance et la transgression. Si nos actes sont mécaniquement déterminés à l'avance, l'injonction biblique fondatrice « Choisis la vie » perd tout son sens."
+    },
+    {
+      "code": "SOLA_SCRIPTURA_VS_RELATIVISME_ESOTERISME",
+      "condition": "rep['q_std_sola_scriptura'] > 0 && (rep['q_std_existentialisme'] > 0 || rep['q_std_esoterisme'] > 0)",
+      "message": "<strong>L'Écriture Seule face à l'Invention de Soi et à l'Ésotérisme :</strong> Vous affirmez l'autorité absolue et suffisante du Texte sacré (Sola Scriptura), mais vous soutenez simultanément que l'homme crée librement son propre sens (Existentialisme) ou que la véritable signification de la révélation est cachée, allégorique et mystique (Ésotérisme). C'est une collision doctrinale : le principe de l'Écriture Seule postule que le message divin est clair, achevé et accessible objectivement à la lecture. Cela exclut radicalement l'idée que la vérité soit à inventer par l'individu (Sartre) ou qu'elle dépende d'une quête initiatique cherchant un sens caché au-delà des mots."
+    },
+    {
+      "code": "SACERDOCE_VS_MAGISTERE",
+      "condition": "rep['q_std_sacerdoce_universel'] > 0 && rep['ct_chret_magistere'] > 0",
+      "message": "<strong>Sacerdoce Universel face à l'Infaillibilité Papale :</strong> Vous affirmez d'un côté que tout croyant possède un accès direct à Dieu sans nécessiter de hiérarchie ecclésiastique (Sacerdoce universel), mais vous reconnaissez simultanément l'autorité suprême et infaillible du Pape (Magistère). C'est une contradiction théologique et institutionnelle absolue : l'essence même de la Réforme protestante était d'abolir la figure du pontife et du prêtre médiateur au profit de l'égalité spirituelle stricte de tous les baptisés."
+    },
+    {
+      "code": "SOLA_SCRIPTURA_VS_MAGISTERE",
+      "condition": "rep['q_std_sola_scriptura'] > 0 && rep['ct_chret_magistere'] > 0",
+      "message": "<strong>L'Écriture Seule face à l'Infaillibilité Papale :</strong> Vous affirmez que la Bible est l'unique source d'autorité infaillible (Sola Scriptura), mais vous reconnaissez simultanément l'infaillibilité du Pape lorsqu'il s'exprime ex cathedra. C'est la contradiction fondamentale qui a provoqué le schisme de la Réforme au XVIe siècle : si le texte biblique se suffit à lui-même en tant qu'autorité ultime, aucune institution humaine, pas même le Magistère romain, ne peut ajouter de dogmes qui auraient le même niveau de divinité ou d'infaillibilité."
     }
   ]
 }
