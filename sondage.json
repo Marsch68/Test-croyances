@@ -174,7 +174,7 @@
     {
       "id": "ct_boud_karma",
       "type": "crash_test",
-      "cible_identite": "bouddhisme",
+     "cible_identite": "sagesses_asiatiques",
       "texte": "Après la mort, la conscience renaît inévitablement selon la loi implacable du Karma ; le but ultime est de briser ce cycle des renaissances.",
       "scores": {
         "Bouddhisme_Traditionnel": 5,
@@ -309,6 +309,30 @@
         "Agnosticisme": 3,
         "Catholicisme_Orthodoxe": -4,
         "Islam_Orthodoxe": -4
+      }
+    }
+    {
+      "id": "ct_asie_atman",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "Au-delà des illusions du monde matériel, il existe en chaque être vivant une âme véritable, un « Soi » profond et éternel (l'Atman) qui est relié à l'Absolu de l'univers.",
+      "scores": {
+        "Hindouisme": 5,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -5,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "ct_antiq_providence",
+      "type": "crash_test",
+      "cible_identite": "antiquite",
+      "texte": "L'univers n'est pas le fruit du hasard, il est ordonné par une Raison universelle (le Logos ou la Nature). Mon devoir est de comprendre et d'aligner ma volonté sur cet ordre que je ne contrôle pas.",
+      "scores": {
+        "Stoïcisme": 5,
+        "Spinozisme": 4,
+        "Épicurisme": -5,
+        "Nihilisme": -5
       }
     }
   ],
