@@ -1,18 +1,17 @@
 {
   "questions": [
-    {
+   {
       "id": "q_identite",
       "type": "identite",
       "texte": "De quel courant religieux ou philosophique vous considérez-vous aujourd'hui le plus proche (culturellement ou spirituellement) ?",
       "options": [
-        { "valeur": "catholique", "label": "Catholicisme" },
-        { "valeur": "protestant", "label": "Protestantisme" },
+        { "valeur": "chretien", "label": "Christianisme (Catholique, Protestant, Orthodoxe...)" },
         { "valeur": "islam", "label": "Islam" },
         { "valeur": "sagesses_asiatiques", "label": "Bouddhisme et Sagesses asiatiques (Hindouisme, Zen...)" },
         { "valeur": "antiquite", "label": "Philosophies antiques (Stoïcisme, Épicurisme...)" },
-        { "valeur": "theisme_agnostique", "label": "Spiritualité agnostique (Conviction qu'un principe supérieur existe, mais qu'il dépasse totalement l'entendement humain)" },
+        { "valeur": "theisme_agnostique", "label": "Spiritualité agnostique (Conviction qu'un principe supérieur existe, mais qu'il dépasse totalement l'entendement)" },
         { "valeur": "atheisme", "label": "Athéisme (Conviction que le divin n'existe pas)" },
-        { "valeur": "agnosticisme", "label": "Agnosticisme strict (Suspension totale du jugement : impossible de savoir si le divin existe ou non)" },
+        { "valeur": "agnosticisme", "label": "Agnosticisme strict (Suspension totale du jugement)" },
         { "valeur": "autre", "label": "Autre / Sans étiquette" }
       ]
     },
@@ -133,37 +132,52 @@
       }
     },
     {
-      "id": "ct_cath_transsubstantiation",
+      "id": "ct_chret_transsubstantiation",
       "type": "crash_test",
-      "cible_identite": "catholique",
-      "texte": "Lors de la communion, le pain et le vin deviennent véritablement, physiquement et substantiellement le corps et le sang du Christ ; il ne s'agit pas d'un simple rite symbolique.",
+      "cible_identite": "chretien",
+      "texte": "Lors de la communion (l'Eucharistie), le pain et le vin deviennent véritablement, physiquement et substantiellement le corps et le sang du Christ ; il ne s'agit pas d'un simple rite symbolique ou mémoriel.",
       "scores": {
         "Catholicisme_Orthodoxe": 5,
-        "Protestantisme": -5,
-        "Déisme": -5
+        "Christianisme_Orthodoxe": 5,
+        "Calvinisme": -5,
+        "Christianisme_Libéral": -3
       }
     },
     {
-      "id": "ct_cath_magistere",
+      "id": "ct_chret_magistere",
       "type": "crash_test",
-      "cible_identite": "catholique",
-      "texte": "Le Pape, lorsqu'il s'exprime ex cathedra sur la foi ou la morale, est infaillible et son autorité est absolue.",
+      "cible_identite": "chretien",
+      "texte": "Le Pape, évêque de Rome, est le chef suprême de l'Église universelle. Lorsqu'il s'exprime ex cathedra sur la foi ou la morale, il est infaillible.",
       "scores": {
         "Catholicisme_Orthodoxe": 5,
-        "Christianisme_Libéral": -4,
-        "Protestantisme": -5
+        "Christianisme_Orthodoxe": -5,
+        "Luthéranisme": -5,
+        "Calvinisme": -5
       }
     },
     {
-      "id": "ct_prot_sola_gratia",
+      "id": "ct_chret_sola_gratia",
       "type": "crash_test",
-      "cible_identite": "protestant",
-      "texte": "Le salut de mon âme dépend exclusivement de la grâce divine et de ma foi ; mes bonnes actions ou ma participation à des rites ne peuvent en aucun cas y contribuer.",
+      "cible_identite": "chretien",
+      "texte": "Le salut de l'âme dépend exclusivement de la grâce divine et de la foi personnelle. Les œuvres humaines, l'intercession des saints ou les rites n'y contribuent en rien.",
+      "scores": {
+        "Luthéranisme": 5,
+        "Calvinisme": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "ct_chret_predestination",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Dieu a, de toute éternité, choisi souverainement ceux qui seront sauvés et ceux qui seront damnés (la double prédestination), sans que nos choix ou nos œuvres ne puissent y changer quoi que ce soit.",
       "scores": {
         "Calvinisme": 5,
-        "Luthéranisme": 5,
         "Catholicisme_Orthodoxe": -5,
-        "Humanisme_Séculier": -5
+        "Christianisme_Orthodoxe": -5,
+        "Luthéranisme": -3,
+        "Christianisme_Libéral": -5
       }
     },
     {
@@ -389,8 +403,8 @@
   "dissonances": [
     {
       "code": "CATH_TRADI_VS_SYMBOLE",
-      "condition": "rep['q_identite'] === 'catholique' && rep['ct_cath_transsubstantiation'] < 0",
-      "message": "<strong>Catholicisme Culturel vs Orthodoxie :</strong> Vous vous identifiez comme catholique, mais vous rejetez la réalité matérielle de l'Eucharistie (la transsubstantiation). Votre profil correspond davantage à un christianisme libéral ou culturel qu'à l'orthodoxie romaine."
+      "condition": "rep['ct_chret_magistere'] > 0 && rep['ct_chret_transsubstantiation'] < 0",
+      "message": "<strong>Autorité Papale vs Réalité Sacramentelle :</strong> Vous reconnaissez l'infaillibilité du Pape et l'autorité de Rome, mais vous rejetez la réalité matérielle de l'Eucharistie (la transsubstantiation) pour n'y voir qu'un symbole. C'est une contradiction théologique majeure au sein de l'orthodoxie catholique."
     },
     {
       "code": "PANTHÉISME_VS_LIBRE_ARBITRE",
