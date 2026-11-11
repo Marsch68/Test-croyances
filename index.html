@@ -447,11 +447,13 @@
       return anomalies;
     }
 
-    function terminerSondage() {
+  function terminerSondage() {
       elSondage.style.display = "none";
       elResultats.style.display = "block";
       
       const affinites = calculerAffinities(reponsesUtilisateur);
+      
+      // Appel de la création du graphique (qui lui, garde toujours le top 6)
       dessinerGraphique(affinites);
 
       const alertes = genererBilanDissonance(reponsesUtilisateur);
@@ -460,6 +462,7 @@
       const maxDissonancesPossibles = reglesDissonance.length; 
       let indiceDissonance = 0;
       if (maxDissonancesPossibles > 0) {
+        // On convertit le ratio en pourcentage entier
         indiceDissonance = Math.round((alertes.length / maxDissonancesPossibles) * 100);
       }
 
@@ -483,9 +486,11 @@
         elTexteDiss.textContent = "Forte dissonance. Vos croyances reposent sur des paradoxes philosophiques profonds.";
       }
 
+      // --- Affichage filtré des barres de progression ---
       const containerScores = document.getElementById("affinites-container");
       affinites.forEach(aff => {
-        if (aff.pourcentage > 0) {
+        // Le filtre strict est ici : on écarte impitoyablement tout score inférieur à 15%
+        if (aff.pourcentage >= 15) {
           containerScores.innerHTML += `
             <div class="resultat-item">
               <div class="resultat-header">
@@ -500,6 +505,7 @@
         }
       });
 
+      // --- Affichage du détail des alertes ---
       if (alertes.length > 0) {
         const divAlertes = document.getElementById("alertes-dissonance");
         const listeAlertes = document.getElementById("alertes-liste");
@@ -510,7 +516,6 @@
         });
       }
     }
-
     window.onload = initApp;
   </script>
 </body>
