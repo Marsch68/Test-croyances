@@ -1,6 +1,6 @@
 {
   "questions": [
-   {
+    {
       "id": "q_identite",
       "type": "identite",
       "texte": "De quel courant religieux ou philosophique vous considérez-vous aujourd'hui le plus proche (culturellement ou spirituellement) ?",
@@ -200,7 +200,7 @@
       "scores": {
         "Bouddhisme_Traditionnel": 5,
         "Bouddhisme_Séculier": -4,
-      "Athéisme_Matérialiste": -5
+        "Athéisme_Matérialiste": -5
       }
     },
     {
@@ -245,7 +245,7 @@
       "texte": "L'esprit humain est par nature limité ; il est fondamentalement impossible de prouver ou de réfuter l'existence d'un principe créateur, il faut donc suspendre son jugement.",
       "scores": {
         "Agnosticisme": 5,
-       "Athéisme_Matérialiste": -4,
+        "Athéisme_Matérialiste": -4,
         "Salafisme": -5,
         "Catholicisme_Orthodoxe": -5
       }
@@ -516,7 +516,6 @@
       "condition": "(rep['ct_antiq_providence'] > 0 || rep['q_std_stoicisme'] > 0) && rep['q_std_existentialisme'] > 0",
       "message": "<strong>L'Ordre Stoïcien face à la Révolte Absurde :</strong> Vous validez l'idée d'accepter avec sagesse ce qui ne dépend pas de nous dans un univers ordonné (Stoïcisme), mais vous affirmez simultanément que l'univers est radicalement indifférent et que nous devons y créer librement notre propre sens (Existentialisme). C'est un grand écart philosophique : on ne peut pas à la fois faire confiance à l'ordre cosmique (Logos) pour y trouver la paix, et affirmer l'absurdité muette du monde qui appelle à la révolte et à l'affirmation de la volonté libre (Camus, Sartre)."
     },
-    ,
     {
       "code": "MORALE_REVELEE_VS_EPICURISME",
       "condition": "rep['q_ethi_morale_revelee'] > 0 && (rep['q_ethi_calcul_plaisirs'] > 0 || rep['q_std_epicurisme'] > 0)",
