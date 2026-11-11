@@ -1,6 +1,6 @@
 {
   "questions": [
-   {
+    {
       "id": "q_identite",
       "type": "identite",
       "texte": "De quel courant religieux ou philosophique vous considérez-vous aujourd'hui le plus proche (culturellement ou spirituellement) ?",
@@ -29,7 +29,7 @@
         "Existentialisme": -2
       }
     },
-   {
+    {
       "id": "q_epis_neuro_determinisme",
       "type": "standard",
       "texte": "Ce que nous appelons notre « libre-arbitre » n'est qu'une illusion générée par notre cerveau. Chacun de nos choix est l'aboutissement mécanique d'une chaîne ininterrompue de causes neurobiologiques, hormonales et environnementales.",
@@ -78,8 +78,8 @@
         "Bouddhisme_Séculier": -4,
         "Gnosticisme": -5
       }
-      },
-      {
+    },
+    {
       "id": "q_ethi_calcul_plaisirs",
       "type": "standard",
       "note_auteur": "Sépare l'épicurisme (gestion rationnelle du désir) du bouddhisme (extinction du désir) et du stoïcisme (primauté de la vertu sur le plaisir).",
@@ -106,7 +106,7 @@
         "Spinozisme": -5,
         "Transhumanisme": -5
       }
-      },
+    },
     {
       "id": "q_std_raison_mysticisme",
       "type": "standard",
@@ -182,7 +182,7 @@
     {
       "id": "ct_boud_karma",
       "type": "crash_test",
-     "cible_identite": "sagesses_asiatiques",
+      "cible_identite": "sagesses_asiatiques",
       "texte": "Après la mort, la conscience renaît inévitablement selon la loi implacable du Karma ; le but ultime est de briser ce cycle des renaissances.",
       "scores": {
         "Bouddhisme_Traditionnel": 5,
@@ -379,8 +379,7 @@
       "code": "DETERMINISME_VS_EXISTENTIALISME",
       "condition": "rep['q_std_determinisme_absolu'] > 0 && rep['q_std_existentialisme'] > 0",
       "message": "Vous affirmez simultanément que l'humain est radicalement libre de créer son destin (Existentialisme) et que le libre-arbitre n'est qu'une illusion soumise à des causes inévitables (Déterminisme). Ces deux conceptions de la condition humaine s'excluent logiquement."
-    }
-    ,
+    },
     {
       "code": "ATHEISME_VS_SPIRITUALITE",
       "condition": "rep['q_identite'] === 'atheisme' && (rep['q_std_ame_immortelle'] > 0 || rep['ct_boud_karma'] > 0 || rep['q_std_esoterisme'] > 0)",
