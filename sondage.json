@@ -487,7 +487,7 @@
         "Islam_Orthodoxe": -4,
         "Salafisme": -4
       }
-    },,
+    },
     {
       "id": "q_std_revelation_christ",
       "type": "standard",
@@ -516,6 +516,21 @@
         "Calvinisme": -5,
         "Luthéranisme": -5,
         "Judaïsme": -5
+      }
+    },
+    {
+      "id": "q_std_revelation_torah",
+      "type": "standard",
+      "note_auteur": "Filtre décisif judaïque : rejette la Nouvelle Alliance (Christianisme) et la Révélation ultérieure (Islam).",
+      "texte": "La Révélation ultime, parfaite et inaltérée a été donnée au mont Sinaï (la Torah). L'Alliance conclue par Dieu est éternelle et n'a jamais été annulée, remplacée par une « Nouvelle Alliance » (Nouveau Testament), ni corrigée par une révélation ultérieure (Coran).",
+      "scores": {
+        "Judaïsme": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
       }
     }
   ],
@@ -589,6 +604,11 @@
       "code": "MORALE_REVELEE_VS_EPICURISME",
       "condition": "rep['q_ethi_morale_revelee'] > 0 && (rep['q_ethi_calcul_plaisirs'] > 0 || rep['q_std_epicurisme'] > 0)",
       "message": "<strong>Loi Divine face au Calcul des Plaisirs :</strong> Vous affirmez d'un côté que le Bien et le Mal sont des décrets divins absolus auxquels il faut obéir (Morale Révélée), mais de l'autre, vous adhérez à l'Épicurisme, pour qui le but de la vie est la maximisation des plaisirs naturels et la fuite de la douleur. C'est une contradiction fondamentale : la loi divine exige très souvent le sacrifice, l'ascèse ou le devoir (qui génèrent de la peine), ce qui s'oppose formellement au pragmatisme hédoniste qui ne juge une action qu'à son utilité pour le bonheur."
+    },
+    {
+      "code": "ALLIANCE_VS_DETERMINISME",
+      "condition": "rep['q_std_revelation_torah'] > 0 && (rep['q_epis_neuro_determinisme'] > 0 || rep['q_std_determinisme_absolu'] > 0)",
+      "message": "<strong>L'Alliance Divine face au Déterminisme :</strong> Vous affirmez la validité éternelle de la Torah et de l'Alliance (Judaïsme), mais vous soutenez simultanément que le libre-arbitre est une illusion soumise au déterminisme. C'est une contradiction théologique fondamentale : l'observance de la Loi (Halakha) et l'idée même d'une Alliance exigent que l'homme soit radicalement libre de choisir entre l'obéissance et la transgression. Si nos actes sont mécaniquement déterminés à l'avance, l'injonction biblique fondatrice « Choisis la vie » perd tout son sens."
     }
   ]
 }
