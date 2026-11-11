@@ -1,6 +1,6 @@
 {
   "questions": [
-    {
+   {
       "id": "q_identite",
       "type": "identite",
       "texte": "De quel courant religieux ou philosophique vous considérez-vous aujourd'hui le plus proche (culturellement ou spirituellement) ?",
@@ -8,8 +8,10 @@
         { "valeur": "catholique", "label": "Catholicisme" },
         { "valeur": "protestant", "label": "Protestantisme" },
         { "valeur": "islam", "label": "Islam" },
-        { "valeur": "bouddhisme", "label": "Bouddhisme" },
-        { "valeur": "atheisme_agnosticisme", "label": "Athéisme / Agnosticisme" },
+        { "valeur": "sagesses_asiatiques", "label": "Bouddhisme et Sagesses asiatiques (Hindouisme, Zen...)" },
+        { "valeur": "antiquite", "label": "Philosophies antiques (Stoïcisme, Épicurisme...)" },
+        { "valeur": "atheisme", "label": "Athéisme (Conviction que le divin n'existe pas)" },
+        { "valeur": "agnosticisme", "label": "Agnosticisme (Conviction qu'on ne peut pas prouver ou savoir si le divin existe)" },
         { "valeur": "autre", "label": "Autre / Sans étiquette" }
       ]
     },
