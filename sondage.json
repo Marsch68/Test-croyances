@@ -200,7 +200,7 @@
       "scores": {
         "Bouddhisme_Traditionnel": 5,
         "Bouddhisme_Séculier": -4,
-        "Matérialisme": -5
+      "Athéisme_Matérialiste": -5
       }
     },
     {
@@ -245,7 +245,7 @@
       "texte": "L'esprit humain est par nature limité ; il est fondamentalement impossible de prouver ou de réfuter l'existence d'un principe créateur, il faut donc suspendre son jugement.",
       "scores": {
         "Agnosticisme": 5,
-        "Athéisme_Militant": -3,
+       "Athéisme_Matérialiste": -4,
         "Salafisme": -5,
         "Catholicisme_Orthodoxe": -5
       }
@@ -257,7 +257,7 @@
       "scores": {
         "Spinozisme": 5,
         "Calvinisme": 5,
-        "Matérialisme": 3,
+        "Athéisme_Matérialiste": 3,
         "Existentialisme": -5,
         "Catholicisme_Orthodoxe": -4
       }
