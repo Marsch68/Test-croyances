@@ -487,6 +487,36 @@
         "Islam_Orthodoxe": -4,
         "Salafisme": -4
       }
+    },,
+    {
+      "id": "q_std_revelation_christ",
+      "type": "standard",
+      "note_auteur": "Filtre décisif : détruit l'Islam et le Judaïsme si validé, détruit le Christianisme si rejeté.",
+      "texte": "La Révélation divine s'est achevée de manière définitive avec le Nouveau Testament et les apôtres. Tout texte sacré ultérieur prétendant la corriger ou la supplanter (comme le Coran) ne peut être la véritable parole de Dieu.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Calvinisme": 5,
+        "Luthéranisme": 5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5
+      }
+    },
+    {
+      "id": "q_std_revelation_coran",
+      "type": "standard",
+      "note_auteur": "Filtre décisif islamique sur l'altération des textes antérieurs.",
+      "texte": "Les textes bibliques (Torah, Évangiles) ont été partiellement altérés, falsifiés ou mal traduits par les hommes au fil des siècles. Seul le Coran constitue la parole inaltérée, définitive et parfaite de Dieu.",
+      "scores": {
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Judaïsme": -5
+      }
     }
   ],
   "dissonances": [
