@@ -731,9 +731,10 @@
         "Stoïcisme": -5,
         "Humanisme_Séculier": -4,
         "Islam_Orthodoxe": -3
-      },
+      }
+    },
     {
-      "id": "ct_calvin_expiation_ limitee",
+      "id": "ct_calvin_expiation_limitee",
       "type": "crash_test",
       "cible_identite": "chretien",
       "texte": "Jésus-Christ n'est pas mort pour sauver aveuglément toute l'humanité, mais exclusivement pour les élus que Dieu a souverainement choisis de toute éternité. Son sacrifice n'est pas universel, il est parfaitement efficace pour ceux qu'Il a prédestinés.",
@@ -743,7 +744,6 @@
         "Catholicisme_Orthodoxe": -5,
         "Christianisme_Orthodoxe": -5
       }
-    }
     }
   ],
   "dissonances": [
