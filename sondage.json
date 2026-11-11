@@ -343,7 +343,8 @@
         "Épicurisme": -5,
         "Nihilisme": -5
       }
-    }{
+    },
+    {
       "id": "q_ethi_devoir_absolu",
       "type": "standard",
       "note_auteur": "Sépare la morale déontologique (Kant, religions abrahamiques) du pragmatisme utilitariste (Matérialisme, Transhumanisme).",
@@ -371,6 +372,22 @@
         "Islam_Orthodoxe": -5,
         "Déisme": -5,
         "Panthéisme": -3
+      }
+    },
+    {
+      "id": "q_esthe_beaute_objective",
+      "type": "standard",
+      "note_auteur": "Sépare l'idéalisme platonicien/religieux du relativisme subjectif, existentialiste ou matérialiste.",
+      "texte": "La Beauté n'est pas qu'une simple affaire de goût subjectif, de biologie ou de conditionnement culturel. Il existe une Beauté objective, universelle et transcendante, et le rôle de l'Art est de nous élever vers cette vérité supérieure.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Soufisme": 5,
+        "Christianisme_Mystique": 4,
+        "Islam_Orthodoxe": 4,
+        "Athéisme_Matérialiste": -5,
+        "Nihilisme": -5,
+        "Existentialisme": -4,
+        "Épicurisme": -3
       }
     }
   ],
@@ -424,6 +441,11 @@
       "code": "INEFFABLE_VS_DOGME",
       "condition": "rep['q_identite'] === 'theisme_agnostique' && (rep['q_std_spinoza'] > 0 || rep['q_std_ame_immortelle'] > 0)",
       "message": "Vous adhérez à une spiritualité agnostique affirmant que le principe supérieur dépasse totalement notre entendement, mais vous validez simultanément des certitudes métaphysiques très précises (l'existence d'une âme immortelle, ou la définition géométrique de Dieu chez Spinoza). C'est un paradoxe : on ne peut pas déclarer le divin inconnaissable tout en définissant avec certitude la nature de l'au-delà ou la structure rationnelle de l'univers."
+    },
+    {
+      "code": "MORALE_ABSOLUE_VS_DETERMINISME",
+      "condition": "rep['q_ethi_devoir_absolu'] > 0 && (rep['q_epis_neuro_determinisme'] > 0 || rep['q_std_determinisme_absolu'] > 0)",
+      "message": "Vous affirmez l'existence de devoirs moraux absolus (vision kantienne) tout en soutenant que le libre-arbitre n'est qu'une illusion soumise au déterminisme (biologique ou naturel). C'est une contradiction philosophique majeure : la morale absolue exige la liberté de choix ('Tu dois, donc tu peux'). Si nos actes sont entièrement déterminés par nos neurones ou par la Nature, la notion même de 'faute' ou de 'devoir' moral perd toute consistance."
     }
   ]
 }
