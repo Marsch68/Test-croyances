@@ -62,7 +62,35 @@
         "Bouddhisme_Séculier": -4,
         "Gnosticisme": -5
       }
+      },
+      {
+      "id": "q_ethi_calcul_plaisirs",
+      "type": "standard",
+      "note_auteur": "Sépare l'épicurisme (gestion rationnelle du désir) du bouddhisme (extinction du désir) et du stoïcisme (primauté de la vertu sur le plaisir).",
+      "texte": "Le bonheur ne consiste pas à éteindre notre soif de vivre, mais à calculer rationnellement nos plaisirs. En cultivant exclusivement les désirs naturels et nécessaires (l'amitié, le savoir, une nourriture simple), on atteint la paix de l'âme sans nier notre nature matérielle.",
+      "scores": {
+        "Épicurisme": 5,
+        "Humanisme_Séculier": 3,
+        "Athéisme_Matérialiste": 2,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -4,
+        "Stoïcisme": -3
+      }
     },
+    {
+      "id": "q_ethi_attachement_souffrance",
+      "type": "standard",
+      "note_auteur": "Sanctionne les philosophies vitalistes ou matérialistes au profit du détachement oriental et ascétique.",
+      "texte": "Tout plaisir lié au monde physique ou à nos relations humaines porte en germe la souffrance, car tout est voué à disparaître. La véritable guérison de l'esprit exige de trancher à la racine notre attachement affectif et matériel aux choses éphémères.",
+      "scores": {
+        "Bouddhisme_Traditionnel": 5,
+        "Bouddhisme_Séculier": 4,
+        "Gnosticisme": 4,
+        "Épicurisme": -5,
+        "Spinozisme": -5,
+        "Transhumanisme": -5
+      }
+      },
     {
       "id": "q_std_raison_mysticisme",
       "type": "standard",
