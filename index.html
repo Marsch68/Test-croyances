@@ -459,32 +459,40 @@
       window.print();
     }
 
-    function calculerAffinities(reponses) {
+   function calculerAffinities(reponses) {
       const totaux = {};
       const maxPossibles = {};
+
+      // 1. Calcul des points
       for (const [qId, valeurChoisie] of Object.entries(reponses)) {
         if (qId === "q_identite") continue; 
         const question = toutesQuestions.find(q => q.id === qId);
         if (question && question.scores) {
           for (const [profil, poids] of Object.entries(question.scores)) {
-            if (!totaux[profil]) { totaux[profil] = 0; maxPossibles[profil] = 0; }
+            if (!totaux[profil]) {
+              totaux[profil] = 0;
+              maxPossibles[profil] = 0;
+            }
             totaux[profil] += poids * valeurChoisie;
             maxPossibles[profil] += Math.abs(poids) * 2;
           }
         }
       }
+
       const resultats = [];
+      // 2. Traitement avec le BOUCLIER STATISTIQUE
       for (const profil in totaux) {
-        if (maxPossibles[profil] > 0) {
+        // Le profil doit avoir au moins 16 points possibles (être testé par plusieurs questions)
+        if (maxPossibles[profil] >= 16) {
           let ratio = totaux[profil] / maxPossibles[profil];
           if (ratio < 0) ratio = 0;
           let pourcentage = Math.pow(ratio, 2) * 100;
           resultats.push({ profil: profil, pourcentage: Math.round(pourcentage) });
         }
       }
+      
       return resultats.sort((a, b) => b.pourcentage - a.pourcentage);
     }
-
     function dessinerGraphique(affinites) {
       const ctx = document.getElementById('radarChart').getContext('2d');
       if (radarChartInstance) radarChartInstance.destroy();
