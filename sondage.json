@@ -14,6 +14,44 @@
       ]
     },
     {
+      "id": "q_epis_neuro_determinisme",
+      "type": "standard",
+      "texte": "Ce que nous appelons notre « libre-arbitre » n'est qu'une illusion générée par notre cerveau. Chacun de nos choix est l'aboutissement mécanique d'une chaîne ininterrompue de causes neurobiologiques, hormonales et environnementales.",
+      "scores": {
+        "Spinozisme": 5,
+        "Athéisme_Matérialiste": 4,
+        "Existentialisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Humanisme_Séculier": -3
+      }
+    },
+    {
+      "id": "q_ethi_responsabilite_morale",
+      "type": "standard",
+      "texte": "Puisque nous sommes entièrement déterminés par notre biologie et notre passé, le « mérite » et la « culpabilité » morale n'existent pas fondamentalement. La justice ne devrait pas chercher à punir moralement, mais uniquement à protéger la société et à réhabiliter.",
+      "scores": {
+        "Spinozisme": 5,
+        "Bouddhisme_Séculier": 3,
+        "Athéisme_Matérialiste": 2,
+        "Existentialisme": -5,
+        "Calvinisme": -4,
+        "Catholicisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "q_meta_fantome_machine",
+      "type": "standard",
+      "texte": "La conscience et l'esprit humain ne sont que des sous-produits de l'activité biochimique complexe de la matière. Il n'y a pas de dimension spirituelle qui puisse s'abstraire des lois implacables de la physique.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Nihilisme": 4,
+        "Spinozisme": 3,
+        "Gnosticisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Soufisme": -5
+      }
+    },
+    {
       "id": "q_std_matiere_divine",
       "type": "standard",
       "texte": "Le monde matériel et physique n'est pas une illusion dont il faudrait se détacher, mais une expression divine et parfaite en soi. Embrasser la réalité de la matière telle qu'elle est, c'est comprendre le divin.",
