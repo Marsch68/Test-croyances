@@ -256,7 +256,8 @@
     </div>
   </div>
 
-  <script>
+ <script>
+    // --- 1. Variables de base (existantes) ---
     let toutesQuestions = [];
     let reglesDissonance = [];
     let fileAttente = []; 
@@ -264,6 +265,12 @@
     let reponsesUtilisateur = {}; 
     let radarChartInstance = null; 
 
+    // --- 2. NOUVELLES VARIABLES DU MOTEUR ADAPTATIF ---
+    let questionsDisponibles = []; // Le réservoir des questions non posées
+    let modeAlgorithme = "hasard"; // États possibles : "hasard", "contradiction", "renfort"
+    let profilEnTest = null;       // La philosophie que l'algorithme est en train de tester
+
+    // --- 3. Constantes de l'interface (existantes) ---
     const elSondage = document.getElementById("sondage");
     const elQuestionTexte = document.getElementById("question-texte");
     const elChoicesContainer = document.getElementById("choices-container");
@@ -345,46 +352,106 @@
       }
     }
 
+    traiterIdentite
     function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
+      
+      // On filtre les crash tests pertinents et les questions standards
       const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
       const questionsStandards = toutesQuestions.filter(q => q.type === "standard");
-      let suiteQuestions = [...crashTests, ...questionsStandards];
-      suiteQuestions = melangerTableau(suiteQuestions);
-      fileAttente = [fileAttente[0], ...suiteQuestions];
-      indexCourant++;
-      afficherQuestion();
+      
+      // On remplit le réservoir et on le mélange pour la base de "hasard"
+      questionsDisponibles = melangerTableau([...crashTests, ...questionsStandards]);
+      
+      preparerQuestionSuivante();
+    }
+
+    function preparerQuestionSuivante() {
+       if (questionsDisponibles.length === 0) {
+           terminerSondage();
+           return;
+       }
+       
+       let indexChoisi = 0; // Par défaut, on prend la 1ère du réservoir (qui est mélangé)
+       
+       // 1. RECHERCHE D'UNE CONTRADICTION
+       if (modeAlgorithme === "contradiction" && profilEnTest) {
+           // On cherche une question qui pénalise fortement (score < 0) le profil en cours
+           const index = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] && q.scores[profilEnTest] < 0);
+           if (index !== -1) {
+               indexChoisi = index;
+               console.log("-> ATTAQUE : Contradiction contre le", profilEnTest);
+           } else {
+               modeAlgorithme = "hasard"; // Si on n'a plus de piège, on repasse au hasard
+           }
+       } 
+       // 2. RECHERCHE D'UN RENFORT
+       else if (modeAlgorithme === "renfort" && profilEnTest) {
+           // On cherche une question qui valorise (score > 0) le profil en cours
+           const index = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] && q.scores[profilEnTest] > 0);
+           if (index !== -1) {
+               indexChoisi = index;
+               console.log("-> VALIDATION : Renfort pour le", profilEnTest);
+           } else {
+               modeAlgorithme = "hasard";
+           }
+       }
+       
+       // On retire la question choisie du réservoir et on la place dans la file d'attente
+       const q = questionsDisponibles.splice(indexChoisi, 1)[0];
+       fileAttente.push(q);
+       indexCourant = fileAttente.length - 1;
+       
+       afficherQuestion();
     }
 
     function enregistrerChoix(valeur, qId) {
       reponsesUtilisateur[qId] = valeur;
-      indexCourant++;
-      if (indexCourant < fileAttente.length) {
-        afficherQuestion();
-      } else {
-        terminerSondage();
+      const q = fileAttente[indexCourant];
+      
+      // --- LOGIQUE ADAPTATIVE DU CERVEAU ---
+      if (modeAlgorithme === "hasard") {
+          // Si l'utilisateur est très d'accord (1 ou 2) avec une question posée au hasard
+          if (valeur >= 1 && q.scores) {
+              let maxPoints = 0;
+              let meilleurProfil = null;
+              // On identifie quelle doctrine vient d'être affirmée fortement
+              for (const [profil, pts] of Object.entries(q.scores)) {
+                 if (pts > maxPoints) { maxPoints = pts; meilleurProfil = profil; }
+              }
+              if (meilleurProfil) {
+                  profilEnTest = meilleurProfil; // On verrouille la cible
+                  modeAlgorithme = "contradiction"; // Au prochain tour, on le piège !
+              }
+          }
+      } 
+      else if (modeAlgorithme === "contradiction") {
+          // On l'a attaqué. S'il repousse l'attaque (valeur <= -1), il est très cohérent.
+          if (valeur <= -1) {
+              modeAlgorithme = "renfort"; // On le récompense en creusant sa doctrine
+          } else {
+              // S'il tombe dans le piège (dissonance), on abandonne la piste, retour au hasard
+              modeAlgorithme = "hasard";
+              profilEnTest = null;
+          }
       }
+      else if (modeAlgorithme === "renfort") {
+          // Après le renfort (qu'il l'ait validé ou non), la séquence est finie. On relance les dés.
+          modeAlgorithme = "hasard";
+          profilEnTest = null;
+      }
+      
+      preparerQuestionSuivante();
     }
 
     function questionPrecedente() {
       if (indexCourant > 0) {
+        // En cas de retour en arrière, on recule l'index mais on ne remet pas la question 
+        // dans le réservoir, on la garde dans la file. Le moteur adaptatif reprendra son cours.
         indexCourant--;
+        modeAlgorithme = "hasard"; // On réinitialise la traque pour éviter les bugs logiques
         afficherQuestion();
       }
-    }
-
-    function recommencerSondage() {
-      indexCourant = 0;
-      reponsesUtilisateur = {};
-      const questionIdentite = toutesQuestions.find(q => q.type === "identite");
-      fileAttente = [questionIdentite];
-      document.getElementById("affinites-container").innerHTML = "";
-      document.getElementById("alertes-liste").innerHTML = "";
-      document.getElementById("alertes-dissonance").style.display = "none";
-      document.getElementById("bloc-synthese").style.display = "none";
-      elResultats.style.display = "none";
-      elSondage.style.display = "block";
-      afficherQuestion();
     }
 
     // Nouvelle fonction d'impression
