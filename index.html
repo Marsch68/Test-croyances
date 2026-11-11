@@ -100,9 +100,9 @@
 
     #resultats { display: none; }
 
-    /* Style de la jauge de dissonance */
+    /* Jauge de dissonance */
     #bloc-dissonance-global {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       padding: 20px;
       background-color: var(--btn-hover);
       border-radius: 12px;
@@ -127,6 +127,27 @@
       color: var(--text-main);
     }
     
+    /* NOUVEAU : Bloc de Synthèse Rédigée */
+    #bloc-synthese {
+      background-color: #f9fbfc;
+      border-left: 4px solid var(--primary);
+      padding: 20px;
+      margin-bottom: 30px;
+      text-align: left;
+      border-radius: 0 8px 8px 0;
+      font-size: 1.05em;
+      line-height: 1.6;
+      color: #34495e;
+    }
+    #bloc-synthese h3 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
     .chart-container {
       position: relative;
       width: 100%;
@@ -181,11 +202,16 @@
     <div id="resultats">
       <h2>Votre bilan philosophique</h2>
       
-      <!-- Nouveau bloc : Indice de Dissonance -->
       <div id="bloc-dissonance-global">
         <div id="titre-dissonance">Indice de Dissonance Cognitive</div>
         <div id="valeur-dissonance">0%</div>
         <div id="texte-dissonance">Analyse en cours...</div>
+      </div>
+
+      <!-- NOUVEAU : Bloc de Synthèse HTML -->
+      <div id="bloc-synthese" style="display: none;">
+        <h3>Synthèse de votre profil</h3>
+        <p id="texte-synthese-redigee" style="margin: 0;"></p>
       </div>
 
       <div class="chart-container">
@@ -286,12 +312,8 @@
 
     function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
-      
-      const crashTests = toutesQuestions.filter(q => 
-        q.type === "crash_test" && q.cible_identite === valeurIdentite
-      );
+      const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
       const questionsStandards = toutesQuestions.filter(q => q.type === "standard");
-      
       fileAttente = [fileAttente[0], ...crashTests, ...questionsStandards];
       indexCourant++;
       afficherQuestion();
@@ -317,40 +339,31 @@
     function recommencerSondage() {
       indexCourant = 0;
       reponsesUtilisateur = {};
-      
       const questionIdentite = toutesQuestions.find(q => q.type === "identite");
       fileAttente = [questionIdentite];
-
       document.getElementById("affinites-container").innerHTML = "";
       document.getElementById("alertes-liste").innerHTML = "";
       document.getElementById("alertes-dissonance").style.display = "none";
-      
+      document.getElementById("bloc-synthese").style.display = "none"; // Cache la synthèse
       elResultats.style.display = "none";
       elSondage.style.display = "block";
-
       afficherQuestion();
     }
 
     function calculerAffinities(reponses) {
       const totaux = {};
       const maxPossibles = {};
-
       for (const [qId, valeurChoisie] of Object.entries(reponses)) {
         if (qId === "q_identite") continue; 
-        
         const question = toutesQuestions.find(q => q.id === qId);
         if (question && question.scores) {
           for (const [profil, poids] of Object.entries(question.scores)) {
-            if (!totaux[profil]) {
-              totaux[profil] = 0;
-              maxPossibles[profil] = 0;
-            }
+            if (!totaux[profil]) { totaux[profil] = 0; maxPossibles[profil] = 0; }
             totaux[profil] += poids * valeurChoisie;
             maxPossibles[profil] += Math.abs(poids) * 2;
           }
         }
       }
-
       const resultats = [];
       for (const profil in totaux) {
         if (maxPossibles[profil] > 0) {
@@ -363,40 +376,28 @@
 
     function dessinerGraphique(affinites) {
       const ctx = document.getElementById('radarChart').getContext('2d');
-
-      if (radarChartInstance) {
-        radarChartInstance.destroy();
-      }
-
+      if (radarChartInstance) radarChartInstance.destroy();
       const top6 = affinites.slice(0, 6);
       const labels = top6.map(a => a.profil);
       const data = top6.map(a => a.pourcentage);
 
-      // --- NOUVELLE LOGIQUE : Couleurs dynamiques ---
-      let couleurFond = 'rgba(52, 152, 219, 0.3)'; // Bleu standard par défaut
+      let couleurFond = 'rgba(52, 152, 219, 0.3)';
       let couleurBord = 'rgba(52, 152, 219, 1)';
       
       if (top6.length > 0) {
-        const profilDominant = top6[0].profil; // Le grand gagnant (1er du tableau)
-        
+        const profilDominant = top6[0].profil;
         if (profilDominant.includes('Bouddhisme')) {
-          couleurFond = 'rgba(230, 126, 34, 0.4)'; // Orange safran
-          couleurBord = 'rgba(230, 126, 34, 1)';
+          couleurFond = 'rgba(230, 126, 34, 0.4)'; couleurBord = 'rgba(230, 126, 34, 1)';
         } else if (profilDominant.includes('Islam') || profilDominant.includes('Soufisme')) {
-          couleurFond = 'rgba(46, 204, 113, 0.4)'; // Vert
-          couleurBord = 'rgba(46, 204, 113, 1)';
+          couleurFond = 'rgba(46, 204, 113, 0.4)'; couleurBord = 'rgba(46, 204, 113, 1)';
         } else if (profilDominant.includes('Athéisme') || profilDominant.includes('Matérialisme') || profilDominant.includes('Épicurisme')) {
-          couleurFond = 'rgba(231, 76, 60, 0.4)'; // Rouge
-          couleurBord = 'rgba(231, 76, 60, 1)';
+          couleurFond = 'rgba(231, 76, 60, 0.4)'; couleurBord = 'rgba(231, 76, 60, 1)';
         } else if (profilDominant.includes('Catholicisme') || profilDominant.includes('Protestantisme') || profilDominant.includes('Calvinisme') || profilDominant.includes('Christianisme')) {
-          couleurFond = 'rgba(155, 89, 182, 0.4)'; // Violet
-          couleurBord = 'rgba(155, 89, 182, 1)';
+          couleurFond = 'rgba(155, 89, 182, 0.4)'; couleurBord = 'rgba(155, 89, 182, 1)';
         } else if (profilDominant.includes('Existentialisme') || profilDominant.includes('Agnosticisme')) {
-          couleurFond = 'rgba(149, 165, 166, 0.4)'; // Gris neutre
-          couleurBord = 'rgba(149, 165, 166, 1)';
+          couleurFond = 'rgba(149, 165, 166, 0.4)'; couleurBord = 'rgba(149, 165, 166, 1)';
         } else if (profilDominant.includes('Spinozisme') || profilDominant.includes('Panthéisme') || profilDominant.includes('Stoïcisme') || profilDominant.includes('Déisme')) {
-          couleurFond = 'rgba(41, 128, 185, 0.4)'; // Bleu océan
-          couleurBord = 'rgba(41, 128, 185, 1)';
+          couleurFond = 'rgba(41, 128, 185, 0.4)'; couleurBord = 'rgba(41, 128, 185, 1)';
         }
       }
 
@@ -405,15 +406,10 @@
         data: {
           labels: labels,
           datasets: [{
-            label: 'Affinité (%)',
-            data: data,
-            backgroundColor: couleurFond,
-            borderColor: couleurBord,
-            pointBackgroundColor: '#2c3e50',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#2c3e50',
-            borderWidth: 2
+            label: 'Affinité (%)', data: data,
+            backgroundColor: couleurFond, borderColor: couleurBord,
+            pointBackgroundColor: '#2c3e50', pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff', pointHoverBorderColor: '#2c3e50', borderWidth: 2
           }]
         },
         options: {
@@ -421,10 +417,7 @@
             r: {
               angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
               grid: { color: 'rgba(0, 0, 0, 0.1)' },
-              pointLabels: {
-                font: { size: 13, family: "'Segoe UI', sans-serif" },
-                color: '#2c3e50'
-              },
+              pointLabels: { font: { size: 13, family: "'Segoe UI', sans-serif" }, color: '#2c3e50' },
               ticks: { display: false, min: 0, max: 100 }
             }
           },
@@ -432,37 +425,30 @@
         }
       });
     }
+
     function genererBilanDissonance(reponses) {
       const anomalies = [];
       reglesDissonance.forEach(regle => {
         try {
           const evaluateur = new Function("rep", "return " + regle.condition + ";");
-          if (evaluateur(reponses)) {
-            anomalies.push(regle.message);
-          }
-        } catch (e) {
-          console.warn("Règle ignorée", regle.code);
-        }
+          if (evaluateur(reponses)) anomalies.push(regle.message);
+        } catch (e) {}
       });
       return anomalies;
     }
 
-  function terminerSondage() {
+    function terminerSondage() {
       elSondage.style.display = "none";
       elResultats.style.display = "block";
       
       const affinites = calculerAffinities(reponsesUtilisateur);
-      
-      // Appel de la création du graphique (qui lui, garde toujours le top 6)
       dessinerGraphique(affinites);
 
       const alertes = genererBilanDissonance(reponsesUtilisateur);
       
-      // --- Calcul et affichage de l'Indice Global de Dissonance ---
       const maxDissonancesPossibles = reglesDissonance.length; 
       let indiceDissonance = 0;
       if (maxDissonancesPossibles > 0) {
-        // On convertit le ratio en pourcentage entier
         indiceDissonance = Math.round((alertes.length / maxDissonancesPossibles) * 100);
       }
 
@@ -473,23 +459,40 @@
       elValeurDiss.textContent = indiceDissonance + "%";
       
       if (indiceDissonance === 0) {
-        elValeurDiss.style.color = "#27ae60"; // Vert
-        blocDiss.style.backgroundColor = "#eafaf1";
+        elValeurDiss.style.color = "#27ae60"; blocDiss.style.backgroundColor = "#eafaf1";
         elTexteDiss.textContent = "Cohérence parfaite. Vos réponses sont idéalement alignées.";
       } else if (indiceDissonance <= 25) {
-        elValeurDiss.style.color = "#e67e22"; // Orange
-        blocDiss.style.backgroundColor = "#fef5e7";
+        elValeurDiss.style.color = "#e67e22"; blocDiss.style.backgroundColor = "#fef5e7";
         elTexteDiss.textContent = "Cohérence modérée, mais quelques paradoxes existent entre vos principes.";
       } else {
-        elValeurDiss.style.color = "#c0392b"; // Rouge
-        blocDiss.style.backgroundColor = "#fdedec";
+        elValeurDiss.style.color = "#c0392b"; blocDiss.style.backgroundColor = "#fdedec";
         elTexteDiss.textContent = "Forte dissonance. Vos croyances reposent sur des paradoxes philosophiques profonds.";
       }
 
-      // --- Affichage filtré des barres de progression ---
+      // NOUVEAU : Logique de la synthèse rédigée
+      if (affinites.length > 0) {
+        const top1 = affinites[0];
+        const top2 = affinites.length > 1 ? affinites[1] : null;
+        let texteSynthese = `Votre boussole intérieure pointe très nettement vers le <strong>${top1.profil}</strong> (${top1.pourcentage}%). `;
+        
+        if (top2 && top2.pourcentage >= 15) {
+          texteSynthese += `Cette vision du monde s'articule chez vous avec des influences issues du <strong>${top2.profil}</strong> (${top2.pourcentage}%). `;
+        }
+
+        if (indiceDissonance === 0) {
+          texteSynthese += `<br><br>Votre architecture intellectuelle et spirituelle est d'une cohérence remarquable : vous assumez vos principes jusqu'au bout de leur logique doctrinale, sans faire de compromis philosophiques contradictoires.`;
+        } else if (indiceDissonance <= 25) {
+          texteSynthese += `<br><br>C'est une pensée vivante et syncrétique : vous piochez certains concepts dans des traditions différentes, créant de légers paradoxes qui reflètent une quête de sens personnelle et nuancée plutôt qu'un dogmatisme rigide.`;
+        } else {
+          texteSynthese += `<br><br>Toutefois, votre profil est marqué par un éclectisme philosophique extrême. Vous conjuguez intimement des visions du monde que les philosophes ou les théologiens considèrent habituellement comme incompatibles (comme l'indiquent les alertes de dissonance ci-dessous). Vous avez bâti une spiritualité "à la carte" très personnelle, au prix de plusieurs grands écarts logiques.`;
+        }
+
+        document.getElementById("texte-synthese-redigee").innerHTML = texteSynthese;
+        document.getElementById("bloc-synthese").style.display = "block";
+      }
+
       const containerScores = document.getElementById("affinites-container");
       affinites.forEach(aff => {
-        // Le filtre strict est ici : on écarte impitoyablement tout score inférieur à 15%
         if (aff.pourcentage >= 15) {
           containerScores.innerHTML += `
             <div class="resultat-item">
@@ -505,17 +508,16 @@
         }
       });
 
-      // --- Affichage du détail des alertes ---
       if (alertes.length > 0) {
         const divAlertes = document.getElementById("alertes-dissonance");
         const listeAlertes = document.getElementById("alertes-liste");
         divAlertes.style.display = "block";
-        
         alertes.forEach(alerteTexte => {
           listeAlertes.innerHTML += `<div class="alerte-item">- ${alerteTexte}</div>`;
         });
       }
     }
+
     window.onload = initApp;
   </script>
 </body>
