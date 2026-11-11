@@ -343,6 +343,35 @@
         "Épicurisme": -5,
         "Nihilisme": -5
       }
+    }{
+      "id": "q_ethi_devoir_absolu",
+      "type": "standard",
+      "note_auteur": "Sépare la morale déontologique (Kant, religions abrahamiques) du pragmatisme utilitariste (Matérialisme, Transhumanisme).",
+      "texte": "Il existe des devoirs moraux absolus et universels qu'il ne faut jamais transgresser, quelles qu'en soient les conséquences positives. Par exemple, sacrifier délibérément la vie d'un innocent pour en sauver cent autres reste un crime moralement inacceptable.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Islam_Orthodoxe": 5,
+        "Stoïcisme": 4,
+        "Athéisme_Matérialiste": -4,
+        "Épicurisme": -5,
+        "Transhumanisme": -5
+      }
+    },
+    {
+      "id": "q_meta_nature_objective",
+      "type": "standard",
+      "note_auteur": "Sanctionne la téléologie (les causes finales) en s'appuyant sur Jacques Monod.",
+      "texte": "La nature est purement « objective » et non « projective ». L'évolution de l'univers et de la vie est le fruit d'une mécanique aveugle (hasard et nécessité). Il n'y a aucun grand dessein, aucune intention cachée ni aucun but final à l'existence.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Nihilisme": 5,
+        "Existentialisme": 4,
+        "Spinozisme": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Déisme": -5,
+        "Panthéisme": -3
+      }
     }
   ],
   "dissonances": [
@@ -390,6 +419,11 @@
       "code": "MATERIALISME_VS_KARMA",
       "condition": "rep['ct_boud_karma'] > 0 && (rep['q_meta_fantome_machine'] > 0 || rep['q_std_epicurisme'] > 0)",
       "message": "Vous croyez à la loi du Karma et au cycle des renaissances, tout en affirmant que l'esprit n'est qu'un pur phénomène biochimique matériel voué à disparaître avec le corps. Si la conscience n'est qu'une mécanique organique éphémère dictée par la biologie, elle ne possède aucun support physique pour transmigrer ni pour porter le poids moral de ses actes d'une vie à l'autre."
+    },
+    {
+      "code": "INEFFABLE_VS_DOGME",
+      "condition": "rep['q_identite'] === 'theisme_agnostique' && (rep['q_std_spinoza'] > 0 || rep['q_std_ame_immortelle'] > 0)",
+      "message": "Vous adhérez à une spiritualité agnostique affirmant que le principe supérieur dépasse totalement notre entendement, mais vous validez simultanément des certitudes métaphysiques très précises (l'existence d'une âme immortelle, ou la définition géométrique de Dieu chez Spinoza). C'est un paradoxe : on ne peut pas déclarer le divin inconnaissable tout en définissant avec certitude la nature de l'au-delà ou la structure rationnelle de l'univers."
     }
   ]
 }
