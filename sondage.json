@@ -26,6 +26,12 @@
       }
     },
     {
+      "code": "MATERIALISME_VS_KARMA",
+      "condition": "rep['ct_boud_karma'] > 0 && (rep['q_meta_fantome_machine'] > 0 || rep['q_std_epicurisme'] > 0)",
+      "message": "Vous croyez à la loi du Karma et au cycle des renaissances, tout en affirmant que l'esprit n'est qu'un pur phénomène biochimique matériel voué à disparaître avec le corps. Si la conscience n'est qu'une mécanique organique éphémère dictée par la biologie, elle ne possède aucun support physique pour transmigrer ni pour porter le poids moral de ses actes d'une vie à l'autre."
+    }
+    },
+    {
       "id": "q_ethi_responsabilite_morale",
       "type": "standard",
       "texte": "Puisque nous sommes entièrement déterminés par notre biologie et notre passé, le « mérite » et la « culpabilité » morale n'existent pas fondamentalement. La justice ne devrait pas chercher à punir moralement, mais uniquement à protéger la société et à réhabiliter.",
