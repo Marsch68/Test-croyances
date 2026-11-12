@@ -48,7 +48,6 @@
     {
       "id": "q_poli_etat_raison",
       "type": "standard",
-      "note_auteur": "Sépare le Spinozisme (qui valorise l'État rationnel et la coopération) de l'Anarchisme, du Nihilisme et de l'Épicurisme (qui fuit la politique).",
       "texte": "L'État et les lois, même imparfaits, sont absolument nécessaires pour garantir la sécurité. Rien n'est plus utile à un être humain qu'un autre être humain guidé par la raison : la véritable liberté s'atteint par la coopération civique et la politique, non par la destruction des institutions.",
       "scores": {
         "Spinozisme": 5,
@@ -70,7 +69,10 @@
         "Catholicisme_Orthodoxe": -5,
         "Humanisme_Séculier": -3,
         "Spiritualité_New_Age": -4,
-        "Protestantisme_Évangélique": -5
+        "Protestantisme_Évangélique": -5,
+        "Judaïsme": -5,
+        "Christianisme_Libéral": -4,
+        "Islam_Libéral": -4
       }
     },
     {
@@ -85,7 +87,10 @@
         "Existentialisme": -5,
         "Calvinisme": -4,
         "Catholicisme_Orthodoxe": -5,
-        "Protestantisme_Évangélique": -5
+        "Protestantisme_Évangélique": -5,
+        "Judaïsme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
       }
     },
     {
@@ -98,8 +103,15 @@
         "Spinozisme": 3,
         "Gnosticisme": -5,
         "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Judaïsme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
         "Spiritualité_New_Age": -5,
-        "Protestantisme_Évangélique": -5
+        "Hindouisme": -5
       }
     },
     {
@@ -113,7 +125,11 @@
         "Bouddhisme_Traditionnel": -5,
         "Bouddhisme_Séculier": -4,
         "Gnosticisme": -5,
-        "Protestantisme_Évangélique": -5
+        "Catholicisme_Orthodoxe": -5,
+        "Protestantisme_Évangélique": -5,
+        "Judaïsme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
       }
     },
     {
@@ -151,11 +167,14 @@
       "scores": {
         "Spinozisme": 5,
         "Stoïcisme": 3,
+        "Athéisme_Matérialiste": 3,
         "Bouddhisme_Séculier": 2,
         "Panthéisme": -3,
         "Spiritualité_New_Age": -4,
         "Catholicisme_Orthodoxe": -4,
-        "Protestantisme_Évangélique": -5
+        "Protestantisme_Évangélique": -5,
+        "Soufisme": -5,
+        "Christianisme_Mystique": -5
       }
     },
     {
@@ -184,7 +203,8 @@
         "Luthéranisme": 5,
         "Protestantisme_Évangélique": 5,
         "Islam_Orthodoxe": -5,
-        "Salafisme": -5
+        "Salafisme": -5,
+        "Judaïsme": -5
       }
     },
     {
@@ -300,7 +320,9 @@
         "Bouddhisme_Traditionnel": 5,
         "Bouddhisme_Séculier": -4,
         "Athéisme_Matérialiste": -5,
-        "Protestantisme_Évangélique": -5
+        "Protestantisme_Évangélique": -5,
+        "Islam_Orthodoxe": -5,
+        "Judaïsme": -5
       }
     },
     {
@@ -351,7 +373,13 @@
         "Épicurisme": 5,
         "Stoïcisme": -5,
         "Catholicisme_Orthodoxe": -5,
-        "Protestantisme_Évangélique": -5
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5
       }
     },
     {
@@ -389,7 +417,12 @@
         "Déisme": 5,
         "Spinozisme": 4,
         "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
         "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
         "Protestantisme_Évangélique": -5
       }
     },
@@ -402,7 +435,11 @@
         "Déisme": 5,
         "Agnosticisme": 3,
         "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
         "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
         "Judaïsme": -5,
         "Protestantisme_Évangélique": -5
       }
@@ -415,10 +452,19 @@
       "scores": {
         "Athéisme_Matérialiste": 5,
         "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
         "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
         "Hindouisme": -5,
         "Spiritualité_New_Age": -5,
-        "Protestantisme_Évangélique": -5
+        "Protestantisme_Évangélique": -5,
+        "Christianisme_Libéral": -5,
+        "Islam_Libéral": -5,
+        "Déisme": -5,
+        "Soufisme": -5
       }
     },
     {
@@ -431,8 +477,16 @@
         "Nihilisme": 5,
         "Bouddhisme_Traditionnel": -5,
         "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
         "Spiritualité_New_Age": -5,
-        "Protestantisme_Évangélique": -5
+        "Protestantisme_Évangélique": -5,
+        "Hindouisme": -5,
+        "Soufisme": -5
       }
     },
     {
@@ -444,7 +498,13 @@
         "Humanisme_Séculier": 5,
         "Athéisme_Matérialiste": 4,
         "Existentialisme": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
         "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
         "Protestantisme_Évangélique": -5
       }
     },
@@ -455,10 +515,15 @@
       "texte": "Il est fondamentalement et définitivement impossible pour le cerveau humain de savoir si un Dieu existe ou non. Toute certitude dogmatique à ce sujet est un abus de la raison.",
       "scores": {
         "Agnosticisme": 5,
-        "Salafisme": -5,
         "Catholicisme_Orthodoxe": -5,
-        "Athéisme_Matérialiste": -4,
-        "Protestantisme_Évangélique": -5
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Athéisme_Matérialiste": -4
       }
     },
     {
@@ -494,7 +559,12 @@
         "Panthéisme": 4,
         "Stoïcisme": 2,
         "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
         "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
         "Protestantisme_Évangélique": -5
       }
     },
@@ -505,10 +575,15 @@
       "scores": {
         "Déisme": 5,
         "Spinozisme": 2,
-        "Salafisme": -5,
         "Catholicisme_Orthodoxe": -5,
-        "Athéisme_Matérialiste": -4,
-        "Protestantisme_Évangélique": -5
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Athéisme_Matérialiste": -4
       }
     },
     {
@@ -522,6 +597,9 @@
         "Catholicisme_Orthodoxe": -4,
         "Calvinisme": -5,
         "Spinozisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
         "Protestantisme_Évangélique": -5
       }
     },
@@ -532,8 +610,13 @@
       "scores": {
         "Agnosticisme": 5,
         "Athéisme_Matérialiste": -4,
-        "Salafisme": -5,
         "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
         "Protestantisme_Évangélique": -5
       }
     },
@@ -557,8 +640,13 @@
       "scores": {
         "Épicurisme": 5,
         "Athéisme_Matérialiste": 4,
-        "Calvinisme": -5,
         "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
         "Spiritualité_New_Age": -5,
         "Protestantisme_Évangélique": -5
       }
@@ -596,12 +684,19 @@
       "type": "standard",
       "texte": "Je possède une âme individuelle, immatérielle et permanente qui survivra d'une manière ou d'une autre à la destruction de mon corps physique.",
       "scores": {
-        "Catholicisme_Orthodoxe": 4,
-        "Islam_Orthodoxe": 4,
-        "Protestantisme_Évangélique": 4,
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Protestantisme_Évangélique": 5,
+        "Calvinisme": 5,
+        "Luthéranisme": 5,
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Judaïsme": 5,
+        "Christianisme_Libéral": 4,
+        "Islam_Libéral": 4,
         "Spiritualité_New_Age": 3,
         "Déisme": 2,
-        "Bouddhisme_Traditionnel": -3,
+        "Bouddhisme_Traditionnel": -4,
         "Athéisme_Matérialiste": -5,
         "Épicurisme": -5,
         "Nietzschéisme": -5
@@ -625,11 +720,17 @@
       "texte": "L'existence de souffrances extrêmes et injustes dans le monde prouve mathématiquement qu'il ne peut pas exister de Dieu qui soit simultanément tout-puissant ET infiniment bon.",
       "scores": {
         "Athéisme_Matérialiste": 5,
-        "Agnosticisme": 3,
-        "Catholicisme_Orthodoxe": -4,
-        "Islam_Orthodoxe": -4,
+        "Agnosticisme": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5,
         "Nietzschéisme": -5,
-        "Protestantisme_Évangélique": -5
+        "Déisme": -3
       }
     },
     {
@@ -658,10 +759,17 @@
         "Existentialisme": 4,
         "Spinozisme": 4,
         "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
         "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
         "Déisme": -5,
         "Spiritualité_New_Age": -5,
-        "Protestantisme_Évangélique": -5
+        "Protestantisme_Évangélique": -5,
+        "Hindouisme": -5,
+        "Soufisme": -5
       }
     },
     {
@@ -683,7 +791,6 @@
     {
       "id": "q_ethi_morale_revelee",
       "type": "standard",
-      "note_auteur": "Renforce massivement les orthodoxies abrahamiques face à l'humanisme et à la morale rationnelle de Kant ou d'Épicure.",
       "texte": "Le Bien et le Mal ne sont pas de simples conventions humaines, des idéaux philosophiques ou des impératifs biologiques. Ce qui est moralement bon, c'est très exactement ce que Dieu ordonne dans Ses révélations, même si la raison humaine ne le comprend pas toujours.",
       "scores": {
         "Islam_Orthodoxe": 5,
@@ -703,7 +810,6 @@
     {
       "id": "q_epis_tradition_revelation",
       "type": "standard",
-      "note_auteur": "Sépare la soumission à la Tradition dogmatique de l'autonomie de la raison (Lumières) et de l'introspection (Bouddhisme/Stoïcisme).",
       "texte": "La vérité ultime sur le sens de la vie ne se découvre pas par l'introspection personnelle, la philosophie ou la méthode scientifique. Elle s'accueille par la soumission obéissante aux Textes sacrés et à la Tradition religieuse authentique qui nous a été transmise.",
       "scores": {
         "Catholicisme_Orthodoxe": 5,
@@ -723,18 +829,22 @@
     {
       "id": "q_ethi_peche_originel",
       "type": "standard",
-      "note_auteur": "Oppose l'anthropologie chrétienne (l'homme est déchu par nature) à l'optimisme humaniste (l'homme naît bon ou perfectible) et au matérialisme.",
       "texte": "L'être humain ne naît pas fondamentalement bon ou moralement neutre. Par nature, depuis ses origines, sa volonté est corrompue et encline au mal (le péché originel). Sans l'intervention de la grâce divine, il est incapable de s'élever moralement par ses seules forces.",
       "scores": {
         "Calvinisme": 5,
         "Luthéranisme": 5,
         "Protestantisme_Évangélique": 5,
         "Catholicisme_Orthodoxe": 4,
+        "Christianisme_Orthodoxe": 4,
         "Humanisme_Séculier": -5,
         "Athéisme_Matérialiste": -5,
         "Spinozisme": -5,
+        "Judaïsme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Christianisme_Libéral": -5,
+        "Islam_Libéral": -5,
         "Bouddhisme_Séculier": -4,
-        "Islam_Orthodoxe": -4,
         "Spiritualité_New_Age": -5,
         "Nietzschéisme": -5
       }
@@ -742,7 +852,6 @@
     {
       "id": "q_std_revelation_christ",
       "type": "standard",
-      "note_auteur": "Filtre décisif : détruit l'Islam et le Judaïsme si validé, détruit le Christianisme si rejeté.",
       "texte": "La Révélation divine s'est achevée de manière définitive avec le Nouveau Testament et les apôtres. Tout texte sacré ultérieur prétendant la corriger ou la supplanter (comme le Coran) ne peut être la véritable parole de Dieu.",
       "scores": {
         "Catholicisme_Orthodoxe": 5,
@@ -758,7 +867,6 @@
     {
       "id": "q_std_revelation_coran",
       "type": "standard",
-      "note_auteur": "Filtre décisif islamique sur l'altération des textes antérieurs.",
       "texte": "Les textes bibliques (Torah, Évangiles) ont été partiellement altérés, falsifiés ou mal traduits par les hommes au fil des siècles. Seul le Coran constitue la parole inaltérée, définitive et parfaite de Dieu.",
       "scores": {
         "Islam_Orthodoxe": 5,
@@ -774,7 +882,6 @@
     {
       "id": "q_std_revelation_torah",
       "type": "standard",
-      "note_auteur": "Filtre décisif judaïque : rejette la Nouvelle Alliance (Christianisme) et la Révélation ultérieure (Islam).",
       "texte": "La Révélation ultime, parfaite et inaltérée a été donnée au mont Sinaï (la Torah). L'Alliance conclue par Dieu est éternelle et n'a jamais été annulée, remplacée par une « Nouvelle Alliance » (Nouveau Testament), ni corrigée par une révélation ultérieure (Coran).",
       "scores": {
         "Judaïsme": 5,
@@ -790,7 +897,6 @@
     {
       "id": "q_std_sacerdoce_universel",
       "type": "standard",
-      "note_auteur": "Le sacerdoce universel protestant : détruit la nécessité d'un clergé sacré ou de l'intercession des saints.",
       "texte": "Chaque croyant a un accès direct et personnel à Dieu sans aucune nécessité de passer par un prêtre, un saint ou une institution ecclésiastique. La hiérarchie religieuse (le clergé) ne possède aucun statut spirituel supérieur à celui des laïcs.",
       "scores": {
         "Luthéranisme": 5,
@@ -805,7 +911,6 @@
     {
       "id": "q_std_sola_scriptura",
       "type": "standard",
-      "note_auteur": "Sola Scriptura : l'Écriture contre la Tradition du Magistère.",
       "texte": "Les Textes sacrés sont la seule et unique source infaillible d'autorité spirituelle. Les dogmes, les conciles, les traditions ecclésiastiques et les chefs religieux (comme le Pape) sont purement humains et peuvent tout à fait se tromper.",
       "scores": {
         "Luthéranisme": 5,
@@ -821,7 +926,6 @@
     {
       "id": "q_ethi_simul_justus",
       "type": "standard",
-      "note_auteur": "Simul justus et peccator (Luthéranisme) : s'oppose à l'idéal de sainteté par les œuvres, l'ascèse ou l'élévation stoïcienne.",
       "texte": "Même s'il est pardonné par Dieu, l'être humain reste jusqu'à son dernier souffle un pécheur corrompu. Il est strictement impossible d'atteindre un état de « sainteté », de perfection morale ou de pureté spirituelle ici-bas par la discipline ou les bonnes actions.",
       "scores": {
         "Luthéranisme": 5,
@@ -879,7 +983,6 @@
     {
       "id": "q_std_new_age_guerison",
       "type": "standard",
-      "note_auteur": "Oppose la vision énergétique/holistique à la médecine matérialiste pure et au fatalisme.",
       "texte": "La maladie n'est pas qu'un simple dysfonctionnement biologique ou mécanique. Elle est très souvent le reflet d'un déséquilibre énergétique, d'un blocage émotionnel ou d'une leçon que l'âme doit comprendre. La véritable guérison exige de réharmoniser nos énergies et nos pensées, et pas seulement d'avaler des médicaments chimiques.",
       "scores": {
         "Spiritualité_New_Age": 5,
@@ -894,7 +997,6 @@
     {
       "id": "q_std_new_age_divin_interieur",
       "type": "standard",
-      "note_auteur": "Sépare l'immanence du Moi supérieur (New Age) de la transcendance abrahamique (un Dieu extérieur et juge).",
       "texte": "Il n'y a pas de Dieu extérieur qui nous surveille ou nous juge depuis les cieux. Le véritable divin est à l'intérieur de nous : nous sommes tous des êtres de lumière ou des parcelles de l'Univers incarnées dans la matière. Notre but spirituel est de nous éveiller à notre propre divinité (notre « Moi supérieur »).",
       "scores": {
         "Spiritualité_New_Age": 5,
@@ -910,7 +1012,6 @@
     {
       "id": "q_std_new_age_ecole_ame",
       "type": "standard",
-      "note_auteur": "Clivage majeur : le New Age voit la réincarnation comme une école positive, le Bouddhisme historique la voit comme le Samsara (souffrance).",
       "texte": "L'âme s'incarne sur Terre comme dans une immense école, afin d'apprendre des leçons, de faire des expériences et d'évoluer spirituellement de vie en vie. La réincarnation n'est pas une punition ou un cycle de souffrance qu'il faut fuir, mais un merveilleux processus d'évolution cosmique.",
       "scores": {
         "Spiritualité_New_Age": 5,
@@ -953,22 +1054,25 @@
     {
       "id": "q_std_nietzsche_arriere_mondes",
       "type": "standard",
-      "note_auteur": "Détruit les idéalismes de Platon et les paradis abrahamiques.",
       "texte": "L'idée d'un « Paradis », d'un « Nirvana » ou d'un monde spirituel parfait n'est qu'une invention des fatigués de la vie pour fuir et calomnier le seul monde qui existe réellement : ce monde terrestre, charnel, tragique et changeant.",
       "scores": {
         "Nietzschéisme": 5,
         "Athéisme_Matérialiste": 3,
         "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Judaïsme": -5,
         "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Protestantisme_Évangélique": -5,
         "Bouddhisme_Traditionnel": -5,
-        "Panthéisme": -3,
-        "Protestantisme_Évangélique": -5
+        "Panthéisme": -3
       }
     },
     {
       "id": "q_std_nietzsche_volonte_puissance",
       "type": "standard",
-      "note_auteur": "Sépare la vision nietzschéenne de la vie de la recherche antique de la paix (Ataraxie).",
       "texte": "Le but de la vie n'est pas la recherche de la tranquillité, du bonheur tiède ou de l'absence de souffrance. La vie est fondamentalement une force d'expansion, de dépassement continu, de création et de domination (la Volonté de Puissance).",
       "scores": {
         "Nietzschéisme": 5,
@@ -982,7 +1086,6 @@
     {
       "id": "q_std_nietzsche_surhomme",
       "type": "standard",
-      "note_auteur": "Distingue Nietzsche du Nihilisme passif et de l'Existentialisme de Sartre.",
       "texte": "Face à la « mort de Dieu » et l'absence de sens préétabli, il ne faut ni sombrer dans le désespoir nihiliste, ni se contenter des valeurs bourgeoises. L'être humain doit se surmonter lui-même et devenir le créateur absolu de ses propres valeurs (le Surhomme).",
       "scores": {
         "Nietzschéisme": 5,
@@ -997,21 +1100,24 @@
     {
       "id": "q_std_agnosticisme_arrogance",
       "type": "standard",
-      "note_auteur": "Renforce l'Agnosticisme en attaquant la certitude dogmatique (religieuse ET athée).",
       "texte": "L'univers est si vaste, ancien et complexe que prétendre détenir « la » vérité absolue sur son origine, ou affirmer avec certitude que Dieu existe ou n'existe pas, relève d'une immense arrogance intellectuelle.",
       "scores": {
         "Agnosticisme": 5,
         "Bouddhisme_Séculier": 3,
-        "Salafisme": -5,
         "Catholicisme_Orthodoxe": -5,
-        "Athéisme_Matérialiste": -4,
-        "Protestantisme_Évangélique": -5
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Athéisme_Matérialiste": -4
       }
     },
     {
       "id": "q_std_lecture_critique",
       "type": "standard",
-      "note_auteur": "Sépare les courants libéraux des orthodoxies littéralistes.",
       "texte": "Les textes sacrés (Bible, Coran) ont été écrits par des hommes situés dans une époque et une culture précises. Il ne faut surtout pas les lire au sens littéral ou comme des codes juridiques intemporels, mais en extraire uniquement le message spirituel et moral (amour, justice), quitte à en rejeter les passages obsolètes ou violents.",
       "scores": {
         "Christianisme_Libéral": 5,
@@ -1027,7 +1133,6 @@
     {
       "id": "q_std_islam_liberal_charia",
       "type": "standard",
-      "note_auteur": "Filtre décisif pour l'Islam Libéral face à l'Islam Orthodoxe.",
       "texte": "Les châtiments corporels et les anciennes règles juridiques (la Charia) n'ont plus leur place aujourd'hui. Un croyant moderne doit se soumettre aux lois laïques et démocratiques de son pays, car l'esprit d'équité voulu par le Divin est infiniment supérieur à la lettre ancienne de la Loi.",
       "scores": {
         "Islam_Libéral": 5,
@@ -1041,7 +1146,6 @@
     {
       "id": "q_std_christianisme_social",
       "type": "standard",
-      "note_auteur": "Propulse le Christianisme Libéral (axé sur l'action sociale plutôt que sur le dogme et les rites).",
       "texte": "Le véritable message religieux ne consiste pas à adhérer à des dogmes complexes (Trinité, infaillibilité) ou à célébrer de grands rites liturgiques. Il consiste exclusivement à combattre les injustices sociales, à défendre les opprimés et à pratiquer l'amour inconditionnel du prochain.",
       "scores": {
         "Christianisme_Libéral": 5,
@@ -1056,7 +1160,6 @@
     {
       "id": "q_std_soufisme_amour",
       "type": "standard",
-      "note_auteur": "Distingue la mystique de l'amour (Soufisme) de la religion de la loi (Salafisme/Orthodoxie).",
       "texte": "La relation au Divin ne doit être fondée ni sur la peur de l'Enfer, ni sur l'espoir du Paradis, ni sur l'obéissance stricte à un code pénal. Elle doit être une quête intime, passionnée et presque poétique d'Amour pur, cherchant l'union où l'ego s'efface.",
       "scores": {
         "Soufisme": 5,
@@ -1071,7 +1174,6 @@
     {
       "id": "q_std_transhumanisme_limites",
       "type": "standard",
-      "note_auteur": "Cible la philosophie fondatrice du Transhumanisme (refus de la fatalité biologique).",
       "texte": "La condition humaine, avec sa vulnérabilité, sa vieillesse et sa mortalité, n'est pas une fatalité naturelle ou divine qu'il faudrait accepter avec sagesse. C'est un défaut biologique que nous avons le droit et le devoir de corriger grâce aux avancées technologiques et génétiques.",
       "scores": {
         "Transhumanisme": 5,
@@ -1087,7 +1189,6 @@
       "id": "ct_transhumanisme_fusion",
       "type": "crash_test",
       "cible_identite": "autre",
-      "note_auteur": "Radicalise le clivage transhumaniste.",
       "texte": "L'hybridation physique de l'être humain avec la machine et l'Intelligence Artificielle (implants neuronaux, nanotechnologies) est la prochaine étape inévitable et profondément souhaitable de notre évolution pour transcender notre condition charnelle.",
       "scores": {
         "Transhumanisme": 5,
@@ -1101,7 +1202,6 @@
     {
       "id": "q_std_evang_nouvelle_naissance",
       "type": "standard",
-      "note_auteur": "Le concept de 'Born Again'. Sépare les évangéliques des catholiques/orthodoxes qui croient au salut par les sacrements (baptême des bébés).",
       "texte": "Pour être sauvé et avoir une véritable relation avec Dieu, il ne suffit pas d'être né dans une culture chrétienne, de faire de bonnes œuvres ou d'avoir été baptisé bébé. Il faut vivre une conversion personnelle, une « nouvelle naissance », en acceptant consciemment Jésus-Christ comme son Sauveur personnel.",
       "scores": {
         "Protestantisme_Évangélique": 5,
@@ -1114,7 +1214,6 @@
     {
       "id": "q_std_evang_inerrance",
       "type": "standard",
-      "note_auteur": "Le Littéralisme biblique (Inerrance). Sépare les évangéliques du Christianisme Libéral.",
       "texte": "La Bible est la parole inspirée de Dieu, infaillible et sans aucune erreur. Elle fait autorité non seulement sur le plan spirituel et moral, mais elle est également exacte dans ses affirmations historiques et sur l'origine du monde (création).",
       "scores": {
         "Protestantisme_Évangélique": 5,
@@ -1127,7 +1226,6 @@
     {
       "id": "q_std_evang_proselytisme",
       "type": "standard",
-      "note_auteur": "L'urgence de l'évangélisation (La Grande Mission) face à l'action purement sociale.",
       "texte": "Puisque la foi personnelle en Christ est l'unique chemin pour échapper à la damnation, le devoir premier et absolu du croyant est de partager activement sa foi pour convertir les autres et sauver leurs âmes, bien avant de se contenter de faire de l'action sociale ou du dialogue interreligieux.",
       "scores": {
         "Protestantisme_Évangélique": 5,
@@ -1138,6 +1236,8 @@
         "Agnosticisme": -5
       }
     }
+  ]
+}
   ],
   "dissonances": [
     {
