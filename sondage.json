@@ -25,24 +25,90 @@
       "type": "qcm",
       "texte": "Parmi ces écrits, lequel a pour vous le statut d'autorité spirituelle absolue et indépassable ?",
       "options": [
-        { "label": "L'Ancien Testament (Torah / Tanakh)", "scores": {"Judaïsme": 5} },
-        { "label": "Le Nouveau Testament (Évangiles)", "scores": {"Catholicisme_Orthodoxe": 5, "Christianisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Protestantisme_Évangélique": 5} },
-        { "label": "Le Coran", "scores": {"Islam_Orthodoxe": 5, "Salafisme": 5} },
-        { "label": "Le Talmud", "scores": {"Judaïsme": 5} },
-        { "label": "Un autre texte sacré (Védas, Sutras, Tao Te King...)", "scores": {"Hindouisme": 5, "Bouddhisme_Traditionnel": 5, "Spiritualité_New_Age": 3} },
-        { "label": "Les textes dits « sacrés » n'ont pas plus de valeur que les autres œuvres humaines", "scores": {"Athéisme_Matérialiste": 5, "Humanisme_Séculier": 5, "Agnosticisme": 4, "Nihilisme": 4, "Nietzschéisme": 4} }
+        { 
+          "label": "L'Ancien Testament (Torah / Tanakh)", 
+          "scores": {
+            "Judaïsme": 5,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "Le Nouveau Testament (Évangiles)", 
+          "scores": {
+            "Catholicisme_Orthodoxe": 5, "Christianisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Protestantisme_Évangélique": 5, "Christianisme_Libéral": 4,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "Le Coran", 
+          "scores": {
+            "Islam_Orthodoxe": 5, "Salafisme": 5, "Islam_Libéral": 4,
+            "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "Le Talmud", 
+          "scores": {
+            "Judaïsme": 5,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "Un autre texte sacré (Védas, Sutras, Tao Te King...)", 
+          "scores": {
+            "Hindouisme": 5, "Bouddhisme_Traditionnel": 5, "Spiritualité_New_Age": 3,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "Les textes dits « sacrés » n'ont pas plus de valeur que les autres œuvres humaines", 
+          "scores": {
+            "Athéisme_Matérialiste": 5, "Humanisme_Séculier": 5, "Agnosticisme": 4, "Nihilisme": 4, "Nietzschéisme": 4,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Judaïsme": -5, "Hindouisme": -5
+          } 
+        }
       ]
     },
-    {
+  {
       "id": "qcm_au_dela",
       "type": "qcm",
       "texte": "Selon vous, que se passe-t-il véritablement au moment de la mort physique ?",
       "options": [
-        { "label": "L'âme est jugée par un Créateur : elle connaîtra soit le salut (Paradis), soit la damnation (Enfer).", "scores": {"Catholicisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Islam_Orthodoxe": 5, "Salafisme": 5, "Christianisme_Orthodoxe": 5, "Protestantisme_Évangélique": 5} },
-        { "label": "La conscience subit un cycle de renaissances (réincarnation) régi par la loi implacable du Karma.", "scores": {"Bouddhisme_Traditionnel": 5, "Hindouisme": 5} },
-        { "label": "L'âme survit ou fusionne paisiblement avec l'Univers, mais l'idée d'un « Enfer » punitif est une invention humaine.", "scores": {"Déisme": 5, "Panthéisme": 4, "Christianisme_Mystique": 4, "Spiritualité_New_Age": 4, "Soufisme": 4} },
-        { "label": "La conscience s'éteint totalement et définitivement. Il n'y a plus rien d'autre que le néant absolu.", "scores": {"Athéisme_Matérialiste": 5, "Épicurisme": 5, "Nihilisme": 5, "Existentialisme": 4, "Nietzschéisme": 4} },
-        { "label": "Il est impossible de le savoir. L'urgence est de vivre moralement le présent sans spéculer sur l'inconnaissable.", "scores": {"Agnosticisme": 5, "Stoïcisme": 5, "Humanisme_Séculier": 5, "Bouddhisme_Séculier": 4} }
+        { 
+          "label": "L'âme est jugée par un Créateur : elle connaîtra soit le salut (Paradis), soit la damnation (Enfer).", 
+          "scores": {
+            "Catholicisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Islam_Orthodoxe": 5, "Salafisme": 5, "Christianisme_Orthodoxe": 5, "Protestantisme_Évangélique": 5,
+            "Bouddhisme_Traditionnel": -5, "Hindouisme": -5, "Athéisme_Matérialiste": -5, "Épicurisme": -5, "Nihilisme": -5, "Nietzschéisme": -5, "Spiritualité_New_Age": -5
+          } 
+        },
+        { 
+          "label": "La conscience subit un cycle de renaissances (réincarnation) régi par la loi implacable du Karma.", 
+          "scores": {
+            "Bouddhisme_Traditionnel": 5, "Hindouisme": 5,
+            "Catholicisme_Orthodoxe": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "L'âme survit ou fusionne paisiblement avec l'Univers, mais l'idée d'un « Enfer » punitif est une invention humaine.", 
+          "scores": {
+            "Déisme": 5, "Panthéisme": 4, "Christianisme_Mystique": 4, "Spiritualité_New_Age": 4, "Soufisme": 4,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "La conscience s'éteint totalement et définitivement. Il n'y a plus rien d'autre que le néant absolu.", 
+          "scores": {
+            "Athéisme_Matérialiste": 5, "Épicurisme": 5, "Nihilisme": 5, "Existentialisme": 4, "Nietzschéisme": 4,
+            "Catholicisme_Orthodoxe": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Judaïsme": -5, "Bouddhisme_Traditionnel": -5, "Hindouisme": -5, "Spiritualité_New_Age": -5
+          } 
+        },
+        { 
+          "label": "Il est impossible de le savoir. L'urgence est de vivre moralement le présent sans spéculer sur l'inconnaissable.", 
+          "scores": {
+            "Agnosticisme": 5, "Stoïcisme": 5, "Humanisme_Séculier": 5, "Bouddhisme_Séculier": 4,
+            "Salafisme": -5, "Islam_Orthodoxe": -5, "Protestantisme_Évangélique": -5, "Catholicisme_Orthodoxe": -5, "Calvinisme": -5
+          } 
+        }
       ]
     },
     {
