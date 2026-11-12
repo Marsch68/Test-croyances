@@ -17,6 +17,19 @@
       ]
     },
     {
+      "id": "qcm_livre_sacre",
+      "type": "qcm",
+      "texte": "Parmi ces écrits, lequel a pour vous le statut d'autorité spirituelle absolue et indépassable ?",
+      "options": [
+        { "label": "L'Ancien Testament (Torah / Tanakh)", "scores": {"Judaïsme": 5} },
+        { "label": "Le Nouveau Testament (Évangiles)", "scores": {"Catholicisme_Orthodoxe": 5, "Christianisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5} },
+        { "label": "Le Coran", "scores": {"Islam_Orthodoxe": 5, "Salafisme": 5} },
+        { "label": "Le Talmud", "scores": {"Judaïsme": 5} },
+        { "label": "Un autre texte sacré (Védas, Sutras, Tao Te King...)", "scores": {"Hindouisme": 5, "Bouddhisme_Traditionnel": 5} },
+        { "label": "Les textes dits « sacrés » n'ont pas plus de valeur que les autres œuvres humaines", "scores": {"Athéisme_Matérialiste": 5, "Humanisme_Séculier": 5, "Agnosticisme": 4, "Nihilisme": 4} }
+      ]
+    },
+    {
       "id": "q_poli_etat_raison",
       "type": "standard",
       "note_auteur": "Sépare le Spinozisme (qui valorise l'État rationnel et la coopération) de l'Anarchisme, du Nihilisme et de l'Épicurisme (qui fuit la politique).",
