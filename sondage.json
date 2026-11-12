@@ -6,6 +6,7 @@
       "texte": "De quel courant religieux ou philosophique vous considérez-vous aujourd'hui le plus proche (culturellement ou spirituellement) ?",
       "options": [
         { "valeur": "chretien", "label": "Christianisme (Catholique, Protestant, Orthodoxe...)" },
+        { "valeur": "evangelique", "label": "Protestantisme Évangélique (Conversion personnelle, autorité stricte de la Bible)" },
         { "valeur": "islam", "label": "Islam" },
         { "valeur": "sagesses_asiatiques", "label": "Bouddhisme et Sagesses asiatiques (Hindouisme, Zen...)" },
         { "valeur": "antiquite", "label": "Philosophies antiques (Stoïcisme, Épicurisme...)" },
@@ -24,7 +25,7 @@
       "texte": "Parmi ces écrits, lequel a pour vous le statut d'autorité spirituelle absolue et indépassable ?",
       "options": [
         { "label": "L'Ancien Testament (Torah / Tanakh)", "scores": {"Judaïsme": 5} },
-        { "label": "Le Nouveau Testament (Évangiles)", "scores": {"Catholicisme_Orthodoxe": 5, "Christianisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5} },
+    { "label": "Le Nouveau Testament (Évangiles)", "scores": {"Catholicisme_Orthodoxe": 5, "Christianisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Protestantisme_Évangélique": 5} },
         { "label": "Le Coran", "scores": {"Islam_Orthodoxe": 5, "Salafisme": 5} },
         { "label": "Le Talmud", "scores": {"Judaïsme": 5} },
         { "label": "Un autre texte sacré (Védas, Sutras, Tao Te King...)", "scores": {"Hindouisme": 5, "Bouddhisme_Traditionnel": 5, "Spiritualité_New_Age": 3} },
@@ -36,7 +37,7 @@
       "type": "qcm",
       "texte": "Selon vous, que se passe-t-il véritablement au moment de la mort physique ?",
       "options": [
-        { "label": "L'âme est jugée par un Créateur : elle connaîtra soit le salut (Paradis), soit la damnation (Enfer).", "scores": {"Catholicisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Islam_Orthodoxe": 5, "Salafisme": 5, "Christianisme_Orthodoxe": 5} },
+        { "label": "L'âme est jugée par un Créateur : elle connaîtra soit le salut (Paradis), soit la damnation (Enfer).", "scores": {"Catholicisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Islam_Orthodoxe": 5, "Salafisme": 5, "Christianisme_Orthodoxe": 5, "Protestantisme_Évangélique": 5} },
         { "label": "La conscience subit un cycle de renaissances (réincarnation) régi par la loi implacable du Karma.", "scores": {"Bouddhisme_Traditionnel": 5, "Hindouisme": 5} },
         { "label": "L'âme survit ou fusionne paisiblement avec l'Univers, mais l'idée d'un « Enfer » punitif est une invention humaine.", "scores": {"Déisme": 5, "Panthéisme": 4, "Christianisme_Mystique": 4, "Spiritualité_New_Age": 4} },
         { "label": "La conscience s'éteint totalement et définitivement. Il n'y a plus rien d'autre que le néant absolu.", "scores": {"Athéisme_Matérialiste": 5, "Épicurisme": 5, "Nihilisme": 5, "Existentialisme": 4, "Nietzschéisme": 4} },
