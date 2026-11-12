@@ -7,6 +7,7 @@
       "options": [
         { "valeur": "chretien", "label": "Christianisme (Catholique, Protestant, Orthodoxe...)" },
         { "valeur": "evangelique", "label": "Protestantisme Évangélique (Conversion personnelle, autorité stricte de la Bible)" },
+        { "valeur": "judaisme", "label": "Judaïsme (Torah, respect de l'Alliance)" },
         { "valeur": "islam", "label": "Islam" },
         { "valeur": "sagesses_asiatiques", "label": "Bouddhisme et Sagesses asiatiques (Hindouisme, Zen...)" },
         { "valeur": "antiquite", "label": "Philosophies antiques (Stoïcisme, Épicurisme...)" },
