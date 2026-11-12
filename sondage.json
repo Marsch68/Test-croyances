@@ -13,6 +13,7 @@
         { "valeur": "atheisme", "label": "Athéisme (Conviction que le divin n'existe pas)" },
         { "valeur": "agnosticisme", "label": "Agnosticisme strict (Suspension totale du jugement)" },
         { "valeur": "autre", "label": "Autre / Sans étiquette" },
+        { "valeur": "nietzscheisme", "label": "Nietzschéisme (Volonté de puissance, Surhomme, Amor Fati)" },
         { "valeur": "new_age", "label": "Spiritualité New Age (Énergies, loi de l'attraction, mélange de traditions)" },
         { "valeur": "sans_apriori", "label": "🔍 Découvrir mes croyances profondes (Test aveugle)" }
       ]
@@ -841,6 +842,73 @@
         "Athéisme_Matérialiste": -5,
         "Épicurisme": -5
       }
+    },
+    {
+      "id": "ct_nietzsche_amor_fati",
+      "type": "crash_test",
+      "cible_identite": "nietzscheisme",
+      "texte": "Je suis prêt à revivre ma vie exactement telle qu'elle a été, avec toutes ses souffrances et ses atrocités, un nombre infini de fois pour l'éternité (l'Éternel Retour). Je ne veux ni fuir la douleur, ni chercher la paix, mais aimer mon destin de manière inconditionnelle (Amor Fati).",
+      "scores": {
+        "Nietzschéisme": 5,
+        "Bouddhisme_Traditionnel": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Épicurisme": -5,
+        "Islam_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "ct_nietzsche_morale_esclaves",
+      "type": "crash_test",
+      "cible_identite": "nietzscheisme",
+      "texte": "La pitié, l'égalité absolue et la morale universelle (qui glorifient les faibles et les victimes) sont des maladies qui affaiblissent l'humanité. La véritable grandeur réside dans la hiérarchie, l'élitisme créateur et l'affirmation de la force vitale.",
+      "scores": {
+        "Nietzschéisme": 5,
+        "Humanisme_Séculier": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Libéral": -5,
+        "Bouddhisme_Séculier": -5
+      }
+    },
+    {
+      "id": "q_std_nietzsche_arriere_mondes",
+      "type": "standard",
+      "note_auteur": "Détruit les idéalismes de Platon et les paradis abrahamiques.",
+      "texte": "L'idée d'un « Paradis », d'un « Nirvana » ou d'un monde spirituel parfait n'est qu'une invention des fatigués de la vie pour fuir et calomnier le seul monde qui existe réellement : ce monde terrestre, charnel, tragique et changeant.",
+      "scores": {
+        "Nietzschéisme": 5,
+        "Athéisme_Matérialiste": 3,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Bouddhisme_Traditionnel": -5,
+        "Panthéisme": -3
+      }
+    },
+    {
+      "id": "q_std_nietzsche_volonte_puissance",
+      "type": "standard",
+      "note_auteur": "Sépare la vision nietzschéenne de la vie de la recherche antique de la paix (Ataraxie).",
+      "texte": "Le but de la vie n'est pas la recherche de la tranquillité, du bonheur tiède ou de l'absence de souffrance. La vie est fondamentalement une force d'expansion, de dépassement continu, de création et de domination (la Volonté de Puissance).",
+      "scores": {
+        "Nietzschéisme": 5,
+        "Transhumanisme": 3,
+        "Épicurisme": -5,
+        "Bouddhisme_Séculier": -4,
+        "Stoïcisme": -3
+      }
+    },
+    {
+      "id": "q_std_nietzsche_surhomme",
+      "type": "standard",
+      "note_auteur": "Distingue Nietzsche du Nihilisme passif et de l'Existentialisme de Sartre.",
+      "texte": "Face à la « mort de Dieu » et l'absence de sens préétabli, il ne faut ni sombrer dans le désespoir nihiliste, ni se contenter des valeurs bourgeoises. L'être humain doit se surmonter lui-même et devenir le créateur absolu de ses propres valeurs (le Surhomme).",
+      "scores": {
+        "Nietzschéisme": 5,
+        "Existentialisme": 4,
+        "Humanisme_Séculier": 2,
+        "Nihilisme": -5,
+        "Calvinisme": -5,
+        "Islam_Orthodoxe": -5
+      }
     }
   ],
   "dissonances": [
@@ -943,6 +1011,17 @@
       "code": "NEW_AGE_VS_MATERIALISME",
       "condition": "rep['q_std_new_age_guerison'] > 0 && (rep['q_meta_fantome_machine'] > 0 || rep['ct_athe_materiel'] > 0 || rep['q_std_epicurisme'] > 0)",
       "message": "<strong>Médecine Énergétique face au Matérialisme Strict :</strong> Vous affirmez que la maladie est liée à un déséquilibre d'énergies invisibles ou à une leçon spirituelle (approche holistique/New Age), mais vous soutenez par ailleurs que l'univers est purement matériel et que l'esprit n'est que de la biochimie (Matérialisme/Épicurisme). C'est une contradiction philosophique et scientifique majeure : on ne peut pas invoquer l'action de chakras, d'ondes spirituelles ou de mémoires de l'âme si l'on considère que seule la matière physique et la mécanique biologique constituent le réel."
+    },
+    {
+      "code": "NIETZSCHE_VS_HUMANISME",
+      "condition": "rep['ct_nietzsche_morale_esclaves'] > 0 && (rep['ct_athe_humanisme'] > 0 || rep['q_ethi_devoir_absolu'] > 0)",
+      "message": "<strong>Le Surhomme face à la Morale Universelle :</strong> Vous validez la critique nietzschéenne de l'égalitarisme et de la pitié (assumant une éthique aristocratique de la puissance), mais vous affirmez simultanément l'existence de devoirs moraux absolus ou d'un humanisme fondé sur la solidarité universelle. C'est une fracture philosophique majeure : Nietzsche considère la morale des droits de l'homme et l'égalité universelle comme une « morale d'esclaves » destinée à brider la vitalité des créateurs."
+    },
+    {
+      "code": "NIETZSCHE_VS_RENONCEMENT",
+      "condition": "(rep['ct_nietzsche_amor_fati'] > 0 || rep['q_std_nietzsche_volonte_puissance'] > 0) && (rep['q_std_extinction_desir'] > 0 || rep['q_ethi_attachement_souffrance'] > 0 || rep['q_ethi_calcul_plaisirs'] > 0)",
+      "message": "<strong>Amor Fati face au Renoncement :</strong> Vous affirmez vouloir embrasser la vie dans toute sa tragédie et sa puissance (l'Amor Fati ou Volonté de Puissance nietzschéenne), mais vous validez par ailleurs la nécessité d'éteindre vos désirs, de fuir l'attachement pour éviter la souffrance, ou de calculer tièdement vos plaisirs. Nietzsche méprisait profondément ces sagesses du renoncement (Bouddhisme, Épicurisme) qu'il qualifiait de « nihilisme passif » : pour lui, vouloir supprimer la souffrance, c'est vouloir supprimer l'énergie même de la vie."
     }
+
   ]
 }
