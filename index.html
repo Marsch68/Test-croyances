@@ -276,13 +276,23 @@
       <div class="zone-boutons-fin" style="display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
         <button class="btn-choix" style="border-color: #95a5a6; font-weight: bold;" onclick="imprimerResultats()">🖨️ Imprimer / PDF</button>
         
-        <!-- LE NOUVEAU BOUTON DE PARTAGE -->
+        <!-- BOUTON DE PARTAGE -->
         <button class="btn-choix" id="btn-partage" style="border-color: #f39c12; background-color: #fcf3cf; font-weight: bold; color: #d35400;" onclick="partagerResultats()">🔗 Partager mes résultats</button>
+        
+        <!-- BOUTON D'AUDIT -->
+        <button class="btn-choix" style="border-color: #8e44ad; background-color: #f4ecf7; font-weight: bold; color: #8e44ad;" onclick="basculerLogique()">🧠 Comprendre mon résultat</button>
         
         <button class="btn-choix" style="border-color: var(--primary); font-weight: bold;" onclick="recommencerSondage()">↺ Refaire le test</button>
       </div>
-    </div>
-  </div>
+      
+      <!-- LE RAPPORT CACHÉ DE L'ALGORITHME (Apparaît au clic sur l'audit) -->
+      <div id="bloc-logique" style="display: none; margin-top: 30px; padding: 25px; background-color: #fdfefe; border: 2px dashed #bdc3c7; border-radius: 8px; text-align: left; font-size: 0.95em; color: #34495e;">
+        <h3 style="color: #2c3e50; margin-top: 0; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">Transparence de l'Algorithme</h3>
+        <div id="contenu-logique"></div>
+      </div>
+
+    </div> <!-- Fin de la div #resultats -->
+  </div> <!-- Fin de la div #app-container -->
 
  <script>
     // --- 1. Variables de base (existantes) ---
@@ -777,6 +787,81 @@ Venez tester vos propres croyances et paradoxes !`;
         console.error("Erreur lors de la copie :", err);
         alert("Votre navigateur empêche la copie automatique. Vous pouvez sélectionner et copier le texte vous-même.");
       });
+    }function basculerLogique() {
+      const bloc = document.getElementById("bloc-logique");
+      const contenu = document.getElementById("contenu-logique");
+      
+      // Si le bloc est déjà ouvert, on le referme
+      if (bloc.style.display === "block") {
+        bloc.style.display = "none";
+        return;
+      }
+      
+      // Sinon, on l'affiche et on génère le rapport
+      bloc.style.display = "block";
+      let html = "<p>Voici la décomposition exacte des points attribués en coulisses :</p><ul style='padding-left: 0; list-style-type: none;'>";
+      
+      for (const [qId, rep] of Object.entries(reponsesUtilisateur)) {
+        if (qId === "q_identite") continue; // On ignore la question d'aiguillage
+        
+        const qDef = toutesQuestions.find(q => q.id === qId);
+        if (!qDef) continue;
+        
+        html += `<li style="margin-bottom: 20px; padding: 15px; background: #f4f6f7; border-radius: 8px; border-left: 4px solid #3498db;">
+                   <strong>Question :</strong> <em>${qDef.texte}</em><br>`;
+                   
+        // CAS DU QCM
+        if (typeof rep === "object" && rep.type === "qcm") {
+           // Retrouver le texte de l'option cliquée
+           const optionChoisie = qDef.options.find(opt => JSON.stringify(opt.scores) === JSON.stringify(rep.scores));
+           const label = optionChoisie ? optionChoisie.label : "Option QCM";
+           
+           html += `<strong style="color: #2980b9;">Votre choix :</strong> ${label}<br>`;
+           html += `<strong>Points attribués (Bruts) :</strong> `;
+           
+           const impacts = [];
+           for (const [profil, pts] of Object.entries(rep.scores)) {
+             const couleur = pts > 0 ? '#27ae60' : '#c0392b';
+             const signe = pts > 0 ? '+' : '';
+             impacts.push(`${profil} (<span style="color: ${couleur}; font-weight:bold;">${signe}${pts}</span>)`);
+           }
+           html += impacts.length > 0 ? impacts.join(', ') : "Aucun";
+        } 
+        // CAS CLASSIQUE (Multiplication)
+        else if (typeof rep === "number") {
+           const mapReponse = {
+             "2": "Tout à fait d'accord (Multiplicateur x2)",
+             "1": "Plutôt d'accord (Multiplicateur x1)",
+             "0": "Neutre (Aucun point n'est calculé)",
+             "-1": "Plutôt pas d'accord (Multiplicateur x-1)",
+             "-2": "Pas du tout d'accord (Multiplicateur x-2)"
+           };
+           
+           html += `<strong style="color: #2980b9;">Votre choix :</strong> ${mapReponse[rep]}<br>`;
+           
+           if (rep !== 0 && qDef.scores) {
+             html += `<strong>Points attribués (Après multiplication) :</strong> `;
+             const impacts = [];
+             for (const [profil, poids] of Object.entries(qDef.scores)) {
+               const pointsObtenus = poids * rep;
+               const couleur = pointsObtenus > 0 ? '#27ae60' : '#c0392b';
+               const signe = pointsObtenus > 0 ? '+' : '';
+               impacts.push(`${profil} (<span style="color: ${couleur}; font-weight:bold;">${signe}${pointsObtenus}</span>)`);
+             }
+             html += impacts.join(', ');
+           }
+        }
+        
+        html += `</li>`;
+      }
+      
+      html += "</ul>";
+      html += "<p style='font-size: 0.9em; color: #7f8c8d; border-top: 1px solid #ccc; padding-top: 10px;'><em>Note : Les profils ne s'affichent sur le radar final que si vous avez été confronté à au moins 10 points potentiels pour eux (afin d'éviter les faux positifs).</em></p>";
+      
+      contenu.innerHTML = html;
+      
+      // Faire défiler l'écran doucement jusqu'au rapport
+      bloc.scrollIntoView({ behavior: 'smooth' });
     }
 
     window.onload = initApp;
