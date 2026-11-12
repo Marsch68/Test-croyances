@@ -13,6 +13,7 @@
         { "valeur": "atheisme", "label": "Athéisme (Conviction que le divin n'existe pas)" },
         { "valeur": "agnosticisme", "label": "Agnosticisme strict (Suspension totale du jugement)" },
         { "valeur": "autre", "label": "Autre / Sans étiquette" },
+        { "valeur": "new_age", "label": "Spiritualité New Age (Énergies, loi de l'attraction, mélange de traditions)" },
         { "valeur": "sans_apriori", "label": "🔍 Découvrir mes croyances profondes (Test aveugle)" }
       ]
     },
@@ -769,6 +770,77 @@
         "Catholicisme_Orthodoxe": -5,
         "Christianisme_Orthodoxe": -5
       }
+    },
+    {
+      "id": "q_std_new_age_energies",
+      "type": "standard",
+      "texte": "L'univers est un vaste champ d'énergies vibratoires. Par la force de nos pensées et de nos intentions (comme la loi de l'attraction), nous pouvons manifester notre réalité et attirer à nous le positif.",
+      "scores": {
+        "Spiritualité_New_Age": 5,
+        "Christianisme_Mystique": 2,
+        "Athéisme_Matérialiste": -5,
+        "Calvinisme": -5,
+        "Stoïcisme": -3,
+        "Épicurisme": -4
+      }
+    },
+    {
+      "id": "ct_new_age_syncretisme",
+      "type": "crash_test",
+      "cible_identite": "new_age",
+      "texte": "Il n'y a pas de religion absolue : toutes les grandes traditions spirituelles (chrétiennes, bouddhistes, chamaniques...) convergent vers la même lumière. Chacun est donc libre d'y piocher ce qui résonne en lui pour créer sa propre vérité intérieure.",
+      "scores": {
+        "Spiritualité_New_Age": 5,
+        "Panthéisme": 3,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Judaïsme": -5,
+        "Calvinisme": -5,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "q_std_new_age_guerison",
+      "type": "standard",
+      "note_auteur": "Oppose la vision énergétique/holistique à la médecine matérialiste pure et au fatalisme.",
+      "texte": "La maladie n'est pas qu'un simple dysfonctionnement biologique ou mécanique. Elle est très souvent le reflet d'un déséquilibre énergétique, d'un blocage émotionnel ou d'une leçon que l'âme doit comprendre. La véritable guérison exige de réharmoniser nos énergies et nos pensées, et pas seulement d'avaler des médicaments chimiques.",
+      "scores": {
+        "Spiritualité_New_Age": 5,
+        "Christianisme_Mystique": 2,
+        "Athéisme_Matérialiste": -5,
+        "Épicurisme": -4,
+        "Stoïcisme": -3,
+        "Calvinisme": -4
+      }
+    },
+    {
+      "id": "q_std_new_age_divin_interieur",
+      "type": "standard",
+      "note_auteur": "Sépare l'immanence du Moi supérieur (New Age) de la transcendance abrahamique (un Dieu extérieur et juge).",
+      "texte": "Il n'y a pas de Dieu extérieur qui nous surveille ou nous juge depuis les cieux. Le véritable divin est à l'intérieur de nous : nous sommes tous des êtres de lumière ou des parcelles de l'Univers incarnées dans la matière. Notre but spirituel est de nous éveiller à notre propre divinité (notre « Moi supérieur »).",
+      "scores": {
+        "Spiritualité_New_Age": 5,
+        "Hindouisme": 3,
+        "Panthéisme": 3,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "q_std_new_age_ecole_ame",
+      "type": "standard",
+      "note_auteur": "Clivage majeur : le New Age voit la réincarnation comme une école positive, le Bouddhisme historique la voit comme le Samsara (souffrance).",
+      "texte": "L'âme s'incarne sur Terre comme dans une immense école, afin d'apprendre des leçons, de faire des expériences et d'évoluer spirituellement de vie en vie. La réincarnation n'est pas une punition ou un cycle de souffrance qu'il faut fuir, mais un merveilleux processus d'évolution cosmique.",
+      "scores": {
+        "Spiritualité_New_Age": 5,
+        "Bouddhisme_Traditionnel": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Athéisme_Matérialiste": -5,
+        "Épicurisme": -5
+      }
     }
   ],
   "dissonances": [
@@ -861,6 +933,16 @@
       "code": "SOLA_SCRIPTURA_VS_MAGISTERE",
       "condition": "rep['q_std_sola_scriptura'] > 0 && rep['ct_chret_magistere'] > 0",
       "message": "<strong>L'Écriture Seule face à l'Infaillibilité Papale :</strong> Vous affirmez que la Bible est l'unique source d'autorité infaillible (Sola Scriptura), mais vous reconnaissez simultanément l'infaillibilité du Pape lorsqu'il s'exprime ex cathedra. C'est la contradiction fondamentale qui a provoqué le schisme de la Réforme au XVIe siècle : si le texte biblique se suffit à lui-même en tant qu'autorité ultime, aucune institution humaine, pas même le Magistère romain, ne peut ajouter de dogmes qui auraient le même niveau de divinité ou d'infaillibilité."
+    },
+    {
+      "code": "NEW_AGE_VS_DETERMINISME",
+      "condition": "rep['q_std_new_age_energies'] > 0 && rep['q_epis_neuro_determinisme'] > 0",
+      "message": "<strong>La Loi de l'Attraction face au Neuro-déterminisme :</strong> Vous croyez pouvoir influencer l'univers et manifester votre réalité par la force de vos pensées et intentions (New Age), mais vous affirmez simultanément que votre libre-arbitre n'est qu'une illusion générée par les réactions chimiques de votre cerveau. Ces deux visions s'excluent radicalement : si la chimie décide mécaniquement de tout à l'avance, la pensée ne possède aucun libre-arbitre, ni aucun pouvoir « magique » pour influencer le cosmos."
+    },
+    {
+      "code": "NEW_AGE_VS_MATERIALISME",
+      "condition": "rep['q_std_new_age_guerison'] > 0 && (rep['q_meta_fantome_machine'] > 0 || rep['ct_athe_materiel'] > 0 || rep['q_std_epicurisme'] > 0)",
+      "message": "<strong>Médecine Énergétique face au Matérialisme Strict :</strong> Vous affirmez que la maladie est liée à un déséquilibre d'énergies invisibles ou à une leçon spirituelle (approche holistique/New Age), mais vous soutenez par ailleurs que l'univers est purement matériel et que l'esprit n'est que de la biochimie (Matérialisme/Épicurisme). C'est une contradiction philosophique et scientifique majeure : on ne peut pas invoquer l'action de chakras, d'ondes spirituelles ou de mémoires de l'âme si l'on considère que seule la matière physique et la mécanique biologique constituent le réel."
     }
   ]
 }
