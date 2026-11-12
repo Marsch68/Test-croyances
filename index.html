@@ -332,13 +332,13 @@
       return tableau;
     }
 
-    function afficherQuestion() {
+   function afficherQuestion() {
       const q = fileAttente[indexCourant];
       elQuestionTexte.textContent = q.texte;
       elChoicesContainer.innerHTML = ""; 
       elNavContainer.innerHTML = ""; 
 
-     if (q.type === "identite") {
+      if (q.type === "identite") {
         elProgress.textContent = "Introduction";
         q.options.forEach(opt => {
           const btn = document.createElement("button");
@@ -354,7 +354,25 @@
           btn.onclick = () => traiterIdentite(opt.valeur, q.id);
           elChoicesContainer.appendChild(btn);
         });
+        
+      } else if (q.type === "qcm") {
+        // --- NOUVEAU BLOC POUR LES QUESTIONS À CHOIX MULTIPLES (QCM) ---
+        elProgress.textContent = `Question ${indexCourant} / ${fileAttente.length - 1}`;
+        q.options.forEach(opt => {
+          const btn = document.createElement("button");
+          btn.className = "btn-choix";
+          btn.textContent = opt.label;
+          btn.onclick = () => {
+             // On sauvegarde directement les scores de l'option cliquée
+             reponsesUtilisateur[q.id] = { type: "qcm", scores: opt.scores };
+             preparerQuestionSuivante();
+          };
+          elChoicesContainer.appendChild(btn);
+        });
+        // ---------------------------------------------------------------
+        
       } else {
+        // --- BLOC STANDARD POUR LES QUESTIONS CLASSIQUES (Échelle) ---
         elProgress.textContent = `Question ${indexCourant} / ${fileAttente.length - 1}`;
         const echelle = [
           { val: 2, label: "Tout à fait d'accord" },
@@ -367,22 +385,15 @@
         echelle.forEach(item => {
           const btn = document.createElement("button");
           btn.className = "btn-choix";
-          btn.setAttribute("data-val", item.val);
           btn.textContent = item.label;
-          btn.onclick = () => enregistrerChoix(item.val, q.id);
+          btn.onclick = () => {
+            reponsesUtilisateur[q.id] = item.val;
+            preparerQuestionSuivante();
+          };
           elChoicesContainer.appendChild(btn);
         });
-
-        if (indexCourant > 0) {
-          const btnRetour = document.createElement("button");
-          btnRetour.className = "btn-retour";
-          btnRetour.textContent = "← Revenir à la question précédente";
-          btnRetour.onclick = questionPrecedente;
-          elNavContainer.appendChild(btnRetour);
-        }
       }
     }
-
     function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
       
@@ -500,16 +511,30 @@
       const maxPossibles = {};
 
       // 1. Calcul des points
-      for (const [qId, valeurChoisie] of Object.entries(reponses)) {
+      for (const [qId, rep] of Object.entries(reponses)) {
         if (qId === "q_identite") continue; 
         const question = toutesQuestions.find(q => q.id === qId);
-        if (question && question.scores) {
+        if (!question) continue;
+
+        // --- NOUVELLE LOGIQUE : Si la réponse est un QCM ---
+        if (typeof rep === "object" && rep.type === "qcm") {
+          for (const [profil, pointsQcm] of Object.entries(rep.scores)) {
+            if (!totaux[profil]) {
+              totaux[profil] = 0;
+              maxPossibles[profil] = 0;
+            }
+            totaux[profil] += pointsQcm;
+            maxPossibles[profil] += 5; // Le maximum atteignable pour ce QCM
+          }
+        } 
+        // --- LOGIQUE CLASSIQUE : Questions de l'échelle (-2 à 2) ---
+        else if (question.scores && typeof rep === "number") {
           for (const [profil, poids] of Object.entries(question.scores)) {
             if (!totaux[profil]) {
               totaux[profil] = 0;
               maxPossibles[profil] = 0;
             }
-            totaux[profil] += poids * valeurChoisie;
+            totaux[profil] += poids * rep;
             maxPossibles[profil] += Math.abs(poids) * 2;
           }
         }
@@ -518,7 +543,6 @@
       const resultats = [];
       // 2. Traitement avec le BOUCLIER STATISTIQUE
       for (const profil in totaux) {
-        // Le profil doit avoir au moins 16 points possibles (être testé par plusieurs questions)
         if (maxPossibles[profil] >= 16) {
           let ratio = totaux[profil] / maxPossibles[profil];
           if (ratio < 0) ratio = 0;
