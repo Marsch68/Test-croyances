@@ -3,47 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boussole Philosophique & Religieuse</title>
+  <title>La Boussole Philosophique et Religieuse</title>
   
+  <!-- Librairie Chart.js pour le graphique Radar -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+
   <style>
-   /* Le style spécial pour le bouton de découverte */
-    .btn-decouverte {
-      background: linear-gradient(135deg, #ff7e5f, #feb47b) !important;
-      color: white !important;
-      font-weight: bold;
-      border: none !important;
-      margin-top: 25px !important;
-      box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
-    }
-    .btn-decouverte:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 126, 95, 0.6);
-    }
-    /* ----- CSS : Typographie et Mise en page ----- */
+    /* ----- CSS : Typographie, Couleurs et Variables (Modern UI) ----- */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
     :root {
-      --bg-color: #f4f4f9;
-      --text-main: #2c3e50;
-      --btn-bg: #ffffff;
-      --btn-hover: #eef2f5;
-      --border-color: #dcdde1;
-      --primary: #3498db;
+      --bg-color: #f8fafc;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
     }
-.btn-decouverte {
-      background: linear-gradient(135deg, #ff7e5f, #feb47b) !important;
-      color: white !important;
-      font-weight: bold;
-      border: none !important;
-      margin-top: 25px !important;
-      box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
-    }
-    .btn-decouverte:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 126, 95, 0.6);
-    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-main);
       display: flex;
@@ -51,186 +33,174 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      padding: 20px;
     }
 
     #app-container {
-      background: #fff;
-      max-width: 600px;
-      width: 90%;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      background: var(--card-bg);
+      max-width: 650px;
+      width: 100%;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
       text-align: center;
+      transition: all 0.3s ease;
     }
 
+    /* ----- Zone Sondage ----- */
     #progress-text {
-      font-size: 0.9em;
-      color: #7f8c8d;
+      font-size: 0.85em;
+      color: var(--text-muted);
       margin-bottom: 20px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      font-weight: 600;
     }
 
     #question-texte {
-      font-size: 1.3em;
+      font-size: 1.4em;
       line-height: 1.5;
-      margin-bottom: 30px;
-      min-height: 80px;
-      font-weight: 500;
+      margin-bottom: 35px;
+      min-height: 90px;
+      font-weight: 600;
+      color: #0f172a;
     }
 
     .choices-grid {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .btn-choix {
       appearance: none;
-      background-color: var(--btn-bg);
+      background-color: var(--card-bg);
       border: 2px solid var(--border-color);
-      border-radius: 8px;
-      padding: 15px;
-      font-size: 1em;
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 1.05em;
+      font-family: inherit;
       color: var(--text-main);
       cursor: pointer;
-      transition: all 0.2s ease;
+      font-weight: 500;
+      transition: all 0.2s ease-in-out;
+      box-shadow: var(--shadow-sm);
     }
 
     .btn-choix:hover {
-      background-color: var(--btn-hover);
-      border-color: var(--primary);
+      background-color: #f1f5f9;
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
     }
+    .btn-choix:active { transform: translateY(1px); }
 
-    .btn-choix[data-val="-2"]:hover { border-color: #e74c3c; background-color: #fadbd8; }
-    .btn-choix[data-val="-1"]:hover { border-color: #e67e22; background-color: #fdebd0; }
-    .btn-choix[data-val="0"]:hover  { border-color: #95a5a6; background-color: #f2f4f4; }
-    .btn-choix[data-val="1"]:hover  { border-color: #2ecc71; background-color: #d5f5e3; }
-    .btn-choix[data-val="2"]:hover  { border-color: #27ae60; background-color: #abebc6; }
+    .btn-decouverte {
+      background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+      color: white !important;
+      border: none !important;
+      margin-top: 20px !important;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+    }
+    .btn-decouverte:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+    }
 
     .btn-retour {
       background-color: transparent;
       border: none;
-      color: #7f8c8d;
-      text-decoration: underline;
+      color: var(--text-muted);
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 0.95em;
       transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
-    .btn-retour:hover {
-      color: var(--text-main);
-    }
+    .btn-retour:hover { color: var(--text-main); text-decoration: underline; }
 
+    /* ----- Écran de Résultats ----- */
     #resultats { display: none; }
+    #resultats h2 { font-size: 1.8em; color: #0f172a; margin-bottom: 30px; }
 
     #bloc-dissonance-global {
-      margin-bottom: 20px;
-      padding: 20px;
-      background-color: var(--btn-hover);
+      margin-bottom: 25px;
+      padding: 25px;
+      background-color: #f8fafc;
+      border: 1px solid var(--border-color);
       border-radius: 12px;
       text-align: center;
-      transition: background-color 0.3s;
+      transition: all 0.3s ease;
     }
     #titre-dissonance {
       font-size: 0.85em;
       text-transform: uppercase;
-      color: #7f8c8d;
-      letter-spacing: 1px;
-      margin-bottom: 5px;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      margin-bottom: 10px;
     }
-    #valeur-dissonance {
-      font-size: 3em;
-      font-weight: bold;
-      margin: 5px 0;
-    }
-    #texte-dissonance {
-      font-size: 0.95em;
-      margin: 0;
-      color: var(--text-main);
-    }
+    #valeur-dissonance { font-size: 3.5em; font-weight: 700; margin: 5px 0 15px 0; line-height: 1; }
+    #texte-dissonance { font-size: 1em; margin: 0; color: var(--text-main); line-height: 1.5; }
     
     #bloc-synthese {
-      background-color: #f9fbfc;
-      border-left: 4px solid var(--primary);
-      padding: 20px;
-      margin-bottom: 30px;
+      background-color: #f0f9ff;
+      border-left: 5px solid var(--primary);
+      padding: 25px;
+      margin-bottom: 35px;
       text-align: left;
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 12px 12px 0;
       font-size: 1.05em;
-      line-height: 1.6;
-      color: #34495e;
+      line-height: 1.7;
+      color: #0f172a;
+      box-shadow: var(--shadow-sm);
     }
     #bloc-synthese h3 {
-      margin-top: 0;
-      color: var(--primary);
-      font-size: 1.1em;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      margin-top: 0; color: var(--primary); font-size: 1.1em;
+      margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;
     }
 
-    .chart-container {
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto 30px auto;
-    }
+    .chart-container { position: relative; width: 100%; max-width: 450px; margin: 0 auto 40px auto; }
     
-    .resultat-item {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-    .resultat-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    .barre-fond {
-      width: 100%;
-      background-color: var(--btn-hover);
-      border-radius: 6px;
-      overflow: hidden;
-      height: 12px;
-    }
+    /* ----- Barres d'affinités ----- */
+    .resultat-item { margin-bottom: 25px; text-align: left; }
+    .resultat-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; color: #334155; }
+    .barre-fond { width: 100%; background-color: #e2e8f0; border-radius: 8px; overflow: hidden; height: 14px; }
     .barre-remplissage {
       height: 100%;
-      background-color: var(--primary);
-      transition: width 1s ease-out;
+      background: linear-gradient(90deg, var(--primary), #60a5fa);
+      border-radius: 8px;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
+    /* ----- Alertes Dissonance ----- */
     #alertes-dissonance {
-      margin-top: 30px;
-      padding: 15px;
-      background-color: #fdf2e9;
-      border-left: 4px solid #e67e22;
-      text-align: left;
-      border-radius: 0 8px 8px 0;
+      margin-top: 35px; padding: 20px; background-color: #fff7ed;
+      border-left: 5px solid #f97316; text-align: left;
+      border-radius: 0 12px 12px 0; box-shadow: var(--shadow-sm);
     }
-    .alerte-item { margin-bottom: 10px; font-size: 0.95em; }
+    .alerte-item { margin-bottom: 12px; font-size: 0.95em; line-height: 1.6; }
 
-    /* ----- CSS D'IMPRESSION (PDF) ----- */
+    /* ----- Boîte Blanche (Audit) ----- */
+    #bloc-logique {
+      display: none; margin-top: 30px; padding: 25px; background-color: #f8fafc; 
+      border: 2px dashed #cbd5e1; border-radius: 12px; text-align: left; 
+      font-size: 0.95em; color: #334155;
+    }
+    #bloc-logique li {
+      margin-bottom: 20px; padding: 20px; background: #ffffff; 
+      border-radius: 8px; border-left: 4px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
     @media print {
-      body {
-        background-color: #fff;
+      body { background-color: #fff; padding: 0; }
+      #app-container { box-shadow: none; max-width: 100%; padding: 0; }
+      .zone-boutons-fin { display: none !important; }
+      #bloc-dissonance-global, .barre-fond, .barre-remplissage, #bloc-synthese, #alertes-dissonance, #bloc-logique {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
       }
-      #app-container {
-        box-shadow: none;
-        max-width: 100%;
-        width: 100%;
-        padding: 0;
-      }
-      /* Masquer les boutons de navigation lors de l'impression */
-      .zone-boutons-fin {
-        display: none !important;
-      }
-      /* Forcer l'impression des couleurs de fond (barres, jauges) */
-      #bloc-dissonance-global, .barre-fond, .barre-remplissage, #bloc-synthese, #alertes-dissonance {
-        print-color-adjust: exact;
-        -webkit-print-color-adjust: exact;
-      }
-      /* Éviter que le graphique ou un bloc soit coupé en deux sur deux pages */
       .chart-container, .resultat-item, #bloc-dissonance-global, #bloc-synthese {
         page-break-inside: avoid;
       }
@@ -240,25 +210,28 @@
 <body>
 
   <div id="app-container">
+    
+    <!-- ÉCRAN DU SONDAGE -->
     <div id="sondage">
-      <div id="progress-text">Chargement...</div>
-      <div id="question-texte">Connexion aux données...</div>
+      <div id="progress-text">Initialisation...</div>
+      <div id="question-texte">Chargement des données...</div>
       <div id="choices-container" class="choices-grid"></div>
       <div id="nav-container"></div>
     </div>
 
+    <!-- ÉCRAN DES RÉSULTATS -->
     <div id="resultats">
-      <h2>Votre bilan philosophique</h2>
+      <h2>Vos Résultats</h2>
       
       <div id="bloc-dissonance-global">
         <div id="titre-dissonance">Indice de Dissonance Cognitive</div>
         <div id="valeur-dissonance">0%</div>
-        <div id="texte-dissonance">Analyse en cours...</div>
+        <p id="texte-dissonance"></p>
       </div>
 
       <div id="bloc-synthese" style="display: none;">
-        <h3>Synthèse de votre profil</h3>
-        <p id="texte-synthese-redigee" style="margin: 0;"></p>
+        <h3>Analyse de votre profil</h3>
+        <div id="texte-synthese-redigee"></div>
       </div>
 
       <div class="chart-container">
@@ -266,91 +239,78 @@
       </div>
 
       <div id="affinites-container"></div>
-      
+
       <div id="alertes-dissonance" style="display: none;">
-        <h3 style="margin-top:0; color: #d35400;">Explication des Tensions :</h3>
+        <h3 style="margin-top: 0; color: #d35400;">Contradictions philosophiques détectées :</h3>
         <div id="alertes-liste"></div>
       </div>
-      
-     <!-- Nouvelle zone de boutons -->
+
+      <!-- Zone de boutons de fin -->
       <div class="zone-boutons-fin" style="display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
         <button class="btn-choix" style="border-color: #95a5a6; font-weight: bold;" onclick="imprimerResultats()">🖨️ Imprimer / PDF</button>
-        
-        <!-- BOUTON DE PARTAGE -->
         <button class="btn-choix" id="btn-partage" style="border-color: #f39c12; background-color: #fcf3cf; font-weight: bold; color: #d35400;" onclick="partagerResultats()">🔗 Partager mes résultats</button>
-        
-        <!-- BOUTON D'AUDIT -->
         <button class="btn-choix" style="border-color: #8e44ad; background-color: #f4ecf7; font-weight: bold; color: #8e44ad;" onclick="basculerLogique()">🧠 Comprendre mon résultat</button>
-        
         <button class="btn-choix" style="border-color: var(--primary); font-weight: bold;" onclick="recommencerSondage()">↺ Refaire le test</button>
       </div>
       
-      <!-- LE RAPPORT CACHÉ DE L'ALGORITHME (Apparaît au clic sur l'audit) -->
-      <div id="bloc-logique" style="display: none; margin-top: 30px; padding: 25px; background-color: #fdfefe; border: 2px dashed #bdc3c7; border-radius: 8px; text-align: left; font-size: 0.95em; color: #34495e;">
+      <!-- Rapport d'audit algorithmique -->
+      <div id="bloc-logique">
         <h3 style="color: #2c3e50; margin-top: 0; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">Transparence de l'Algorithme</h3>
         <div id="contenu-logique"></div>
       </div>
 
-    </div> <!-- Fin de la div #resultats -->
-  </div> <!-- Fin de la div #app-container -->
+    </div>
+  </div>
 
- <script>
-    // --- 1. Variables de base (existantes) ---
+  <script>
+    // --- VARIABLES GLOBALES ---
     let toutesQuestions = [];
-    let reglesDissonance = [];
-    let fileAttente = []; 
+    let toutesDissonances = [];
+    
+    let reponsesUtilisateur = {};
+    let fileAttente = [];
+    let questionsDisponibles = [];
     let indexCourant = 0;
-    let reponsesUtilisateur = {}; 
-    let radarChartInstance = null; 
+    
+    let modeAlgorithme = "hasard"; // "hasard", "contradiction" ou "renfort"
+    let profilEnTest = null;
+    let radarChartInstance = null;
 
-    // --- 2. NOUVELLES VARIABLES DU MOTEUR ADAPTATIF ---
-    let questionsDisponibles = []; // Le réservoir des questions non posées
-    let modeAlgorithme = "hasard"; // États possibles : "hasard", "contradiction", "renfort"
-    let profilEnTest = null;       // La philosophie que l'algorithme est en train de tester
-
-    // --- 3. Constantes de l'interface (existantes) ---
-    const elSondage = document.getElementById("sondage");
+    const elProgress = document.getElementById("progress-text");
     const elQuestionTexte = document.getElementById("question-texte");
     const elChoicesContainer = document.getElementById("choices-container");
     const elNavContainer = document.getElementById("nav-container");
-    const elProgress = document.getElementById("progress-text");
-    const elResultats = document.getElementById("resultats");
 
+    // --- INITIALISATION (Chargement JSON externe) ---
     async function initApp() {
       try {
-        const reponse = await fetch('sondage.json');
-        if (!reponse.ok) throw new Error("Erreur HTTP: " + reponse.status);
+        const response = await fetch('sondage.json');
+        if (!response.ok) throw new Error("Fichier non trouvé");
+        const data = await response.json();
         
-        const data = await reponse.json();
         toutesQuestions = data.questions;
-        reglesDissonance = data.dissonances;
-        
+        toutesDissonances = data.dissonances;
+
         const questionIdentite = toutesQuestions.find(q => q.type === "identite");
         if (questionIdentite) {
           fileAttente.push(questionIdentite);
           afficherQuestion();
         } else {
-          throw new Error("Question d'identité introuvable.");
+          elQuestionTexte.textContent = "Erreur : Question d'identité introuvable.";
         }
-      } catch (erreur) {
-        console.error("Erreur :", erreur);
-        elQuestionTexte.textContent = "Impossible de charger sondage.json. Assurez-vous de l'avoir créé dans le même dossier sur GitHub.";
+      } catch (error) {
+        console.error(error);
+        elProgress.textContent = "Erreur fatale";
+        elQuestionTexte.textContent = "Impossible de charger la base de données sondage.json. Si vous êtes en local, ouvrez l'application via un serveur (Live Server).";
       }
     }
 
-    function melangerTableau(tableau) {
-      for (let i = tableau.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [tableau[i], tableau[j]] = [tableau[j], tableau[i]];
-      }
-      return tableau;
-    }
-
-   function afficherQuestion() {
+    // --- AFFICHAGE DE LA QUESTION ---
+    function afficherQuestion() {
       const q = fileAttente[indexCourant];
       elQuestionTexte.textContent = q.texte;
       elChoicesContainer.innerHTML = ""; 
-      elNavContainer.innerHTML = ""; 
+      elNavContainer.innerHTML = "";
 
       if (q.type === "identite") {
         elProgress.textContent = "Introduction";
@@ -358,35 +318,25 @@
           const btn = document.createElement("button");
           btn.className = "btn-choix";
           btn.textContent = opt.label;
-          
-          // --- C'EST ICI QU'ON APPLIQUE LE STYLE SPÉCIAL ---
-          if (opt.valeur === "sans_apriori") {
-              btn.classList.add("btn-decouverte");
-          }
-          // -----------------------------------------------
-
+          if (opt.valeur === "sans_apriori") btn.classList.add("btn-decouverte");
           btn.onclick = () => traiterIdentite(opt.valeur, q.id);
           elChoicesContainer.appendChild(btn);
         });
         
       } else if (q.type === "qcm") {
-        // --- NOUVEAU BLOC POUR LES QUESTIONS À CHOIX MULTIPLES (QCM) ---
         elProgress.textContent = `Question ${indexCourant} / ${fileAttente.length - 1}`;
         q.options.forEach(opt => {
           const btn = document.createElement("button");
           btn.className = "btn-choix";
           btn.textContent = opt.label;
           btn.onclick = () => {
-             // On sauvegarde directement les scores de l'option cliquée
              reponsesUtilisateur[q.id] = { type: "qcm", scores: opt.scores };
              preparerQuestionSuivante();
           };
           elChoicesContainer.appendChild(btn);
         });
-        // ---------------------------------------------------------------
         
       } else {
-        // --- BLOC STANDARD POUR LES QUESTIONS CLASSIQUES (Échelle) ---
         elProgress.textContent = `Question ${indexCourant} / ${fileAttente.length - 1}`;
         const echelle = [
           { val: 2, label: "Tout à fait d'accord" },
@@ -400,20 +350,25 @@
           const btn = document.createElement("button");
           btn.className = "btn-choix";
           btn.textContent = item.label;
-          btn.onclick = () => {
-            reponsesUtilisateur[q.id] = item.val;
-            preparerQuestionSuivante();
-          };
+          btn.onclick = () => enregistrerChoix(item.val, q.id); 
           elChoicesContainer.appendChild(btn);
         });
       }
+
+      if (indexCourant > 0) {
+        const btnRetour = document.createElement("button");
+        btnRetour.className = "btn-retour";
+        btnRetour.textContent = "← Retour à la question précédente";
+        btnRetour.onclick = questionPrecedente;
+        elNavContainer.appendChild(btnRetour);
+      }
     }
+
     function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
       let questionsPourTest = [];
       
       if (valeurIdentite === "sans_apriori") {
-          // CORRECTION 1 : On intègre les QCM dans le test à l'aveugle
           questionsPourTest = toutesQuestions.filter(q => q.type === "standard" || q.type === "qcm");
       } else {
           const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
@@ -425,165 +380,162 @@
       preparerQuestionSuivante();
     }
 
-    function preparerQuestionSuivante() {
-       if (questionsDisponibles.length === 0) {
-           terminerSondage();
-           return;
-       }
-       
-       let indexChoisi = 0; // Par défaut, on prend la 1ère du réservoir (qui est mélangé)
-       
-       // 1. RECHERCHE D'UNE CONTRADICTION
-       if (modeAlgorithme === "contradiction" && profilEnTest) {
-           // On cherche une question qui pénalise fortement (score < 0) le profil en cours
-           const index = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] && q.scores[profilEnTest] < 0);
-           if (index !== -1) {
-               indexChoisi = index;
-               console.log("-> ATTAQUE : Contradiction contre le", profilEnTest);
-           } else {
-               modeAlgorithme = "hasard"; // Si on n'a plus de piège, on repasse au hasard
-           }
-       } 
-       // 2. RECHERCHE D'UN RENFORT
-       else if (modeAlgorithme === "renfort" && profilEnTest) {
-           // On cherche une question qui valorise (score > 0) le profil en cours
-           const index = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] && q.scores[profilEnTest] > 0);
-           if (index !== -1) {
-               indexChoisi = index;
-               console.log("-> VALIDATION : Renfort pour le", profilEnTest);
-           } else {
-               modeAlgorithme = "hasard";
-           }
-       }
-       
-       // On retire la question choisie du réservoir et on la place dans la file d'attente
-       const q = questionsDisponibles.splice(indexChoisi, 1)[0];
-       fileAttente.push(q);
-       indexCourant = fileAttente.length - 1;
-       
-       afficherQuestion();
-    }
-
+    // --- LE MOTEUR ADAPTATIF ---
     function enregistrerChoix(valeur, qId) {
       reponsesUtilisateur[qId] = valeur;
-      const q = fileAttente[indexCourant];
       
-      // --- LOGIQUE ADAPTATIVE DU CERVEAU ---
-      if (modeAlgorithme === "hasard") {
-          // Si l'utilisateur est très d'accord (1 ou 2) avec une question posée au hasard
-          if (valeur >= 1 && q.scores) {
-              let maxPoints = 0;
-              let meilleurProfil = null;
-              // On identifie quelle doctrine vient d'être affirmée fortement
-              for (const [profil, pts] of Object.entries(q.scores)) {
-                 if (pts > maxPoints) { maxPoints = pts; meilleurProfil = profil; }
-              }
-              if (meilleurProfil) {
-                  profilEnTest = meilleurProfil; // On verrouille la cible
-                  modeAlgorithme = "contradiction"; // Au prochain tour, on le piège !
-              }
-          }
-      } 
-      else if (modeAlgorithme === "contradiction") {
-          // On l'a attaqué. S'il repousse l'attaque (valeur <= -1), il est très cohérent.
-          if (valeur <= -1) {
-              modeAlgorithme = "renfort"; // On le récompense en creusant sa doctrine
-          } else {
-              // S'il tombe dans le piège (dissonance), on abandonne la piste, retour au hasard
-              modeAlgorithme = "hasard";
-              profilEnTest = null;
-          }
+      const qActuelle = fileAttente[indexCourant];
+      if (qActuelle.type === "crash_test") {
+        if (valeur < 1) { 
+          modeAlgorithme = "contradiction"; 
+        } else {
+          modeAlgorithme = "renfort";
+        }
+        
+        let candidats = Object.keys(qActuelle.scores);
+        profilEnTest = candidats[0];
+      } else {
+        modeAlgorithme = "hasard";
       }
-      else if (modeAlgorithme === "renfort") {
-          // Après le renfort (qu'il l'ait validé ou non), la séquence est finie. On relance les dés.
-          modeAlgorithme = "hasard";
-          profilEnTest = null;
-      }
-      
+
       preparerQuestionSuivante();
+    }
+
+    function preparerQuestionSuivante() {
+      if (questionsDisponibles.length === 0) {
+        if (indexCourant === fileAttente.length - 1) {
+          terminerSondage();
+          return;
+        } else {
+          indexCourant++;
+          afficherQuestion();
+          return;
+        }
+      }
+
+      let indexProchaine = -1;
+
+      if (modeAlgorithme === "contradiction" && profilEnTest) {
+        indexProchaine = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] < 0);
+      } else if (modeAlgorithme === "renfort" && profilEnTest) {
+        indexProchaine = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] > 0);
+      }
+
+      if (indexProchaine === -1) {
+        indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
+      }
+
+      const qSuivante = questionsDisponibles.splice(indexProchaine, 1)[0];
+      
+      if (indexCourant < fileAttente.length - 1) {
+        fileAttente.length = indexCourant + 1;
+      }
+      
+      fileAttente.push(qSuivante);
+      indexCourant++;
+      afficherQuestion();
     }
 
     function questionPrecedente() {
       if (indexCourant > 0) {
-        // En cas de retour en arrière, on recule l'index mais on ne remet pas la question 
-        // dans le réservoir, on la garde dans la file. Le moteur adaptatif reprendra son cours.
         indexCourant--;
-        modeAlgorithme = "hasard"; // On réinitialise la traque pour éviter les bugs logiques
+        const qActuelle = fileAttente[indexCourant];
+        delete reponsesUtilisateur[qActuelle.id];
         afficherQuestion();
       }
-    }function recommencerSondage() {
-      // 1. Réinitialisation des variables du moteur adaptatif
-      reponsesUtilisateur = {};
-      fileAttente = [];
-      questionsDisponibles = [];
-      indexCourant = 0;
-      modeAlgorithme = "hasard";
-      profilEnTest = null;
+    }
 
-      // 2. Nettoyage de la vue des résultats précédents
-      document.getElementById("affinites-container").innerHTML = "";
-      document.getElementById("alertes-liste").innerHTML = "";
-      document.getElementById("alertes-dissonance").style.display = "none";
-      document.getElementById("bloc-synthese").style.display = "none";
+    // --- FIN ET CALCUL DES RÉSULTATS ---
+    function terminerSondage() {
+      document.getElementById("sondage").style.display = "none";
+      document.getElementById("resultats").style.display = "block";
 
-      // 3. Bascule des écrans
-      document.getElementById("resultats").style.display = "none";
-      document.getElementById("sondage").style.display = "block";
+      const affinites = calculerAffinities(reponsesUtilisateur);
+      dessinerGraphique(affinites);
 
-      // 4. Réinjection de la question d'introduction
-      const questionIdentite = toutesQuestions.find(q => q.type === "identite");
-      if (questionIdentite) {
-        fileAttente.push(questionIdentite);
-        afficherQuestion();
+      const affinitesContainer = document.getElementById("affinites-container");
+      affinitesContainer.innerHTML = "";
+
+      affinites.forEach(a => {
+        const item = document.createElement("div");
+        item.className = "resultat-item";
+        item.innerHTML = `
+          <div class="resultat-header">
+            <span>${a.profil.replace(/_/g, ' ')}</span>
+            <span>${a.pourcentage}%</span>
+          </div>
+          <div class="barre-fond">
+            <div class="barre-remplissage" style="width: 0%"></div>
+          </div>
+        `;
+        affinitesContainer.appendChild(item);
+        
+        setTimeout(() => {
+          item.querySelector(".barre-remplissage").style.width = a.pourcentage + "%";
+        }, 100);
+      });
+
+      const alertes = evaluerDissonances(reponsesUtilisateur);
+      const valDissonance = document.getElementById("valeur-dissonance");
+      const texteDissonance = document.getElementById("texte-dissonance");
+      const divAlertes = document.getElementById("alertes-dissonance");
+      const listeAlertes = document.getElementById("alertes-liste");
+
+      let pourcentageDissonance = Math.min(alertes.length * 15, 100);
+      valDissonance.textContent = pourcentageDissonance + "%";
+      
+      if (pourcentageDissonance === 0) {
+        valDissonance.style.color = "#27ae60";
+        texteDissonance.innerHTML = "Félicitations. Votre pensée est d'une grande cohérence logique et architecturale.";
+        divAlertes.style.display = "none";
+      } else if (pourcentageDissonance <= 30) {
+        valDissonance.style.color = "#f39c12";
+        texteDissonance.innerHTML = "Une pensée globale structurée, malgré quelques tensions philosophiques.";
       } else {
-        console.error("Impossible de retrouver la question d'identité.");
+        valDissonance.style.color = "#c0392b";
+        texteDissonance.innerHTML = "Votre système de pensée est fracturé par des croyances fondamentalement incompatibles.";
       }
+
+      if (alertes.length > 0) {
+        divAlertes.style.display = "block";
+        listeAlertes.innerHTML = alertes.map(a => `<div class="alerte-item">${a}</div>`).join('');
+      }
+
+      genererTexteSynthese(affinites, alertes, pourcentageDissonance);
     }
 
-    // Nouvelle fonction d'impression
-    function imprimerResultats() {
-      window.print();
-    }
-
-  function calculerAffinities(reponses) {
+    function calculerAffinities(reponses) {
       const totaux = {};
       const maxPossibles = {};
 
-      // 1. Calcul des points
       for (const [qId, rep] of Object.entries(reponses)) {
         if (qId === "q_identite") continue; 
         const question = toutesQuestions.find(q => q.id === qId);
         if (!question) continue;
 
-        // --- CORRECTION 2 : Le QCM punit enfin les options non choisies ---
         if (typeof rep === "object" && rep.type === "qcm") {
           const profilsImpliques = new Set();
-          // On liste TOUS les profils mentionnés dans ce QCM (gagnants et perdants)
           question.options.forEach(opt => {
               if (opt.scores) Object.keys(opt.scores).forEach(p => profilsImpliques.add(p));
           });
           
-          // On augmente le dénominateur de tout le monde de 5 points
           profilsImpliques.forEach(p => {
               if (!totaux[p]) { totaux[p] = 0; maxPossibles[p] = 0; }
               maxPossibles[p] += 5; 
           });
           
-          // On n'attribue les points positifs qu'aux profils de l'option cliquée
           if (rep.scores) {
               for (const [profil, pointsQcm] of Object.entries(rep.scores)) {
                   totaux[profil] += pointsQcm;
               }
           }
         } 
-        // --- CORRECTION 3 : Ne plus diluer la moyenne avec les "Neutres" ---
         else if (question.scores && typeof rep === "number") {
           for (const [profil, poids] of Object.entries(question.scores)) {
             if (!totaux[profil]) {
               totaux[profil] = 0;
               maxPossibles[profil] = 0;
             }
-            // Si l'utilisateur répond 0 (Neutre), on ignore le calcul pour ne pas casser sa moyenne
             if (rep !== 0) {
                 totaux[profil] += poids * rep;
                 maxPossibles[profil] += Math.abs(poids) * 2;
@@ -593,7 +545,7 @@
       }
 
       const resultats = [];
-      // 2. Traitement avec le BOUCLIER STATISTIQUE (Abaissé à 10 pour les petits profils)
+      // Bouclier à 10 points
       for (const profil in totaux) {
         if (maxPossibles[profil] >= 10) {
           let ratio = totaux[profil] / maxPossibles[profil];
@@ -605,15 +557,30 @@
       
       return resultats.sort((a, b) => b.pourcentage - a.pourcentage);
     }
+
+    function evaluerDissonances(rep) {
+      const alertes = [];
+      toutesDissonances.forEach(regle => {
+        try {
+          const evalFunction = new Function('rep', `return ${regle.condition};`);
+          if (evalFunction(rep)) {
+            alertes.push(regle.message);
+          }
+        } catch (e) { console.error("Erreur règle :", regle.code, e); }
+      });
+      return alertes;
+    }
+
     function dessinerGraphique(affinites) {
       const ctx = document.getElementById('radarChart').getContext('2d');
       if (radarChartInstance) radarChartInstance.destroy();
+      
       const top6 = affinites.slice(0, 6);
-      const labels = top6.map(a => a.profil);
+      const labels = top6.map(a => a.profil.replace(/_/g, ' '));
       const data = top6.map(a => a.pourcentage);
 
-      let couleurFond = 'rgba(52, 152, 219, 0.3)';
-      let couleurBord = 'rgba(52, 152, 219, 1)';
+      let couleurFond = 'rgba(59, 130, 246, 0.3)';
+      let couleurBord = 'rgba(59, 130, 246, 1)';
       
       if (top6.length > 0) {
         const profilDominant = top6[0].profil;
@@ -621,14 +588,14 @@
           couleurFond = 'rgba(230, 126, 34, 0.4)'; couleurBord = 'rgba(230, 126, 34, 1)';
         } else if (profilDominant.includes('Islam') || profilDominant.includes('Soufisme')) {
           couleurFond = 'rgba(46, 204, 113, 0.4)'; couleurBord = 'rgba(46, 204, 113, 1)';
-        } else if (profilDominant.includes('Athéisme') || profilDominant.includes('Matérialisme') || profilDominant.includes('Épicurisme')) {
-          couleurFond = 'rgba(231, 76, 60, 0.4)'; couleurBord = 'rgba(231, 76, 60, 1)';
+        } else if (profilDominant.includes('Athéisme') || profilDominant.includes('Matérialisme') || profilDominant.includes('Épicurisme') || profilDominant.includes('Nietzschéisme')) {
+          couleurFond = 'rgba(239, 68, 68, 0.4)'; couleurBord = 'rgba(239, 68, 68, 1)';
         } else if (profilDominant.includes('Catholicisme') || profilDominant.includes('Protestantisme') || profilDominant.includes('Calvinisme') || profilDominant.includes('Christianisme')) {
-          couleurFond = 'rgba(155, 89, 182, 0.4)'; couleurBord = 'rgba(155, 89, 182, 1)';
+          couleurFond = 'rgba(168, 85, 247, 0.4)'; couleurBord = 'rgba(168, 85, 247, 1)';
         } else if (profilDominant.includes('Existentialisme') || profilDominant.includes('Agnosticisme')) {
-          couleurFond = 'rgba(149, 165, 166, 0.4)'; couleurBord = 'rgba(149, 165, 166, 1)';
+          couleurFond = 'rgba(148, 163, 184, 0.4)'; couleurBord = 'rgba(148, 163, 184, 1)';
         } else if (profilDominant.includes('Spinozisme') || profilDominant.includes('Panthéisme') || profilDominant.includes('Stoïcisme') || profilDominant.includes('Déisme')) {
-          couleurFond = 'rgba(41, 128, 185, 0.4)'; couleurBord = 'rgba(41, 128, 185, 1)';
+          couleurFond = 'rgba(14, 165, 233, 0.4)'; couleurBord = 'rgba(14, 165, 233, 1)';
         }
       }
 
@@ -639,8 +606,8 @@
           datasets: [{
             label: 'Affinité (%)', data: data,
             backgroundColor: couleurFond, borderColor: couleurBord,
-            pointBackgroundColor: '#2c3e50', pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff', pointHoverBorderColor: '#2c3e50', borderWidth: 2
+            pointBackgroundColor: '#fff', pointBorderColor: couleurBord,
+            pointHoverBackgroundColor: couleurBord, pointHoverBorderColor: '#fff', borderWidth: 2
           }]
         },
         options: {
@@ -648,120 +615,54 @@
             r: {
               angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
               grid: { color: 'rgba(0, 0, 0, 0.1)' },
-              pointLabels: { font: { size: 13, family: "'Segoe UI', sans-serif" }, color: '#2c3e50' },
+              pointLabels: { font: { size: 12, family: "'Inter', sans-serif", weight: '600' }, color: '#475569' },
               ticks: { display: false, min: 0, max: 100 }
             }
           },
-          plugins: { legend: { display: false } },
-          animation: {
-            onComplete: function() {
-              // Force Chart.js à terminer son animation avant l'impression
-            }
-          }
+          plugins: { legend: { display: false } }
         }
       });
     }
 
-    function genererBilanDissonance(reponses) {
-      const anomalies = [];
-      reglesDissonance.forEach(regle => {
-        try {
-          const evaluateur = new Function("rep", "return " + regle.condition + ";");
-          if (evaluateur(reponses)) anomalies.push(regle.message);
-        } catch (e) {}
-      });
-      return anomalies;
-    }
+    function genererTexteSynthese(affinites, alertes, pourcentageDissonance) {
+      const bloc = document.getElementById("bloc-synthese");
+      const texte = document.getElementById("texte-synthese-redigee");
+      bloc.style.display = "block";
 
-    function terminerSondage() {
-      elSondage.style.display = "none";
-      elResultats.style.display = "block";
-      
-      const affinites = calculerAffinities(reponsesUtilisateur);
-      dessinerGraphique(affinites);
-
-      const alertes = genererBilanDissonance(reponsesUtilisateur);
-      
-      const maxDissonancesPossibles = reglesDissonance.length; 
-      let indiceDissonance = 0;
-      if (maxDissonancesPossibles > 0) {
-        indiceDissonance = Math.round((alertes.length / maxDissonancesPossibles) * 100);
+      if (affinites.length === 0) {
+        texte.innerHTML = "Vos réponses sont trop neutres ou dispersées pour dégager une doctrine dominante.";
+        return;
       }
 
-      const elValeurDiss = document.getElementById("valeur-dissonance");
-      const elTexteDiss = document.getElementById("texte-dissonance");
-      const blocDiss = document.getElementById("bloc-dissonance-global");
+      const dom1 = affinites[0].profil.replace(/_/g, ' ');
+      let redaction = `Votre logiciel idéologique s'articule prioritairement autour du <strong>${dom1}</strong>. `;
       
-      elValeurDiss.textContent = indiceDissonance + "%";
-      
-      if (indiceDissonance === 0) {
-        elValeurDiss.style.color = "#27ae60"; blocDiss.style.backgroundColor = "#eafaf1";
-        elTexteDiss.textContent = "Cohérence parfaite. Vos réponses sont idéalement alignées.";
-      } else if (indiceDissonance <= 25) {
-        elValeurDiss.style.color = "#e67e22"; blocDiss.style.backgroundColor = "#fef5e7";
-        elTexteDiss.textContent = "Cohérence modérée, mais quelques paradoxes existent entre vos principes.";
+      if (affinites.length > 1 && affinites[1].pourcentage >= 50) {
+        const dom2 = affinites[1].profil.replace(/_/g, ' ');
+        redaction += `Il est fortement teinté de <strong>${dom2}</strong>. `;
+      }
+
+      if (pourcentageDissonance === 0) {
+        redaction += "<br><br>Ce socle est remarquablement stable : vous n'avez validé aucun paradoxe logique ou métaphysique flagrant lors de ce test.";
+      } else if (pourcentageDissonance <= 30) {
+        redaction += `<br><br>Bien que votre ligne directrice soit claire, le test a relevé une légère porosité intellectuelle. L'algorithme a notamment détecté la dissonance suivante : <em>${alertes[0].split('</strong>')[0].replace('<strong>', '')}</em>.`;
       } else {
-        elValeurDiss.style.color = "#c0392b"; blocDiss.style.backgroundColor = "#fdedec";
-        elTexteDiss.textContent = "Forte dissonance. Vos croyances reposent sur des paradoxes philosophiques profonds.";
+        redaction += `<br><br>Toutefois, cette dominante cache un profond chaos architectural. Votre système de pensée emprunte des concepts qui s'excluent mutuellement dans la réalité logique. Votre contradiction la plus violente concerne : <em>${alertes[0].split('</strong>')[0].replace('<strong>', '')}</em>.`;
       }
 
-      if (affinites.length > 0) {
-        const top1 = affinites[0];
-        const top2 = affinites.length > 1 ? affinites[1] : null;
-        let texteSynthese = `Votre boussole intérieure pointe vers le <strong>${top1.profil}</strong> (${top1.pourcentage}%). `;
-        
-        if (top2 && top2.pourcentage >= 15) {
-          texteSynthese += `Cette vision du monde s'articule chez vous avec des influences issues du <strong>${top2.profil}</strong> (${top2.pourcentage}%). `;
-        }
-
-        if (indiceDissonance === 0) {
-          texteSynthese += `<br><br>Votre architecture intellectuelle et spirituelle est d'une cohérence remarquable : vous assumez vos principes jusqu'au bout de leur logique doctrinale.`;
-        } else if (indiceDissonance <= 25) {
-          texteSynthese += `<br><br>C'est une pensée vivante et syncrétique : vous piochez certains concepts dans des traditions différentes, créant de légers paradoxes qui reflètent une quête de sens personnelle.`;
-        } else {
-          texteSynthese += `<br><br>Toutefois, votre profil est marqué par un éclectisme extrême. Vous conjuguez intimement des visions du monde que les philosophes considèrent habituellement comme incompatibles.`;
-        }
-
-        document.getElementById("texte-synthese-redigee").innerHTML = texteSynthese;
-        document.getElementById("bloc-synthese").style.display = "block";
-      }
-
-      const containerScores = document.getElementById("affinites-container");
-      affinites.forEach(aff => {
-        if (aff.pourcentage >= 15) {
-          containerScores.innerHTML += `
-            <div class="resultat-item">
-              <div class="resultat-header">
-                <span>${aff.profil}</span>
-                <span>${aff.pourcentage}%</span>
-              </div>
-              <div class="barre-fond">
-                <div class="barre-remplissage" style="width: ${aff.pourcentage}%;"></div>
-              </div>
-            </div>
-          `;
-        }
-      });
-
-      if (alertes.length > 0) {
-        const divAlertes = document.getElementById("alertes-dissonance");
-        const listeAlertes = document.getElementById("alertes-liste");
-        divAlertes.style.display = "block";
-        alertes.forEach(alerteTexte => {
-          listeAlertes.innerHTML += `<div class="alerte-item">- ${alerteTexte}</div>`;
-        });
-      }
+      texte.innerHTML = redaction;
     }
-   // Nouvelle fonction de partage (Copie dans le presse-papiers)
+
+    // --- FONCTIONNALITÉS ANNEXES (Boutons) ---
+    function imprimerResultats() { window.print(); }
+
     function partagerResultats() {
-      // 1. Récupérer le texte de la synthèse générée
       const syntheseBrute = document.getElementById("texte-synthese-redigee").innerText;
       const indiceDissonance = document.getElementById("valeur-dissonance").innerText;
       const btnPartage = document.getElementById("btn-partage");
       
-      // 2. Préparer un texte propre pour les réseaux sociaux
       const texteReseaux = 
-`J'ai passé le test de la Boussole Philosophique et Religieuse ! 🧭
+`J'ai passé le test de la Boussole Philosophique ! 🧭
 
 Voici mon profil :
 ${syntheseBrute}
@@ -770,100 +671,97 @@ Indice de Dissonance Cognitive : ${indiceDissonance}
 
 Venez tester vos propres croyances et paradoxes !`;
 
-      // 3. Exécuter la copie dans le presse-papiers
       navigator.clipboard.writeText(texteReseaux).then(() => {
-        // Changer temporairement le texte du bouton pour confirmer
         const texteOriginal = btnPartage.innerHTML;
         btnPartage.innerHTML = "✅ Copié dans le presse-papiers !";
-        btnPartage.style.backgroundColor = "#d5f5e3"; // Vert clair
-        btnPartage.style.borderColor = "#2ecc71";
+        btnPartage.style.backgroundColor = "#dcfce7"; 
+        btnPartage.style.borderColor = "#22c55e";
+        btnPartage.style.color = "#166534";
         
         setTimeout(() => {
           btnPartage.innerHTML = texteOriginal;
           btnPartage.style.backgroundColor = "#fcf3cf";
           btnPartage.style.borderColor = "#f39c12";
+          btnPartage.style.color = "#d35400";
         }, 3000);
       }).catch(err => {
-        console.error("Erreur lors de la copie :", err);
-        alert("Votre navigateur empêche la copie automatique. Vous pouvez sélectionner et copier le texte vous-même.");
+        console.error("Erreur copie :", err);
+        alert("Copie automatique refusée par le navigateur. Vous pouvez sélectionner le texte à la main.");
       });
-    }function basculerLogique() {
+    }
+
+    function basculerLogique() {
       const bloc = document.getElementById("bloc-logique");
       const contenu = document.getElementById("contenu-logique");
+      if (bloc.style.display === "block") { bloc.style.display = "none"; return; }
       
-      // Si le bloc est déjà ouvert, on le referme
-      if (bloc.style.display === "block") {
-        bloc.style.display = "none";
-        return;
-      }
-      
-      // Sinon, on l'affiche et on génère le rapport
       bloc.style.display = "block";
       let html = "<p>Voici la décomposition exacte des points attribués en coulisses :</p><ul style='padding-left: 0; list-style-type: none;'>";
       
       for (const [qId, rep] of Object.entries(reponsesUtilisateur)) {
-        if (qId === "q_identite") continue; // On ignore la question d'aiguillage
-        
+        if (qId === "q_identite") continue; 
         const qDef = toutesQuestions.find(q => q.id === qId);
         if (!qDef) continue;
         
-        html += `<li style="margin-bottom: 20px; padding: 15px; background: #f4f6f7; border-radius: 8px; border-left: 4px solid #3498db;">
+        html += `<li style="margin-bottom: 20px; padding: 15px; background: #ffffff; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: var(--shadow-sm);">
                    <strong>Question :</strong> <em>${qDef.texte}</em><br>`;
                    
-        // CAS DU QCM
         if (typeof rep === "object" && rep.type === "qcm") {
-           // Retrouver le texte de l'option cliquée
            const optionChoisie = qDef.options.find(opt => JSON.stringify(opt.scores) === JSON.stringify(rep.scores));
-           const label = optionChoisie ? optionChoisie.label : "Option QCM";
-           
-           html += `<strong style="color: #2980b9;">Votre choix :</strong> ${label}<br>`;
-           html += `<strong>Points attribués (Bruts) :</strong> `;
-           
+           html += `<strong style="color: var(--primary);">Votre choix :</strong> ${optionChoisie ? optionChoisie.label : "Option QCM"}<br><strong>Points attribués :</strong> `;
            const impacts = [];
            for (const [profil, pts] of Object.entries(rep.scores)) {
-             const couleur = pts > 0 ? '#27ae60' : '#c0392b';
-             const signe = pts > 0 ? '+' : '';
-             impacts.push(`${profil} (<span style="color: ${couleur}; font-weight:bold;">${signe}${pts}</span>)`);
+             const couleur = pts > 0 ? '#16a34a' : '#dc2626';
+             impacts.push(`${profil.replace(/_/g, ' ')} (<span style="color: ${couleur}; font-weight:bold;">${pts > 0 ? '+' : ''}${pts}</span>)`);
            }
            html += impacts.length > 0 ? impacts.join(', ') : "Aucun";
         } 
-        // CAS CLASSIQUE (Multiplication)
         else if (typeof rep === "number") {
-           const mapReponse = {
-             "2": "Tout à fait d'accord (Multiplicateur x2)",
-             "1": "Plutôt d'accord (Multiplicateur x1)",
-             "0": "Neutre (Aucun point n'est calculé)",
-             "-1": "Plutôt pas d'accord (Multiplicateur x-1)",
-             "-2": "Pas du tout d'accord (Multiplicateur x-2)"
-           };
-           
-           html += `<strong style="color: #2980b9;">Votre choix :</strong> ${mapReponse[rep]}<br>`;
-           
+           const mapReponse = { "2": "Tout à fait d'accord (x2)", "1": "Plutôt d'accord (x1)", "0": "Neutre (Ignoré)", "-1": "Plutôt pas d'accord (x-1)", "-2": "Pas du tout d'accord (x-2)" };
+           html += `<strong style="color: var(--primary);">Votre choix :</strong> ${mapReponse[rep]}<br>`;
            if (rep !== 0 && qDef.scores) {
-             html += `<strong>Points attribués (Après multiplication) :</strong> `;
+             html += `<strong>Points attribués :</strong> `;
              const impacts = [];
              for (const [profil, poids] of Object.entries(qDef.scores)) {
-               const pointsObtenus = poids * rep;
-               const couleur = pointsObtenus > 0 ? '#27ae60' : '#c0392b';
-               const signe = pointsObtenus > 0 ? '+' : '';
-               impacts.push(`${profil} (<span style="color: ${couleur}; font-weight:bold;">${signe}${pointsObtenus}</span>)`);
+               const pts = poids * rep;
+               const couleur = pts > 0 ? '#16a34a' : '#dc2626';
+               impacts.push(`${profil.replace(/_/g, ' ')} (<span style="color: ${couleur}; font-weight:bold;">${pts > 0 ? '+' : ''}${pts}</span>)`);
              }
              html += impacts.join(', ');
            }
         }
-        
         html += `</li>`;
       }
-      
       html += "</ul>";
-      html += "<p style='font-size: 0.9em; color: #7f8c8d; border-top: 1px solid #ccc; padding-top: 10px;'><em>Note : Les profils ne s'affichent sur le radar final que si vous avez été confronté à au moins 10 points potentiels pour eux (afin d'éviter les faux positifs).</em></p>";
-      
       contenu.innerHTML = html;
-      
-      // Faire défiler l'écran doucement jusqu'au rapport
       bloc.scrollIntoView({ behavior: 'smooth' });
     }
 
+    function recommencerSondage() {
+      reponsesUtilisateur = {};
+      fileAttente = [];
+      questionsDisponibles = [];
+      indexCourant = 0;
+      modeAlgorithme = "hasard";
+      profilEnTest = null;
+
+      document.getElementById("affinites-container").innerHTML = "";
+      document.getElementById("alertes-liste").innerHTML = "";
+      document.getElementById("alertes-dissonance").style.display = "none";
+      document.getElementById("bloc-synthese").style.display = "none";
+      document.getElementById("bloc-logique").style.display = "none";
+
+      document.getElementById("resultats").style.display = "none";
+      document.getElementById("sondage").style.display = "block";
+
+      const questionIdentite = toutesQuestions.find(q => q.type === "identite");
+      if (questionIdentite) {
+        fileAttente.push(questionIdentite);
+        afficherQuestion();
+      }
+    }
+
+    // --- LANCEMENT ---
     window.onload = initApp;
   </script>
 </body>
