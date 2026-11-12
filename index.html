@@ -272,9 +272,13 @@
         <div id="alertes-liste"></div>
       </div>
       
-      <!-- Nouvelle zone de boutons -->
+     <!-- Nouvelle zone de boutons -->
       <div class="zone-boutons-fin" style="display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
         <button class="btn-choix" style="border-color: #95a5a6; font-weight: bold;" onclick="imprimerResultats()">🖨️ Imprimer / PDF</button>
+        
+        <!-- LE NOUVEAU BOUTON DE PARTAGE -->
+        <button class="btn-choix" id="btn-partage" style="border-color: #f39c12; background-color: #fcf3cf; font-weight: bold; color: #d35400;" onclick="partagerResultats()">🔗 Partager mes résultats</button>
+        
         <button class="btn-choix" style="border-color: var(--primary); font-weight: bold;" onclick="recommencerSondage()">↺ Refaire le test</button>
       </div>
     </div>
@@ -699,6 +703,42 @@
           listeAlertes.innerHTML += `<div class="alerte-item">- ${alerteTexte}</div>`;
         });
       }
+    }
+   // Nouvelle fonction de partage (Copie dans le presse-papiers)
+    function partagerResultats() {
+      // 1. Récupérer le texte de la synthèse générée
+      const syntheseBrute = document.getElementById("texte-synthese-redigee").innerText;
+      const indiceDissonance = document.getElementById("valeur-dissonance").innerText;
+      const btnPartage = document.getElementById("btn-partage");
+      
+      // 2. Préparer un texte propre pour les réseaux sociaux
+      const texteReseaux = 
+`J'ai passé le test de la Boussole Philosophique et Religieuse ! 🧭
+
+Voici mon profil :
+${syntheseBrute}
+
+Indice de Dissonance Cognitive : ${indiceDissonance}
+
+Venez tester vos propres croyances et paradoxes !`;
+
+      // 3. Exécuter la copie dans le presse-papiers
+      navigator.clipboard.writeText(texteReseaux).then(() => {
+        // Changer temporairement le texte du bouton pour confirmer
+        const texteOriginal = btnPartage.innerHTML;
+        btnPartage.innerHTML = "✅ Copié dans le presse-papiers !";
+        btnPartage.style.backgroundColor = "#d5f5e3"; // Vert clair
+        btnPartage.style.borderColor = "#2ecc71";
+        
+        setTimeout(() => {
+          btnPartage.innerHTML = texteOriginal;
+          btnPartage.style.backgroundColor = "#fcf3cf";
+          btnPartage.style.borderColor = "#f39c12";
+        }, 3000);
+      }).catch(err => {
+        console.error("Erreur lors de la copie :", err);
+        alert("Votre navigateur empêche la copie automatique. Vous pouvez sélectionner et copier le texte vous-même.");
+      });
     }
 
     window.onload = initApp;
