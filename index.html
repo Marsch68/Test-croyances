@@ -400,16 +400,14 @@
     }
     function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
-      
       let questionsPourTest = [];
       
       if (valeurIdentite === "sans_apriori") {
-          // MODE DÉCOUVERTE : On ne prend que les questions standards (pas de crash tests)
-          questionsPourTest = toutesQuestions.filter(q => q.type === "standard");
+          // CORRECTION 1 : On intègre les QCM dans le test à l'aveugle
+          questionsPourTest = toutesQuestions.filter(q => q.type === "standard" || q.type === "qcm");
       } else {
-          // MODE ENTONNOIR CLASSIQUE : Crash tests de son identité + questions standards
           const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
-          const questionsStandards = toutesQuestions.filter(q => q.type === "standard");
+          const questionsStandards = toutesQuestions.filter(q => q.type === "standard" || q.type === "qcm");
           questionsPourTest = [...crashTests, ...questionsStandards];
       }
       
@@ -537,7 +535,7 @@
       window.print();
     }
 
-   function calculerAffinities(reponses) {
+  function calculerAffinities(reponses) {
       const totaux = {};
       const maxPossibles = {};
 
@@ -547,34 +545,47 @@
         const question = toutesQuestions.find(q => q.id === qId);
         if (!question) continue;
 
-        // --- NOUVELLE LOGIQUE : Si la réponse est un QCM ---
+        // --- CORRECTION 2 : Le QCM punit enfin les options non choisies ---
         if (typeof rep === "object" && rep.type === "qcm") {
-          for (const [profil, pointsQcm] of Object.entries(rep.scores)) {
-            if (!totaux[profil]) {
-              totaux[profil] = 0;
-              maxPossibles[profil] = 0;
-            }
-            totaux[profil] += pointsQcm;
-            maxPossibles[profil] += 5; // Le maximum atteignable pour ce QCM
+          const profilsImpliques = new Set();
+          // On liste TOUS les profils mentionnés dans ce QCM (gagnants et perdants)
+          question.options.forEach(opt => {
+              if (opt.scores) Object.keys(opt.scores).forEach(p => profilsImpliques.add(p));
+          });
+          
+          // On augmente le dénominateur de tout le monde de 5 points
+          profilsImpliques.forEach(p => {
+              if (!totaux[p]) { totaux[p] = 0; maxPossibles[p] = 0; }
+              maxPossibles[p] += 5; 
+          });
+          
+          // On n'attribue les points positifs qu'aux profils de l'option cliquée
+          if (rep.scores) {
+              for (const [profil, pointsQcm] of Object.entries(rep.scores)) {
+                  totaux[profil] += pointsQcm;
+              }
           }
         } 
-        // --- LOGIQUE CLASSIQUE : Questions de l'échelle (-2 à 2) ---
+        // --- CORRECTION 3 : Ne plus diluer la moyenne avec les "Neutres" ---
         else if (question.scores && typeof rep === "number") {
           for (const [profil, poids] of Object.entries(question.scores)) {
             if (!totaux[profil]) {
               totaux[profil] = 0;
               maxPossibles[profil] = 0;
             }
-            totaux[profil] += poids * rep;
-            maxPossibles[profil] += Math.abs(poids) * 2;
+            // Si l'utilisateur répond 0 (Neutre), on ignore le calcul pour ne pas casser sa moyenne
+            if (rep !== 0) {
+                totaux[profil] += poids * rep;
+                maxPossibles[profil] += Math.abs(poids) * 2;
+            }
           }
         }
       }
 
       const resultats = [];
-      // 2. Traitement avec le BOUCLIER STATISTIQUE
+      // 2. Traitement avec le BOUCLIER STATISTIQUE (Abaissé à 10 pour les petits profils)
       for (const profil in totaux) {
-        if (maxPossibles[profil] >= 16) {
+        if (maxPossibles[profil] >= 10) {
           let ratio = totaux[profil] / maxPossibles[profil];
           if (ratio < 0) ratio = 0;
           let pourcentage = Math.pow(ratio, 2) * 100;
