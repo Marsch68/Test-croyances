@@ -510,49 +510,53 @@
         listeAlertes.innerHTML = alertes.map(a => `<div class="alerte-item">${a}</div>`).join('');
       }
 
-      genererTexteSynthese(affinites, alertes, pourcentageDissonance);
-    }
+      function genererTexteSynthese(affinites, alertes, pourcentageDissonance) {
+      const bloc = document.getElementById("bloc-synthese");
+      const texte = document.getElementById("texte-synthese-redigee");
+      bloc.style.display = "block";
 
-    function calculerAffinities(reponses) {
-      const totaux = {};
-      const maxPossibles = {};
-
-      for (const [qId, rep] of Object.entries(reponses)) {
-        if (qId === "q_identite") continue; 
-        const question = toutesQuestions.find(q => q.id === qId);
-        if (!question) continue;
-
-        if (typeof rep === "object" && rep.type === "qcm") {
-          const profilsImpliques = new Set();
-          question.options.forEach(opt => {
-              if (opt.scores) Object.keys(opt.scores).forEach(p => profilsImpliques.add(p));
-          });
-          
-          profilsImpliques.forEach(p => {
-              if (!totaux[p]) { totaux[p] = 0; maxPossibles[p] = 0; }
-              maxPossibles[p] += 5; 
-          });
-          
-          if (rep.scores) {
-              for (const [profil, pointsQcm] of Object.entries(rep.scores)) {
-                  totaux[profil] += pointsQcm;
-              }
-          }
-        } 
-        else if (question.scores && typeof rep === "number") {
-          for (const [profil, poids] of Object.entries(question.scores)) {
-            if (!totaux[profil]) {
-              totaux[profil] = 0;
-              maxPossibles[profil] = 0;
-            }
-            if (rep !== 0) {
-                totaux[profil] += poids * rep;
-                maxPossibles[profil] += Math.abs(poids) * 2;
-            }
-          }
-        }
+      if (affinites.length === 0) {
+        texte.innerHTML = "Vos réponses sont trop neutres ou dispersées pour dégager une doctrine ou une philosophie dominante.";
+        return;
       }
 
+      const dom1 = affinites[0].profil;
+      const nomDom1 = dom1.replace(/_/g, ' ');
+      
+      let redaction = `Votre logiciel idéologique s'articule prioritairement autour du <strong>${nomDom1}</strong>. `;
+      
+      let dom2 = null;
+      let nomDom2 = "";
+      if (affinites.length > 1 && affinites[1].pourcentage > 0) {
+        dom2 = affinites[1].profil;
+        nomDom2 = dom2.replace(/_/g, ' ');
+        redaction += `Il est également fortement teinté de <strong>${nomDom2}</strong>.`;
+      }
+
+      // --- AJOUT DES DÉFINITIONS DU DICTIONNAIRE ---
+      redaction += `<br><br><div style="background-color: #ffffff; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); margin: 15px 0; font-size: 0.95em;">`;
+      redaction += `<strong style="color: var(--primary);">📌 Ce que cela signifie :</strong><br><br>`;
+      
+      const desc1 = descriptionsProfils[dom1] || "Une approche philosophique riche et complexe.";
+      redaction += `<strong>${nomDom1} :</strong> ${desc1}`;
+
+      if (dom2) {
+        const desc2 = descriptionsProfils[dom2] || "Une doctrine complémentaire influente dans votre pensée.";
+        redaction += `<br><br><strong>${nomDom2} :</strong> ${desc2}`;
+      }
+      redaction += `</div>`;
+      // ---------------------------------------------
+
+      if (pourcentageDissonance === 0) {
+        redaction += "Ce socle est remarquablement stable : vous n'avez validé aucun paradoxe logique ou métaphysique flagrant lors de ce test. Vos réponses sont d'une grande cohérence architecturale.";
+      } else if (pourcentageDissonance <= 30) {
+        redaction += `Bien que votre ligne directrice soit claire, le test a relevé une légère porosité intellectuelle. L'algorithme a notamment détecté la dissonance suivante : <br><em>"${alertes[0].split('</strong>')[0].replace('<strong>', '')}"</em>.`;
+      } else {
+        redaction += `Toutefois, cette dominante cache un profond chaos architectural. Votre système de pensée emprunte des concepts qui s'excluent mutuellement dans la réalité logique. Votre contradiction la plus violente concerne : <br><em>"${alertes[0].split('</strong>')[0].replace('<strong>', '')}"</em>.`;
+      }
+
+      texte.innerHTML = redaction;
+    }
       const resultats = [];
       // Bouclier à 10 points
       for (const profil in totaux) {
@@ -769,6 +773,38 @@ Venez tester vos propres croyances et paradoxes !`;
         afficherQuestion();
       }
     }
+    // --- DICTIONNAIRE DES DOCTRINES (Pour le bilan final) ---
+    const descriptionsProfils = {
+      "Catholicisme_Orthodoxe": "Fondé sur l'autorité de la Tradition (le Magistère), la réalité sacramentelle (comme l'Eucharistie) et l'existence d'une morale absolue dictée par Dieu pour sauver l'humanité du péché.",
+      "Protestantisme_Évangélique": "Centré sur la conversion personnelle ('nouvelle naissance'), l'autorité stricte de la Bible, et le devoir de partager sa foi. Il rejette la hiérarchie cléricale au profit d'un rapport direct au Christ.",
+      "Calvinisme": "Marqué par l'insistance sur la souveraineté absolue de Dieu (la prédestination) et la corruption de la nature humaine, qui nécessite l'intervention souveraine de la Grâce pour être sauvée.",
+      "Luthéranisme": "Fondé sur le salut par la foi et la Grâce seules. Il conçoit le croyant comme simultanément pécheur et justifié, s'en remettant exclusivement à la miséricorde divine plutôt qu'à la performance morale.",
+      "Christianisme_Orthodoxe": "Héritier de la tradition de l'Orient, il met l'accent sur les mystères, la liturgie cosmique et la divinisation de l'homme (théosis), tout en rejetant l'infaillibilité du Pape de Rome.",
+      "Christianisme_Libéral": "Une approche moderniste qui interprète les textes sacrés avec un recul historique. Il privilégie l'action sociale et l'esprit d'amour du message de Jésus, quitte à délaisser les dogmes surnaturels stricts.",
+      "Christianisme_Mystique": "La dimension intérieure de la foi chrétienne qui vise l'union intime, personnelle et transformatrice de l'âme avec le Divin, bien au-delà de la stricte observance des institutions.",
+      "Islam_Orthodoxe": "Soumission stricte au Tawhid (Dieu unique) et au Coran perçu comme parole incréée. Il encadre la vie par les pratiques rituelles obligatoires et la loi religieuse immuable (Charia).",
+      "Salafisme": "Courant rigoriste prônant un retour absolu aux pratiques des premiers musulmans (les Salafs), rejetant fermement toute interprétation allégorique du texte ou toute innovation religieuse contemporaine.",
+      "Islam_Libéral": "Défend une lecture historico-critique du Coran. Il rejette les anciennes lois juridiques (Charia) pour affirmer la compatibilité de l'Islam avec la laïcité, l'égalité et la liberté de conscience.",
+      "Soufisme": "Le versant ésotérique et mystique de l'Islam. La quête ne réside pas dans la peur de l'Enfer mais dans l'extinction de l'ego par un amour divin passionné et contemplatif.",
+      "Judaïsme": "Religion de l'Alliance perpétuelle. Axé sur l'étude (Torah, Talmud) et la pratique rigoureuse de la loi (Halakha), il accorde une valeur sacrée aux actions d'ici-bas plutôt qu'aux seules spéculations sur l'au-delà.",
+      "Bouddhisme_Traditionnel": "Vise à briser le cycle cosmique des souffrances et des renaissances (Samsara). Il prône l'extinction du désir et de l'ego par l'ascèse morale et méditative pour atteindre le Nirvana.",
+      "Bouddhisme_Séculier": "Occidentalisation de la sagesse asiatique. Il en conserve la philosophie du détachement et de l'impermanence pour trouver la paix mentale, mais en rejette les dogmes surnaturels (le Karma cosmique).",
+      "Hindouisme": "Vaste ensemble de traditions orientales reposant sur le cycle cosmique des réincarnations (Karma) et l'existence d'une essence éternelle (Atman) appelée à fusionner avec l'Absolu (Brahman).",
+      "Stoïcisme": "Philosophie antique de la sagesse pratique. Elle enseigne l'acceptation rationnelle et joyeuse du destin (que nous ne contrôlons pas) pour se concentrer uniquement sur la maîtrise vertueuse de sa volonté intérieure.",
+      "Épicurisme": "Une pensée rationnelle et matérialiste antique. Considérant que la mort n'est qu'une désintégration d'atomes, elle propose d'atteindre la tranquillité absolue en cultivant de manière calculée les plaisirs simples et naturels.",
+      "Spinozisme": "Rationalisme moniste absolu identifiant Dieu à la Nature entière (Deus sive Natura). Rejetant le libre-arbitre et le Dieu juge, il affirme que la liberté s'atteint par la compréhension mathématique de la réalité.",
+      "Existentialisme": "Philosophie affirmant que 'l'existence précède l'essence'. Dans un univers indifférent et sans Dieu, l'homme naît sans but prédéfini : il est radicalement libre et doit inventer ses propres valeurs par ses actes.",
+      "Nietzschéisme": "Philosophie tragique et vitaliste célébrant la 'Volonté de Puissance'. Elle rejette les idéaux d'au-delà et la morale de la pitié pour affirmer puissamment la vie terrestre, jusqu'à aimer inconditionnellement son destin (Amor Fati).",
+      "Nihilisme": "La conviction vertigineuse que le monde, la vie humaine et l'ensemble de nos valeurs (morales, esthétiques, religieuses) sont fondamentalement vides de tout sens et de toute vérité objective.",
+      "Déisme": "Croyance rationnelle en un Dieu concepteur (le Grand Horloger) qui a ordonné les lois mathématiques de l'univers, mais qui n'intervient jamais dans les affaires humaines par des miracles ou des livres révélés.",
+      "Panthéisme": "Doctrine selon laquelle tout ce qui compose l'univers (la matière, le vivant) est divin. Le sacré n'est pas extérieur au monde, la Nature entière elle-même est Dieu.",
+      "Agnosticisme": "Position de prudence philosophique stricte affirmant que l'intelligence humaine est incapable de statuer sur l'existence ou l'inexistence d'un principe créateur. Il exige de suspendre tout jugement dogmatique.",
+      "Athéisme_Matérialiste": "Conviction ferme que la matière est la seule réalité. Il réfute l'existence de toute divinité, d'âme immatérielle ou d'au-delà, considérant la conscience comme un phénomène neurologique éphémère.",
+      "Humanisme_Séculier": "Courant éthique affirmant que l'humanité doit fonder sa propre boussole morale sur la seule raison, l'empathie et la science, assumant la solidarité terrestre sans aucune référence surnaturelle.",
+      "Spiritualité_New_Age": "Syncrétisme contemporain holistique. Il croit aux lois de l'attraction, aux champs énergétiques et à la souveraineté du 'divin intérieur', considérant la vie sur Terre comme une école d'évolution pour l'âme.",
+      "Gnosticisme": "Courant ésotérique antique percevant le monde matériel comme une prison corrompue. Le salut spirituel s'obtient par la 'Gnose', une illumination secrète permettant à notre étincelle divine de fuir la matière.",
+      "Transhumanisme": "Mouvement technologique affirmant que la condition biologique humaine (vieillesse, vulnérabilité) est un défaut archaïque qu'il faut transcender grâce aux avancées scientifiques (génétique, intelligence artificielle)."
+    };
 
     // --- LANCEMENT ---
     window.onload = initApp;
