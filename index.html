@@ -503,6 +503,33 @@
         modeAlgorithme = "hasard"; // On réinitialise la traque pour éviter les bugs logiques
         afficherQuestion();
       }
+    }function recommencerSondage() {
+      // 1. Réinitialisation des variables du moteur adaptatif
+      reponsesUtilisateur = {};
+      fileAttente = [];
+      questionsDisponibles = [];
+      indexCourant = 0;
+      modeAlgorithme = "hasard";
+      profilEnTest = null;
+
+      // 2. Nettoyage de la vue des résultats précédents
+      document.getElementById("affinites-container").innerHTML = "";
+      document.getElementById("alertes-liste").innerHTML = "";
+      document.getElementById("alertes-dissonance").style.display = "none";
+      document.getElementById("bloc-synthese").style.display = "none";
+
+      // 3. Bascule des écrans
+      document.getElementById("resultats").style.display = "none";
+      document.getElementById("sondage").style.display = "block";
+
+      // 4. Réinjection de la question d'introduction
+      const questionIdentite = toutesQuestions.find(q => q.type === "identite");
+      if (questionIdentite) {
+        fileAttente.push(questionIdentite);
+        afficherQuestion();
+      } else {
+        console.error("Impossible de retrouver la question d'identité.");
+      }
     }
 
     // Nouvelle fonction d'impression
