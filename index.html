@@ -410,8 +410,12 @@
       preparerQuestionSuivante();
     }
 
-    function preparerQuestionSuivante() {
-      if (questionsDisponibles.length === 0) {
+   function preparerQuestionSuivante() {
+      // --- LA NOUVELLE LIMITE ---
+      const LIMITE_QUESTIONS = 15; // Le test s'arrêtera après 15 questions
+
+      // Si on n'a plus de questions dispos OU si on a atteint la limite voulue
+      if (questionsDisponibles.length === 0 || fileAttente.length >= LIMITE_QUESTIONS) {
         if (indexCourant === fileAttente.length - 1) {
           terminerSondage();
           return;
@@ -444,7 +448,6 @@
       indexCourant++;
       afficherQuestion();
     }
-
     function questionPrecedente() {
       if (indexCourant > 0) {
         indexCourant--;
