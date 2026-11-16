@@ -29,42 +29,42 @@
           "label": "L'Ancien Testament (Torah / Tanakh)", 
           "scores": {
             "Judaïsme": 5,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Athéisme_Matérialiste": -5
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Christianisme_Libéral": -5, "Athéisme_Matérialiste": -5
           } 
         },
         { 
           "label": "Le Nouveau Testament (Évangiles)", 
           "scores": {
-            "Catholicisme_Orthodoxe": 5, "Christianisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Protestantisme_Évangélique": 5, "Christianisme_Libéral": 4,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+            "Catholicisme_Orthodoxe": 5, "Christianisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Protestantisme_Évangélique": 5, "Christianisme_Libéral": 4, "Christianisme_Mystique": 4,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
           } 
         },
         { 
           "label": "Le Coran", 
           "scores": {
-            "Islam_Orthodoxe": 5, "Salafisme": 5, "Islam_Libéral": 4,
-            "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+            "Islam_Orthodoxe": 5, "Salafisme": 5, "Islam_Libéral": 4, "Soufisme": 4,
+            "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
           } 
         },
         { 
           "label": "Le Talmud", 
           "scores": {
             "Judaïsme": 5,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Athéisme_Matérialiste": -5
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Athéisme_Matérialiste": -5
           } 
         },
         { 
           "label": "Un autre texte sacré (Védas, Sutras, Tao Te King...)", 
           "scores": {
             "Hindouisme": 5, "Bouddhisme_Traditionnel": 5, "Spiritualité_New_Age": 3,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
           } 
         },
         { 
           "label": "Les textes dits « sacrés » n'ont pas plus de valeur que les autres œuvres humaines", 
           "scores": {
             "Athéisme_Matérialiste": 5, "Humanisme_Séculier": 5, "Agnosticisme": 4, "Nihilisme": 4, "Nietzschéisme": 4,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Judaïsme": -5, "Hindouisme": -5
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Hindouisme": -5
           } 
         }
       ]
@@ -85,13 +85,13 @@
           "label": "La conscience subit un cycle de renaissances (réincarnation) régi par la loi implacable du Karma.", 
           "scores": {
             "Bouddhisme_Traditionnel": 5, "Hindouisme": 5,
-            "Catholicisme_Orthodoxe": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+            "Catholicisme_Orthodoxe": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
           } 
         },
         { 
           "label": "L'âme survit ou fusionne paisiblement avec l'Univers, mais l'idée d'un « Enfer » punitif est une invention humaine.", 
           "scores": {
-            "Déisme": 5, "Panthéisme": 4, "Christianisme_Mystique": 4, "Spiritualité_New_Age": 4, "Soufisme": 4,
+            "Déisme": 5, "Panthéisme": 4, "Christianisme_Mystique": 4, "Spiritualité_New_Age": 4, "Soufisme": 4, "Christianisme_Libéral": 3, "Islam_Libéral": 3,
             "Islam_Orthodoxe": -5, "Salafisme": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Athéisme_Matérialiste": -5
           } 
         },
@@ -99,14 +99,14 @@
           "label": "La conscience s'éteint totalement et définitivement. Il n'y a plus rien d'autre que le néant absolu.", 
           "scores": {
             "Athéisme_Matérialiste": 5, "Épicurisme": 5, "Nihilisme": 5, "Existentialisme": 4, "Nietzschéisme": 4,
-            "Catholicisme_Orthodoxe": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Judaïsme": -5, "Bouddhisme_Traditionnel": -5, "Hindouisme": -5, "Spiritualité_New_Age": -5
+            "Catholicisme_Orthodoxe": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Bouddhisme_Traditionnel": -5, "Hindouisme": -5, "Spiritualité_New_Age": -5
           } 
         },
         { 
           "label": "Il est impossible de le savoir. L'urgence est de vivre moralement le présent sans spéculer sur l'inconnaissable.", 
           "scores": {
             "Agnosticisme": 5, "Stoïcisme": 5, "Humanisme_Séculier": 5, "Bouddhisme_Séculier": 4,
-            "Salafisme": -5, "Islam_Orthodoxe": -5, "Protestantisme_Évangélique": -5, "Catholicisme_Orthodoxe": -5, "Calvinisme": -5
+            "Salafisme": -5, "Islam_Orthodoxe": -5, "Islam_Libéral": -5, "Soufisme": -5, "Protestantisme_Évangélique": -5, "Catholicisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Christianisme_Orthodoxe": -5, "Christianisme_Libéral": -5
           } 
         }
       ]
@@ -745,6 +745,52 @@
         "Catholicisme_Orthodoxe": -5,
         "Islam_Orthodoxe": -5,
         "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_scientisme",
+      "type": "standard",
+      "texte": "La méthode scientifique expérimentale est l'unique voie valable pour accéder à la vérité. Toute question qui ne peut pas être testée, mesurée et prouvée par la science est fondamentalement vide de sens ou illusoire.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Transhumanisme": 4,
+        "Existentialisme": -4,
+        "Agnosticisme": -3,
+        "Spiritualité_New_Age": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_epis_morale_biologique",
+      "type": "standard",
+      "texte": "Nos valeurs morales (l'altruisme, l'empathie, le sens de la justice) ne sont que des instincts de survie sélectionnés par l'évolution biologique pour préserver notre espèce animale. Elles n'ont aucune valeur absolue en dehors de cette utilité évolutive.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Nietzschéisme": 4,
+        "Nihilisme": 4,
+        "Épicurisme": 3,
+        "Humanisme_Séculier": -3,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Judaïsme": -5
+      }
+    },
+    {
+      "id": "q_std_apatheisme",
+      "type": "standard",
+      "texte": "Savoir si un Dieu existe ou non est, au fond, une question sans réelle importance. Le vrai défi est d'améliorer la condition humaine ici et maintenant, sans perdre son temps dans des débats théologiques ou anti-religieux stériles.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Humanisme_Séculier": 4,
+        "Épicurisme": 3,
+        "Bouddhisme_Séculier": 3,
+        "Athéisme_Matérialiste": -3,
+        "Salafisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Catholicisme_Orthodoxe": -5
       }
     },
     {
@@ -1455,52 +1501,6 @@
         "Humanisme_Séculier": -5,
         "Bouddhisme_Traditionnel": -4,
         "Agnosticisme": -5
-      }
-    },
-    {
-      "id": "q_std_scientisme",
-      "type": "standard",
-      "texte": "La méthode scientifique expérimentale est l'unique voie valable pour accéder à la vérité. Toute question qui ne peut pas être testée, mesurée et prouvée par la science est fondamentalement vide de sens ou illusoire.",
-      "scores": {
-        "Athéisme_Matérialiste": 5,
-        "Transhumanisme": 4,
-        "Existentialisme": -4,
-        "Agnosticisme": -3,
-        "Spiritualité_New_Age": -5,
-        "Catholicisme_Orthodoxe": -5,
-        "Islam_Orthodoxe": -5,
-        "Protestantisme_Évangélique": -5
-      }
-    },
-    {
-      "id": "q_epis_morale_biologique",
-      "type": "standard",
-      "texte": "Nos valeurs morales (l'altruisme, l'empathie, le sens de la justice) ne sont que des instincts de survie sélectionnés par l'évolution biologique pour préserver notre espèce animale. Elles n'ont aucune valeur absolue en dehors de cette utilité évolutive.",
-      "scores": {
-        "Athéisme_Matérialiste": 5,
-        "Nietzschéisme": 4,
-        "Nihilisme": 4,
-        "Épicurisme": 3,
-        "Humanisme_Séculier": -3,
-        "Catholicisme_Orthodoxe": -5,
-        "Islam_Orthodoxe": -5,
-        "Calvinisme": -5,
-        "Judaïsme": -5
-      }
-    },
-    {
-      "id": "q_std_apatheisme",
-      "type": "standard",
-      "texte": "Savoir si un Dieu existe ou non est, au fond, une question sans réelle importance. Le vrai défi est d'améliorer la condition humaine ici et maintenant, sans perdre son temps dans des débats théologiques ou anti-religieux stériles.",
-      "scores": {
-        "Agnosticisme": 5,
-        "Humanisme_Séculier": 4,
-        "Épicurisme": 3,
-        "Bouddhisme_Séculier": 3,
-        "Athéisme_Matérialiste": -3,
-        "Salafisme": -5,
-        "Protestantisme_Évangélique": -5,
-        "Catholicisme_Orthodoxe": -5
       }
     }
   ],
