@@ -374,22 +374,52 @@
       return nouveauTableau;
     }
 
-    function traiterIdentite(valeurIdentite, qId) {
+   function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
       let questionsPourTest = [];
       
+      // 1. Définition des familles pour concentrer les questions
+      const famillesProfils = {
+        "chretien": ["Catholicisme_Orthodoxe", "Christianisme_Orthodoxe", "Calvinisme", "Luthéranisme", "Protestantisme_Évangélique", "Christianisme_Libéral", "Christianisme_Mystique"],
+        "judaisme": ["Judaïsme"],
+        "islam": ["Islam_Orthodoxe", "Salafisme", "Islam_Libéral", "Soufisme"],
+        "sagesses_asiatiques": ["Bouddhisme_Traditionnel", "Bouddhisme_Séculier", "Hindouisme"],
+        "antiquite": ["Stoïcisme", "Épicurisme"],
+        "theisme_agnostique": ["Déisme", "Panthéisme", "Spinozisme"],
+        "atheisme": ["Athéisme_Matérialiste", "Humanisme_Séculier", "Existentialisme", "Nihilisme", "Transhumanisme"],
+        "agnosticisme": ["Agnosticisme"],
+        "nietzscheisme": ["Nietzschéisme"],
+        "new_age": ["Spiritualité_New_Age", "Gnosticisme"],
+        "autre": ["Transhumanisme"] // Sécurité pour les inclassables
+      };
+      
       if (valeurIdentite === "sans_apriori") {
-          questionsPourTest = toutesQuestions.filter(q => q.type === "standard" || q.type === "qcm");
+          // Mode aveugle : on prend TOUT sauf la question d'identité
+          questionsPourTest = toutesQuestions.filter(q => q.type !== "identite");
       } else {
+          // 2. On prend systématiquement les QCM (qui sont les grands couperets macro)
+          const qcms = toutesQuestions.filter(q => q.type === "qcm");
+          
+          // 3. On prend les Crash Tests (couperets de niveau 1 et 2) liés à cette famille
           const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
-          const questionsStandards = toutesQuestions.filter(q => q.type === "standard" || q.type === "qcm");
-          questionsPourTest = [...crashTests, ...questionsStandards];
+          
+          // 4. LE FILTRE INTELLIGENT : On ne garde que les questions standards qui touchent les profils de cette famille
+          const profilsFamille = famillesProfils[valeurIdentite] || [];
+          
+          const standardsFiltrees = toutesQuestions.filter(q => {
+              if (q.type !== "standard") return false;
+              if (!q.scores) return false;
+              // Si la question donne des points (positifs ou négatifs) à un profil de la famille, on la garde !
+              return Object.keys(q.scores).some(profil => profilsFamille.includes(profil));
+          });
+
+          // On assemble le vivier concentré
+          questionsPourTest = [...qcms, ...crashTests, ...standardsFiltrees];
       }
       
       questionsDisponibles = melangerTableau(questionsPourTest);
       preparerQuestionSuivante();
     }
-
     function enregistrerChoix(valeur, qId) {
       reponsesUtilisateur[qId] = valeur;
       
