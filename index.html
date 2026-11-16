@@ -417,9 +417,9 @@
       preparerQuestionSuivante();
     }
 
-    // --- LE CÉLÈBRE MOTEUR "TRAQUEUR" À 3 NIVEAUX ---
+   // --- LE MOTEUR "HYBRIDE" (ENTONNOIR + EXPLORATION + TRAQUE ÉLARGIE) ---
     function preparerQuestionSuivante() {
-      const LIMITE_QUESTIONS = 25; // Le test s'arrête désormais à 25 questions pour plus de précision
+      const LIMITE_QUESTIONS = 25; // Mode expert à 25 questions
 
       if (questionsDisponibles.length === 0 || fileAttente.length >= LIMITE_QUESTIONS) {
         if (indexCourant === fileAttente.length - 1) {
@@ -434,41 +434,49 @@
 
       let indexProchaine = -1;
 
-      // NIVEAU 1 : QCM (Toujours en premier pour classer lourdement)
+      // NIVEAU 1 : QCM (Filtres macroscopiques universels obligatoires)
       let qcmsDispos = questionsDisponibles.map((q, idx) => ({q, idx})).filter(item => item.q.type === "qcm");
       
       if (qcmsDispos.length > 0) {
         indexProchaine = qcmsDispos[Math.floor(Math.random() * qcmsDispos.length)].idx;
       } 
       else {
-        // NIVEAU 2 : Crash Tests (Uniquement si l'utilisateur a choisi une identité)
+        // NIVEAU 2 : Crash Tests de famille (Si identité religieuse/philosophique choisie)
         let crashDispos = questionsDisponibles.map((q, idx) => ({q, idx})).filter(item => item.q.type === "crash_test");
         
         if (crashDispos.length > 0 && reponsesUtilisateur["q_identite"] !== "sans_apriori") {
           indexProchaine = crashDispos[Math.floor(Math.random() * crashDispos.length)].idx;
         }
-        // NIVEAU 3 : LE TRAQUEUR (Pour les standards et le mode Aveugle)
+        // NIVEAU 3 : LE MOTEUR HYBRIDE
         else {
-          // On calcule le leader ACTUEL en coulisses (sans bouclier bloquant)
-          const classementProvisoire = calculerAffinities(reponsesUtilisateur, false);
-          
-          if (classementProvisoire.length > 0) {
-            const profilLeader = classementProvisoire[0].profil;
-            
-            // On cherche les questions restantes qui IMPACTENT le leader (pour le confirmer ou le détruire)
-            let questionsCibles = questionsDisponibles.map((q, idx) => ({q, idx}))
-              .filter(item => item.q.scores && item.q.scores[profilLeader]);
-              
-            if (questionsCibles.length > 0) {
-              // On trie pour poser la question la plus brutale (celle qui a des scores 5 ou -5)
-              questionsCibles.sort((a, b) => Math.abs(b.q.scores[profilLeader]) - Math.abs(a.q.scores[profilLeader]));
-              indexProchaine = questionsCibles[0].idx;
-            }
-          }
-          
-          // Si on n'a rien trouvé, on tire au hasard
-          if (indexProchaine === -1) {
-            indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
+          // A. Phase d'Exploration (Jusqu'à la 12e question)
+          // On force le brassage pour donner une chance à TOUTES les doctrines (ex: Spinozisme) de marquer des points.
+          if (fileAttente.length <= 12) {
+             indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
+          } 
+          // B. Phase d'Affinage et de Traque (À partir de la 13e question)
+          else {
+             const classementProvisoire = calculerAffinities(reponsesUtilisateur, false);
+             if (classementProvisoire.length > 0) {
+                // INNOVATION : On ne s'enferme plus sur le N°1 ! On tire au sort parmi le TOP 4 actuel.
+                // Cela donne l'opportunité aux challengers de recevoir LEURS questions pour renverser le leader.
+                const maxTop = Math.min(4, classementProvisoire.length);
+                const indexLeaderChoisi = Math.floor(Math.random() * maxTop);
+                const profilCible = classementProvisoire[indexLeaderChoisi].profil;
+                
+                let questionsCibles = questionsDisponibles.map((q, idx) => ({q, idx}))
+                  .filter(item => item.q.scores && item.q.scores[profilCible]);
+                  
+                if (questionsCibles.length > 0) {
+                   // On trie pour poser la question la plus discriminante possible
+                   questionsCibles.sort((a, b) => Math.abs(b.q.scores[profilCible]) - Math.abs(a.q.scores[profilCible]));
+                   indexProchaine = questionsCibles[0].idx;
+                }
+             }
+             // Sécurité si aucune question cible n'est trouvée
+             if (indexProchaine === -1) {
+                indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
+             }
           }
         }
       }
