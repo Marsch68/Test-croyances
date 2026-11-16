@@ -390,9 +390,9 @@
         "autre": ["Transhumanisme"]
       };
       
-      if (valeurIdentite === "sans_apriori") {
-          // Mode aveugle : on inclut tout
-          questionsPourTest = toutesQuestions.filter(q => q.type !== "identite");
+    if (valeurIdentite === "sans_apriori") {
+          // CORRECTION : En mode aveugle, on exclut formellement les crash-tests dogmatiques
+          questionsPourTest = toutesQuestions.filter(q => q.type === "standard" || q.type === "qcm");
       } else {
           // Mode ciblé : QCM universels + Crash tests de la famille + Standards qui touchent la famille
           const qcms = toutesQuestions.filter(q => q.type === "qcm");
