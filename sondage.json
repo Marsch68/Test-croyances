@@ -112,6 +112,60 @@
       ]
     },
     {
+      "id": "ct_athe_liberte_radicale",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "Bien qu'il n'y ait pas de Dieu, l'être humain n'est pas pour autant une simple machine biologique déterminée par ses gènes. Notre conscience est radicalement libre, et nous sommes les auteurs uniques et responsables de nos valeurs.",
+      "scores": {
+        "Existentialisme": 5,
+        "Humanisme_Séculier": 4,
+        "Athéisme_Matérialiste": -5,
+        "Spinozisme": -5,
+        "Nihilisme": -4
+      }
+    },
+    {
+      "id": "ct_theisme_immanence",
+      "type": "crash_test",
+      "cible_identite": "theisme_agnostique",
+      "texte": "Il est absurde d'imaginer un principe créateur qui serait « à l'extérieur » de l'univers pour le fabriquer comme un horloger. Le divin et la Nature matérielle ne font qu'un : la Nature obéit à ses propres lois géométriques, et c'est cela qu'on appelle Dieu.",
+      "scores": {
+        "Spinozisme": 5,
+        "Panthéisme": 5,
+        "Déisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Catholicisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "ct_athe_progres_moral",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "L'humanité progresse : grâce à la science, aux droits humains et à l'éducation, nous sommes en train de bâtir un monde intrinsèquement plus moral, plus juste et plus éclairé que par le passé.",
+      "scores": {
+        "Humanisme_Séculier": 5,
+        "Christianisme_Libéral": 3,
+        "Nihilisme": -5,
+        "Nietzschéisme": -5,
+        "Calvinisme": -4
+      }
+    },
+    {
+      "id": "ct_asie_divin_interieur",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "Au fond de moi se trouve une étincelle sacrée, un « Moi supérieur » de nature divine que je dois éveiller et développer pour accomplir ma destinée cosmique.",
+      "scores": {
+        "Hindouisme": 5,
+        "Spiritualité_New_Age": 5,
+        "Gnosticisme": 4,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -5,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    
+    {
       "id": "q_poli_etat_raison",
       "type": "standard",
       "texte": "L'État et les lois, même imparfaits, sont absolument nécessaires pour garantir la sécurité. Rien n'est plus utile à un être humain qu'un autre être humain guidé par la raison : la véritable liberté s'atteint par la coopération civique et la politique, non par la destruction des institutions.",
