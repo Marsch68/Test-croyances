@@ -435,9 +435,9 @@
       preparerQuestionSuivante();
     }
 
-    // --- LE NOUVEAU MOTEUR ADAPTATIF EN 2 PHASES ---
+   // L'ENTONNOIR STRICT À 3 NIVEAUX (20 QUESTIONS MAX)
     function preparerQuestionSuivante() {
-      const LIMITE_QUESTIONS = 20; // Le test s'arrête à 20 questions
+      const LIMITE_QUESTIONS = 20;
 
       if (questionsDisponibles.length === 0 || fileAttente.length >= LIMITE_QUESTIONS) {
         if (indexCourant === fileAttente.length - 1) {
@@ -452,23 +452,31 @@
 
       let indexProchaine = -1;
 
-      // PHASE 1 : Entonnoir (On pose en priorité TOUS les QCM et Crash Tests)
-      const couperetsDispos = questionsDisponibles.map((q, idx) => ({q, idx})).filter(item => item.q.type === "qcm" || item.q.type === "crash_test");
+      // NIVEAU 1 : Les QCM (Filtres macroscopiques universels)
+      let qcmsDispos = questionsDisponibles.map((q, idx) => ({q, idx})).filter(item => item.q.type === "qcm");
       
-      if (couperetsDispos.length > 0) {
-        // S'il reste des questions prioritaires, on en tire une au hasard
-        const tirage = couperetsDispos[Math.floor(Math.random() * couperetsDispos.length)];
-        indexProchaine = tirage.idx;
+      if (qcmsDispos.length > 0) {
+        // S'il reste des QCM, on les pose en priorité absolue
+        indexProchaine = qcmsDispos[Math.floor(Math.random() * qcmsDispos.length)].idx;
       } 
-      // PHASE 2 : Affinage (Questions standards avec algorithme de contradiction)
       else {
-        if (modeAlgorithme === "contradiction" && profilEnTest) {
-          indexProchaine = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] < 0);
-        } else if (modeAlgorithme === "renfort" && profilEnTest) {
-          indexProchaine = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] > 0);
+        // NIVEAU 2 : Les Crash Tests (Filtres spécifiques à la famille)
+        let crashDispos = questionsDisponibles.map((q, idx) => ({q, idx})).filter(item => item.q.type === "crash_test");
+        
+        if (crashDispos.length > 0) {
+          // S'il ne reste plus de QCM mais des Crash Tests, on les pose
+          indexProchaine = crashDispos[Math.floor(Math.random() * crashDispos.length)].idx;
         }
-        if (indexProchaine === -1) {
-          indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
+        // NIVEAU 3 : Les questions Standards (Le moteur adaptatif pour les nuances)
+        else {
+          if (modeAlgorithme === "contradiction" && profilEnTest) {
+            indexProchaine = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] < 0);
+          } else if (modeAlgorithme === "renfort" && profilEnTest) {
+            indexProchaine = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] > 0);
+          }
+          if (indexProchaine === -1) {
+            indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
+          }
         }
       }
 
@@ -482,7 +490,6 @@
       indexCourant++;
       afficherQuestion();
     }
-
     function questionPrecedente() {
       if (indexCourant > 0) {
         indexCourant--;
