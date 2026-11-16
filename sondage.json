@@ -69,7 +69,7 @@
         }
       ]
     },
-  {
+    {
       "id": "qcm_au_dela",
       "type": "qcm",
       "texte": "Selon vous, que se passe-t-il véritablement au moment de la mort physique ?",
@@ -144,7 +144,7 @@
     {
       "id": "q_ethi_responsabilite_morale",
       "type": "standard",
-      "texte": "Puisque nous sommes entièrement déterminés par notre biologie et notre passé, le « mérite » et la « culpabilité » morale n'existent pas fondamentalement. La justice ne devrait pas chercher à punir moralement, mais uniquement à protéger la société et à réhabiliter.",
+      "texte": "Le « mérite » et la « culpabilité » morale n'existent pas fondamentalement. La justice ne devrait jamais chercher à punir moralement un coupable, mais uniquement à protéger la société et à le réhabiliter.",
       "scores": {
         "Spinozisme": 5,
         "Bouddhisme_Séculier": 3,
@@ -199,17 +199,21 @@
       }
     },
     {
-      "id": "q_ethi_calcul_plaisirs",
+      "id": "q_std_epicurisme",
       "type": "standard",
-      "texte": "Le bonheur ne consiste pas à éteindre notre soif de vivre, mais à calculer rationnellement nos plaisirs. En cultivant exclusivement les désirs naturels et nécessaires (l'amitié, le savoir, une nourriture simple), on atteint la paix de l'âme sans nier notre nature matérielle.",
+      "texte": "Le seul but raisonnable de l'existence est de cultiver des plaisirs simples et rationnels (l'amitié, le savoir) pour atteindre l'absence totale de trouble et la paix de l'âme.",
       "scores": {
         "Épicurisme": 5,
-        "Humanisme_Séculier": 3,
-        "Athéisme_Matérialiste": 2,
-        "Bouddhisme_Traditionnel": -5,
-        "Nietzschéisme": -5,
-        "Bouddhisme_Séculier": -4,
-        "Protestantisme_Évangélique": -4
+        "Athéisme_Matérialiste": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Spiritualité_New_Age": -5,
+        "Protestantisme_Évangélique": -5
       }
     },
     {
@@ -655,7 +659,7 @@
     {
       "id": "q_std_existentialisme",
       "type": "standard",
-      "texte": "L'être humain naît sans nature prédéfinie ni destin ; c'est à nous, par nos choix absolument libres, de créer le sens de notre existence dans un univers indifférent.",
+      "texte": "Dans un univers indifférent, c'est à nous seuls, par nos choix absolument libres, de créer et d'inventer le sens et les valeurs de notre propre existence.",
       "scores": {
         "Existentialisme": 5,
         "Nietzschéisme": 4,
@@ -697,24 +701,6 @@
         "Existentialisme": -5,
         "Catholicisme_Orthodoxe": -4,
         "Protestantisme_Évangélique": -4
-      }
-    },
-    {
-      "id": "q_std_epicurisme",
-      "type": "standard",
-      "texte": "L'univers est purement matériel. Puisqu'il n'y a pas de jugement après la mort, le seul but raisonnable de l'existence est de cultiver des plaisirs simples et rationnels pour atteindre l'absence de trouble.",
-      "scores": {
-        "Épicurisme": 5,
-        "Athéisme_Matérialiste": 4,
-        "Catholicisme_Orthodoxe": -5,
-        "Christianisme_Orthodoxe": -5,
-        "Calvinisme": -5,
-        "Luthéranisme": -5,
-        "Islam_Orthodoxe": -5,
-        "Salafisme": -5,
-        "Judaïsme": -5,
-        "Spiritualité_New_Age": -5,
-        "Protestantisme_Évangélique": -5
       }
     },
     {
@@ -783,7 +769,7 @@
     {
       "id": "q_std_probleme_du_mal",
       "type": "standard",
-      "texte": "L'existence de souffrances extrêmes et injustes dans le monde prouve mathématiquement qu'il ne peut pas exister de Dieu qui soit simultanément tout-puissant ET infiniment bon.",
+      "texte": "L'existence de souffrances extrêmes et injustes dans le monde est la preuve logique et définitive qu'un Dieu à la fois tout-puissant et infiniment bon ne peut pas exister.",
       "scores": {
         "Athéisme_Matérialiste": 5,
         "Agnosticisme": 4,
@@ -1240,7 +1226,7 @@
     {
       "id": "q_std_transhumanisme_limites",
       "type": "standard",
-      "texte": "La condition humaine, avec sa vulnérabilité, sa vieillesse et sa mortalité, n'est pas une fatalité naturelle ou divine qu'il faudrait accepter avec sagesse. C'est un défaut biologique que nous avons le droit et le devoir de corriger grâce aux avancées technologiques et génétiques.",
+      "texte": "La vulnérabilité physique, la vieillesse et la mortalité sont des défauts biologiques que nous avons le droit et le devoir absolu de corriger grâce aux avancées technologiques et génétiques.",
       "scores": {
         "Transhumanisme": 5,
         "Humanisme_Séculier": 2,
@@ -1302,7 +1288,7 @@
         "Agnosticisme": -5
       }
     }
-   ],
+  ],
   "dissonances": [
     {
       "code": "CATH_TRADI_VS_SYMBOLE",
