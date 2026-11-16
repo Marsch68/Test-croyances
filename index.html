@@ -272,7 +272,7 @@
     let questionsDisponibles = [];
     let indexCourant = 0;
     
-    let modeAlgorithme = "hasard"; // "hasard", "contradiction" ou "renfort"
+    let modeAlgorithme = "hasard";
     let profilEnTest = null;
     let radarChartInstance = null;
 
@@ -390,31 +390,25 @@
       preparerQuestionSuivante();
     }
 
-    // --- LE MOTEUR ADAPTATIF ---
     function enregistrerChoix(valeur, qId) {
       reponsesUtilisateur[qId] = valeur;
       
       const qActuelle = fileAttente[indexCourant];
       if (qActuelle.type === "crash_test") {
-        if (valeur < 1) { 
-          modeAlgorithme = "contradiction"; 
-        } else {
-          modeAlgorithme = "renfort";
-        }
+        if (valeur < 1) { modeAlgorithme = "contradiction"; } 
+        else { modeAlgorithme = "renfort"; }
         let candidats = Object.keys(qActuelle.scores);
         profilEnTest = candidats[0];
       } else {
         modeAlgorithme = "hasard";
       }
-
       preparerQuestionSuivante();
     }
 
-   function preparerQuestionSuivante() {
-      // --- LA NOUVELLE LIMITE ---
-      const LIMITE_QUESTIONS = 15; // Le test s'arrêtera après 15 questions
+    // --- LE NOUVEAU MOTEUR ADAPTATIF EN 2 PHASES ---
+    function preparerQuestionSuivante() {
+      const LIMITE_QUESTIONS = 20; // Le test s'arrête à 20 questions
 
-      // Si on n'a plus de questions dispos OU si on a atteint la limite voulue
       if (questionsDisponibles.length === 0 || fileAttente.length >= LIMITE_QUESTIONS) {
         if (indexCourant === fileAttente.length - 1) {
           terminerSondage();
@@ -428,14 +422,24 @@
 
       let indexProchaine = -1;
 
-      if (modeAlgorithme === "contradiction" && profilEnTest) {
-        indexProchaine = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] < 0);
-      } else if (modeAlgorithme === "renfort" && profilEnTest) {
-        indexProchaine = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] > 0);
-      }
-
-      if (indexProchaine === -1) {
-        indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
+      // PHASE 1 : Entonnoir (On pose en priorité TOUS les QCM et Crash Tests)
+      const couperetsDispos = questionsDisponibles.map((q, idx) => ({q, idx})).filter(item => item.q.type === "qcm" || item.q.type === "crash_test");
+      
+      if (couperetsDispos.length > 0) {
+        // S'il reste des questions prioritaires, on en tire une au hasard
+        const tirage = couperetsDispos[Math.floor(Math.random() * couperetsDispos.length)];
+        indexProchaine = tirage.idx;
+      } 
+      // PHASE 2 : Affinage (Questions standards avec algorithme de contradiction)
+      else {
+        if (modeAlgorithme === "contradiction" && profilEnTest) {
+          indexProchaine = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] < 0);
+        } else if (modeAlgorithme === "renfort" && profilEnTest) {
+          indexProchaine = questionsDisponibles.findIndex(q => q.scores && q.scores[profilEnTest] > 0);
+        }
+        if (indexProchaine === -1) {
+          indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
+        }
       }
 
       const qSuivante = questionsDisponibles.splice(indexProchaine, 1)[0];
@@ -448,11 +452,14 @@
       indexCourant++;
       afficherQuestion();
     }
+
     function questionPrecedente() {
       if (indexCourant > 0) {
         indexCourant--;
         const qActuelle = fileAttente[indexCourant];
         delete reponsesUtilisateur[qActuelle.id];
+        // On remet la question dans les disponibles pour ne pas la perdre
+        questionsDisponibles.push(fileAttente.pop());
         afficherQuestion();
       }
     }
@@ -629,7 +636,6 @@
         redaction += `Il est également fortement teinté de <strong>${nomDom2}</strong>.`;
       }
 
-      // Ajout des définitions
       redaction += `<br><br><div style="background-color: #ffffff; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); margin: 15px 0; font-size: 0.95em;">`;
       redaction += `<strong style="color: var(--primary);">📌 Ce que cela signifie :</strong><br><br>`;
       
@@ -642,7 +648,6 @@
       }
       redaction += `</div>`;
 
-      // Dissonance
       if (pourcentageDissonance === 0) {
         redaction += "Ce socle est remarquablement stable : vous n'avez validé aucun paradoxe logique ou métaphysique flagrant lors de ce test. Vos réponses sont d'une grande cohérence architecturale.";
       } else if (pourcentageDissonance <= 30) {
