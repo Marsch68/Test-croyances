@@ -112,60 +112,6 @@
       ]
     },
     {
-      "id": "ct_athe_liberte_radicale",
-      "type": "crash_test",
-      "cible_identite": "atheisme",
-      "texte": "Bien qu'il n'y ait pas de Dieu, l'être humain n'est pas pour autant une simple machine biologique déterminée par ses gènes. Notre conscience est radicalement libre, et nous sommes les auteurs uniques et responsables de nos valeurs.",
-      "scores": {
-        "Existentialisme": 5,
-        "Humanisme_Séculier": 4,
-        "Athéisme_Matérialiste": -5,
-        "Spinozisme": -5,
-        "Nihilisme": -4
-      }
-    },
-    {
-      "id": "ct_theisme_immanence",
-      "type": "crash_test",
-      "cible_identite": "theisme_agnostique",
-      "texte": "Il est absurde d'imaginer un principe créateur qui serait « à l'extérieur » de l'univers pour le fabriquer comme un horloger. Le divin et la Nature matérielle ne font qu'un : la Nature obéit à ses propres lois géométriques, et c'est cela qu'on appelle Dieu.",
-      "scores": {
-        "Spinozisme": 5,
-        "Panthéisme": 5,
-        "Déisme": -5,
-        "Islam_Orthodoxe": -5,
-        "Catholicisme_Orthodoxe": -5
-      }
-    },
-    {
-      "id": "ct_athe_progres_moral",
-      "type": "crash_test",
-      "cible_identite": "atheisme",
-      "texte": "L'humanité progresse : grâce à la science, aux droits humains et à l'éducation, nous sommes en train de bâtir un monde intrinsèquement plus moral, plus juste et plus éclairé que par le passé.",
-      "scores": {
-        "Humanisme_Séculier": 5,
-        "Christianisme_Libéral": 3,
-        "Nihilisme": -5,
-        "Nietzschéisme": -5,
-        "Calvinisme": -4
-      }
-    },
-    {
-      "id": "ct_asie_divin_interieur",
-      "type": "crash_test",
-      "cible_identite": "sagesses_asiatiques",
-      "texte": "Au fond de moi se trouve une étincelle sacrée, un « Moi supérieur » de nature divine que je dois éveiller et développer pour accomplir ma destinée cosmique.",
-      "scores": {
-        "Hindouisme": 5,
-        "Spiritualité_New_Age": 5,
-        "Gnosticisme": 4,
-        "Bouddhisme_Traditionnel": -5,
-        "Bouddhisme_Séculier": -5,
-        "Athéisme_Matérialiste": -5
-      }
-    },
-    
-    {
       "id": "q_poli_etat_raison",
       "type": "standard",
       "texte": "L'État et les lois, même imparfaits, sont absolument nécessaires pour garantir la sécurité. Rien n'est plus utile à un être humain qu'un autre être humain guidé par la raison : la véritable liberté s'atteint par la coopération civique et la politique, non par la destruction des institutions.",
@@ -391,6 +337,47 @@
       }
     },
     {
+      "id": "ct_chret_marie_saints",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "La Vierge Marie et les Saints qui sont au Paradis peuvent entendre nos prières et intercéder pour nous auprès de Dieu. Il est donc légitime et pieux de les prier ou d'honorer leurs icônes.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Christianisme_Libéral": -4
+      }
+    },
+    {
+      "id": "ct_chret_purgatoire",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Même pardonnées, certaines âmes doivent passer par un état de purification par la souffrance après la mort (le Purgatoire) avant de pouvoir accéder à la pleine vision de Dieu au Paradis.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": -3,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Christianisme_Libéral": -5
+      }
+    },
+    {
+      "id": "ct_chret_grace_irresistible",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "La Grâce de Dieu est totalement irrésistible. Lorsqu'Il élit un individu pour le sauver, celui-ci ne peut s'y opposer par son libre-arbitre, et il lui sera absolument impossible de perdre ce salut par la suite.",
+      "scores": {
+        "Calvinisme": 5,
+        "Luthéranisme": -4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Christianisme_Libéral": -5
+      }
+    },
+    {
       "id": "ct_islam_tawhid",
       "type": "crash_test",
       "cible_identite": "islam",
@@ -473,6 +460,78 @@
         "Athéisme_Matérialiste": -5,
         "Épicurisme": -5,
         "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_asie_divin_interieur",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "Au fond de moi se trouve une étincelle sacrée, un « Moi supérieur » de nature divine que je dois éveiller et développer pour accomplir ma destinée cosmique.",
+      "scores": {
+        "Hindouisme": 5,
+        "Spiritualité_New_Age": 5,
+        "Gnosticisme": 4,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -5,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "ct_asie_bouddhisme_laic",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "La méditation et la pleine conscience sont d'excellents outils psychologiques pour réduire le stress et vivre l'instant présent, mais je ne crois absolument pas aux concepts surnaturels de réincarnation ou de karma cosmique.",
+      "scores": {
+        "Bouddhisme_Séculier": 5,
+        "Athéisme_Matérialiste": 3,
+        "Humanisme_Séculier": 3,
+        "Bouddhisme_Traditionnel": -5,
+        "Hindouisme": -5,
+        "Spiritualité_New_Age": -5
+      }
+    },
+    {
+      "id": "q_std_new_age_abondance",
+      "type": "standard",
+      "texte": "Le but de la spiritualité n'est pas de renoncer à nos désirs matériels, mais d'apprendre à élever notre fréquence vibratoire pour manifester nos rêves et attirer à nous l'abondance, le succès et le bonheur matériel.",
+      "scores": {
+        "Spiritualité_New_Age": 5,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -5,
+        "Stoïcisme": -5,
+        "Épicurisme": -4,
+        "Athéisme_Matérialiste": -5,
+        "Calvinisme": -5
+      }
+    },
+    {
+      "id": "q_ethi_dharma",
+      "type": "standard",
+      "texte": "L'univers repose sur un ordre cosmique et moral strict (le Dharma). Mon devoir premier n'est pas d'inventer mes propres valeurs ou de faire ce qui me plaît, mais d'accomplir avec justesse le rôle et les devoirs qui m'ont été attribués par mon karma.",
+      "scores": {
+        "Hindouisme": 5,
+        "Existentialisme": -5,
+        "Humanisme_Séculier": -5,
+        "Nietzschéisme": -5,
+        "Spiritualité_New_Age": -3,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "ct_new_age_gnosticisme",
+      "type": "crash_test",
+      "cible_identite": "new_age",
+      "texte": "Le monde matériel dans lequel nous vivons n'est ni divin ni sacré ; c'est une illusion profondément corrompue, une matrice ou une prison créée par des forces inférieures, dont notre étincelle spirituelle doit s'évader par la Connaissance secrète (la Gnose).",
+      "scores": {
+        "Gnosticisme": 5,
+        "Bouddhisme_Traditionnel": 3,
+        "Panthéisme": -5,
+        "Spinozisme": -5,
+        "Spiritualité_New_Age": -4,
+        "Athéisme_Matérialiste": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Judaïsme": -5,
+        "Islam_Orthodoxe": -5
       }
     },
     {
@@ -569,6 +628,19 @@
       }
     },
     {
+      "id": "ct_theisme_immanence",
+      "type": "crash_test",
+      "cible_identite": "theisme_agnostique",
+      "texte": "Il est absurde d'imaginer un principe créateur qui serait « à l'extérieur » de l'univers pour le fabriquer comme un horloger. Le divin et la Nature matérielle ne font qu'un : la Nature obéit à ses propres lois géométriques, et c'est cela qu'on appelle Dieu.",
+      "scores": {
+        "Spinozisme": 5,
+        "Panthéisme": 5,
+        "Déisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Catholicisme_Orthodoxe": -5
+      }
+    },
+    {
       "id": "ct_athe_materiel",
       "type": "crash_test",
       "cible_identite": "atheisme",
@@ -629,6 +701,49 @@
         "Islam_Orthodoxe": -5,
         "Salafisme": -5,
         "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_athe_liberte_radicale",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "Bien qu'il n'y ait pas de Dieu, l'être humain n'est pas pour autant une simple machine biologique déterminée par ses gènes. Notre conscience est radicalement libre, et nous sommes les auteurs uniques et responsables de nos valeurs.",
+      "scores": {
+        "Existentialisme": 5,
+        "Humanisme_Séculier": 4,
+        "Athéisme_Matérialiste": -5,
+        "Spinozisme": -5,
+        "Nihilisme": -4
+      }
+    },
+    {
+      "id": "ct_athe_progres_moral",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "L'humanité progresse : grâce à la science, aux droits humains et à l'éducation, nous sommes en train de bâtir un monde intrinsèquement plus moral, plus juste et plus éclairé que par le passé.",
+      "scores": {
+        "Humanisme_Séculier": 5,
+        "Christianisme_Libéral": 3,
+        "Nihilisme": -5,
+        "Nietzschéisme": -5,
+        "Calvinisme": -4
+      }
+    },
+    {
+      "id": "ct_athe_nihilisme_absolu",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "Non seulement l'univers n'a aucun sens, mais toutes nos tentatives humaines pour lui en donner un (l'art, la morale, l'amour, les grands projets) sont d'illusoires et pathétiques distractions face au vide absolu de l'existence.",
+      "scores": {
+        "Nihilisme": 5,
+        "Existentialisme": -5,
+        "Humanisme_Séculier": -5,
+        "Transhumanisme": -5,
+        "Épicurisme": -5,
+        "Stoïcisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
         "Protestantisme_Évangélique": -5
       }
     },
@@ -1341,6 +1456,52 @@
         "Bouddhisme_Traditionnel": -4,
         "Agnosticisme": -5
       }
+    },
+    {
+      "id": "q_std_scientisme",
+      "type": "standard",
+      "texte": "La méthode scientifique expérimentale est l'unique voie valable pour accéder à la vérité. Toute question qui ne peut pas être testée, mesurée et prouvée par la science est fondamentalement vide de sens ou illusoire.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Transhumanisme": 4,
+        "Existentialisme": -4,
+        "Agnosticisme": -3,
+        "Spiritualité_New_Age": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_epis_morale_biologique",
+      "type": "standard",
+      "texte": "Nos valeurs morales (l'altruisme, l'empathie, le sens de la justice) ne sont que des instincts de survie sélectionnés par l'évolution biologique pour préserver notre espèce animale. Elles n'ont aucune valeur absolue en dehors de cette utilité évolutive.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Nietzschéisme": 4,
+        "Nihilisme": 4,
+        "Épicurisme": 3,
+        "Humanisme_Séculier": -3,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Judaïsme": -5
+      }
+    },
+    {
+      "id": "q_std_apatheisme",
+      "type": "standard",
+      "texte": "Savoir si un Dieu existe ou non est, au fond, une question sans réelle importance. Le vrai défi est d'améliorer la condition humaine ici et maintenant, sans perdre son temps dans des débats théologiques ou anti-religieux stériles.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Humanisme_Séculier": 4,
+        "Épicurisme": 3,
+        "Bouddhisme_Séculier": 3,
+        "Athéisme_Matérialiste": -3,
+        "Salafisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Catholicisme_Orthodoxe": -5
+      }
     }
   ],
   "dissonances": [
@@ -1350,7 +1511,7 @@
       "message": "<strong>Autorité Papale vs Réalité Sacramentelle :</strong> Vous reconnaissez l'infaillibilité du Pape et l'autorité de Rome, mais vous rejetez la réalité matérielle de l'Eucharistie (la transsubstantiation) pour n'y voir qu'un symbole. C'est une contradiction théologique majeure au sein de l'orthodoxie catholique."
     },
     {
-      "code": "PANTHÉISME_VS_LIBRE_ARBITRE",
+      "code": "PANTHEISME_VS_LIBRE_ARBITRE",
       "condition": "rep['q_std_spinoza'] > 0 && rep['q_std_existentialisme'] > 0",
       "message": "<strong>L'Ordre Nécessaire vs Le Libre-Arbitre :</strong> Vous concevez Dieu comme l'ordre géométrique et nécessaire de la Nature, mais vous affirmez simultanément que l'humain est radicalement libre de créer son destin. Philosophiquement, si l'univers obéit à la stricte nécessité naturelle, la volonté humaine ne peut pas en être soustraite."
     },
@@ -1463,6 +1624,41 @@
       "code": "EVANGELIQUE_VS_NEW_AGE",
       "condition": "rep['q_std_evang_inerrance'] > 0 && rep['q_std_new_age_energies'] > 0",
       "message": "<strong>Inerrance Biblique face aux Énergies Vibratoires :</strong> Vous affirmez que la Bible est la parole infaillible et l'unique autorité (approche Évangélique stricte), mais vous adhérez par ailleurs à la loi de l'attraction et aux théories des champs vibratoires de l'univers (Spiritualité New Age). C'est une dissonance théologique majeure : l'orthodoxie biblique considère généralement ces pratiques énergétiques comme des croyances ésotériques incompatibles avec la souveraineté d'un Dieu personnel."
+    },
+    {
+      "code": "MONOTHEISME_VS_PANTHEISME",
+      "condition": "(rep['q_identite'] === 'chretien' || rep['q_identite'] === 'islam' || rep['q_identite'] === 'judaisme') && (rep['q_std_spinoza'] > 0 || rep['ct_theisme_immanence'] > 0)",
+      "message": "<strong>Le Dieu Révélé face au Dieu-Nature :</strong> Vous vous identifiez à un monothéisme abrahamique (qui postule un Dieu Créateur personnel, transcendant et extérieur au monde qui juge et aime), mais vous validez simultanément l'idée spinoziste ou panthéiste que Dieu n'est rien d'autre que l'ordre géométrique aveugle de la Nature. C'est une hérésie philosophique majeure pour ces trois religions : le Créateur ne peut absolument pas être confondu avec Sa création matérielle."
+    },
+    {
+      "code": "CREATION_VS_HASARD_AVEUGLE",
+      "condition": "(rep['q_identite'] === 'chretien' || rep['q_identite'] === 'islam' || rep['q_identite'] === 'judaisme') && rep['q_meta_nature_objective'] > 0",
+      "message": "<strong>Le Dessein Divin face au Hasard Aveugle :</strong> Vous vous rattachez à une tradition biblique ou coranique, mais vous validez l'affirmation purement matérialiste selon laquelle l'évolution de l'univers est le fruit d'une mécanique aveugle, sans intention ni but final (hasard et nécessité). Or, l'essence même du monothéisme est la certitude absolue qu'il existe une Providence (un plan divin) pour la création et pour l'humanité."
+    },
+    {
+      "code": "AME_CREEE_VS_BIOCHIMIE",
+      "condition": "(rep['q_identite'] === 'chretien' || rep['q_identite'] === 'islam' || rep['q_identite'] === 'judaisme') && rep['q_meta_fantome_machine'] > 0",
+      "message": "<strong>L'Âme Spirituelle face au Matérialisme Biologique :</strong> Vous vous réclamez d'une foi postulant l'existence d'une âme immatérielle, éternelle et insufflée par Dieu (appelée à survivre pour le Jugement), tout en affirmant que l'esprit humain n'est qu'un simple sous-produit biochimique de la matière. C'est une contradiction frontale absolue entre l'anthropologie spirituelle et le matérialisme scientifique pur."
+    },
+    {
+      "code": "RENONCEMENT_VS_ABONDANCE",
+      "condition": "(rep['q_std_extinction_desir'] > 0 || rep['ct_asie_maya'] > 0) && (rep['q_std_new_age_abondance'] > 0 || rep['q_std_new_age_energies'] > 0)",
+      "message": "<strong>L'Extinction du Désir face à la Loi de l'Attraction :</strong> Vous affirmez d'un côté que la sagesse exige d'éteindre le désir et de se détacher du monde matériel (vision bouddhiste ou ascétique), mais vous cherchez simultanément à utiliser les « énergies vibratoires » pour manifester l'abondance et accomplir vos désirs matériels (New Age). C'est un grand écart philosophique : on ne peut pas vouloir se libérer du désir tout en cherchant magiquement à l'assouvir."
+    },
+    {
+      "code": "ANATTA_VS_MOI_SUPERIEUR",
+      "condition": "rep['q_std_bouddhisme_anatta'] > 0 && rep['ct_asie_divin_interieur'] > 0",
+      "message": "<strong>Le Non-Soi (Anatta) face au Moi Supérieur :</strong> Vous validez le concept bouddhiste fondamental de l'Anatta (le « Moi » permanent est une illusion génératrice de souffrance), mais vous soutenez par ailleurs qu'il existe en vous une âme éternelle ou un « Moi supérieur » divin à éveiller (Hindouisme ou spiritualité New Age). C'est la ligne de fracture historique absolue entre la pensée bouddhiste (qui détruit l'idée d'âme) et l'hindouisme (qui postule l'Atman)."
+    },
+    {
+      "code": "MATERIALISME_VS_TRANSCENDANCE",
+      "condition": "(rep['ct_athe_materiel'] > 0 || rep['q_meta_fantome_machine'] > 0) && (rep['q_ethi_devoir_absolu'] > 0 || rep['q_esthe_beaute_objective'] > 0)",
+      "message": "<strong>Matérialisme Strict face à l'Absolu (Moral ou Esthétique) :</strong> Vous affirmez que l'univers est exclusivement composé de matière et que l'esprit n'est qu'un phénomène biochimique, mais vous soutenez simultanément l'existence de devoirs moraux absolus ou d'une Beauté transcendante. C'est une contradiction philosophique majeure : dans un univers purement physique, aveugle et mécanique, le Bien, le Mal et la Beauté ne peuvent être que des constructions sociales subjectives ou des instincts évolutifs. Ils n'ont aucune existence objective ou « transcendante »."
+    },
+    {
+      "code": "SCIENTISME_VS_EXISTENTIALISME",
+      "condition": "rep['q_std_scientisme'] > 0 && (rep['q_std_existentialisme'] > 0 || rep['ct_athe_liberte_radicale'] > 0)",
+      "message": "<strong>Scientisme face à la Subjectivité Existentialiste :</strong> Vous affirmez que seule la méthode scientifique expérimentale (ce qui est mesurable et prouvable) a du sens (Scientisme), mais vous soutenez par ailleurs que l'humain est radicalement libre d'inventer le sens de son existence (Existentialisme). C'est un grand écart : pour les existentialistes (comme Sartre ou Camus), l'angoisse, la liberté et le sens de la vie échappent totalement aux microscopes et aux mathématiques. Si la science est l'unique juge du vrai, alors la liberté existentielle n'est qu'une illusion non scientifique."
     }
   ]
 }
