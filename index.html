@@ -419,7 +419,7 @@
 
     // --- LE CÉLÈBRE MOTEUR "TRAQUEUR" À 3 NIVEAUX ---
     function preparerQuestionSuivante() {
-      const LIMITE_QUESTIONS = 20;
+      const LIMITE_QUESTIONS = 25; // Le test s'arrête désormais à 25 questions pour plus de précision
 
       if (questionsDisponibles.length === 0 || fileAttente.length >= LIMITE_QUESTIONS) {
         if (indexCourant === fileAttente.length - 1) {
@@ -483,7 +483,6 @@
       indexCourant++;
       afficherQuestion();
     }
-
     function questionPrecedente() {
       if (indexCourant > 0) {
         indexCourant--;
