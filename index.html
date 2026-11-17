@@ -371,7 +371,7 @@
       return nouveauTableau;
     }
 
-    // --- LE FILTRE FAMILLE ---
+    // --- LE FILTRE FAMILLE CORRIGÉ ---
     function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
       let questionsPourTest = [];
@@ -386,11 +386,10 @@
         "atheisme": ["Athéisme_Matérialiste", "Humanisme_Séculier", "Existentialisme", "Nihilisme", "Transhumanisme"],
         "agnosticisme": ["Agnosticisme"],
         "nietzscheisme": ["Nietzschéisme"],
-        "new_age": ["Spiritualité_New_Age", "Gnosticisme"],
-        "autre": ["Transhumanisme"]
+        "new_age": ["Spiritualité_New_Age", "Gnosticisme"]
       };
       
-    if (valeurIdentite === "sans_apriori") {
+      if (valeurIdentite === "sans_apriori") {
           // CORRECTION : En mode aveugle, on exclut formellement les crash-tests dogmatiques
           questionsPourTest = toutesQuestions.filter(q => q.type === "standard" || q.type === "qcm");
       } else {
@@ -417,7 +416,7 @@
       preparerQuestionSuivante();
     }
 
-   // --- LE MOTEUR "HYBRIDE" (ENTONNOIR + EXPLORATION + TRAQUE ÉLARGIE) ---
+    // --- LE MOTEUR "HYBRIDE" (ENTONNOIR + EXPLORATION + TRAQUE ÉLARGIE) ---
     function preparerQuestionSuivante() {
       const LIMITE_QUESTIONS = 25; // Mode expert à 25 questions
 
@@ -450,7 +449,6 @@
         // NIVEAU 3 : LE MOTEUR HYBRIDE
         else {
           // A. Phase d'Exploration (Jusqu'à la 12e question)
-          // On force le brassage pour donner une chance à TOUTES les doctrines (ex: Spinozisme) de marquer des points.
           if (fileAttente.length <= 12) {
              indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
           } 
@@ -458,8 +456,6 @@
           else {
              const classementProvisoire = calculerAffinities(reponsesUtilisateur, false);
              if (classementProvisoire.length > 0) {
-                // INNOVATION : On ne s'enferme plus sur le N°1 ! On tire au sort parmi le TOP 4 actuel.
-                // Cela donne l'opportunité aux challengers de recevoir LEURS questions pour renverser le leader.
                 const maxTop = Math.min(4, classementProvisoire.length);
                 const indexLeaderChoisi = Math.floor(Math.random() * maxTop);
                 const profilCible = classementProvisoire[indexLeaderChoisi].profil;
@@ -468,12 +464,10 @@
                   .filter(item => item.q.scores && item.q.scores[profilCible]);
                   
                 if (questionsCibles.length > 0) {
-                   // On trie pour poser la question la plus discriminante possible
                    questionsCibles.sort((a, b) => Math.abs(b.q.scores[profilCible]) - Math.abs(a.q.scores[profilCible]));
                    indexProchaine = questionsCibles[0].idx;
                 }
              }
-             // Sécurité si aucune question cible n'est trouvée
              if (indexProchaine === -1) {
                 indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
              }
@@ -491,12 +485,12 @@
       indexCourant++;
       afficherQuestion();
     }
+
     function questionPrecedente() {
       if (indexCourant > 0) {
         indexCourant--;
         const qActuelle = fileAttente[indexCourant];
         delete reponsesUtilisateur[qActuelle.id];
-        // On remet la question dans le vivier
         questionsDisponibles.push(fileAttente.pop());
         afficherQuestion();
       }
@@ -507,7 +501,6 @@
       document.getElementById("sondage").style.display = "none";
       document.getElementById("resultats").style.display = "block";
 
-      // On calcule avec le bouclier des 10 points activé (true)
       const affinites = calculerAffinities(reponsesUtilisateur, true);
       dessinerGraphique(affinites);
 
@@ -559,7 +552,6 @@
       genererTexteSynthese(affinites, alertes, pourcentageDissonance);
     }
 
-    // Le paramètre "appliquerBouclier" permet d'ignorer la limite de 10 points lors des calculs provisoires du Moteur Traqueur
     function calculerAffinities(reponses, appliquerBouclier = true) {
       const totaux = {};
       const maxPossibles = {};
@@ -599,7 +591,6 @@
 
       const resultats = [];
       for (const profil in totaux) {
-        // Le bouclier est actif (true) en fin de test, mais inactif (false) pendant le tracking
         if (!appliquerBouclier || maxPossibles[profil] >= 10) {
           let ratio = 0;
           if (maxPossibles[profil] > 0) {
