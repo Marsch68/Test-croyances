@@ -28,42 +28,42 @@
           "label": "L'Ancien Testament (Torah / Tanakh)", 
           "scores": {
             "Judaïsme": 5,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Christianisme_Libéral": -5, "Athéisme_Matérialiste": -5
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Islam_Chiite": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Christianisme_Libéral": -5, "Athéisme_Matérialiste": -5, "Hindouisme": -5, "Bouddhisme_Traditionnel": -5, "Spiritualité_New_Age": -5
           } 
         },
         { 
           "label": "Le Nouveau Testament (Évangiles)", 
           "scores": {
             "Catholicisme_Orthodoxe": 5, "Christianisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Protestantisme_Évangélique": 5, "Christianisme_Libéral": 4, "Christianisme_Mystique": 4,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Islam_Chiite": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5, "Hindouisme": -5, "Bouddhisme_Traditionnel": -5, "Bouddhisme_Séculier": -5, "Spiritualité_New_Age": -5, "Stoïcisme": -5, "Épicurisme": -5
           } 
         },
         { 
           "label": "Le Coran", 
           "scores": {
-            "Islam_Orthodoxe": 5, "Salafisme": 5, "Islam_Libéral": 4, "Soufisme": 4,
-            "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+            "Islam_Orthodoxe": 5, "Salafisme": 5, "Islam_Libéral": 4, "Soufisme": 4, "Islam_Chiite": 5,
+            "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5, "Hindouisme": -5, "Bouddhisme_Traditionnel": -5, "Spiritualité_New_Age": -5
           } 
         },
         { 
           "label": "Le Talmud", 
           "scores": {
             "Judaïsme": 5,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Athéisme_Matérialiste": -5
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Islam_Chiite": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Athéisme_Matérialiste": -5, "Hindouisme": -5, "Bouddhisme_Traditionnel": -5, "Spiritualité_New_Age": -5
           } 
         },
         { 
           "label": "Un autre texte sacré (Védas, Sutras, Tao Te King...)", 
           "scores": {
             "Hindouisme": 5, "Bouddhisme_Traditionnel": 5, "Spiritualité_New_Age": 3,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Islam_Chiite": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
           } 
         },
         { 
           "label": "Les textes dits « sacrés » n'ont pas plus de valeur que les autres œuvres humaines", 
           "scores": {
             "Athéisme_Matérialiste": 5, "Humanisme_Séculier": 5, "Spinozisme": 4, "Agnosticisme": 4, "Nihilisme": 4, "Nietzschéisme": 4,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Hindouisme": -5
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Islam_Chiite": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Hindouisme": -5, "Bouddhisme_Traditionnel": -5
           } 
         }
       ]
@@ -76,36 +76,36 @@
         { 
           "label": "L'âme est jugée par un Créateur : elle connaîtra soit le salut (Paradis), soit la damnation (Enfer).", 
           "scores": {
-            "Catholicisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Islam_Orthodoxe": 5, "Salafisme": 5, "Christianisme_Orthodoxe": 5, "Protestantisme_Évangélique": 5,
-            "Bouddhisme_Traditionnel": -5, "Hindouisme": -5, "Athéisme_Matérialiste": -5, "Épicurisme": -5, "Nihilisme": -5, "Nietzschéisme": -5, "Spiritualité_New_Age": -5
+            "Catholicisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Islam_Orthodoxe": 5, "Salafisme": 5, "Islam_Chiite": 5, "Christianisme_Orthodoxe": 5, "Protestantisme_Évangélique": 5,
+            "Bouddhisme_Traditionnel": -5, "Bouddhisme_Séculier": -5, "Hindouisme": -5, "Athéisme_Matérialiste": -5, "Épicurisme": -5, "Nihilisme": -5, "Nietzschéisme": -5, "Spiritualité_New_Age": -5, "Panthéisme": -5, "Spinozisme": -5
           } 
         },
         { 
           "label": "La conscience subit un cycle de renaissances (réincarnation) régi par la loi implacable du Karma.", 
           "scores": {
-            "Bouddhisme_Traditionnel": 5, "Hindouisme": 5,
-            "Catholicisme_Orthodoxe": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+            "Bouddhisme_Traditionnel": 5, "Hindouisme": 5, "Spiritualité_New_Age": 3,
+            "Catholicisme_Orthodoxe": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Chiite": -5, "Islam_Libéral": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5, "Spinozisme": -5
           } 
         },
         { 
           "label": "L'âme survit ou fusionne paisiblement avec l'Univers, mais l'idée d'un « Enfer » punitif est une invention humaine.", 
           "scores": {
             "Déisme": 5, "Panthéisme": 4, "Spinozisme": 4, "Christianisme_Mystique": 4, "Spiritualité_New_Age": 4, "Soufisme": 4, "Christianisme_Libéral": 3, "Islam_Libéral": 3,
-            "Islam_Orthodoxe": -5, "Salafisme": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Athéisme_Matérialiste": -5
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Chiite": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Athéisme_Matérialiste": -5, "Hindouisme": -5, "Bouddhisme_Traditionnel": -5
           } 
         },
         { 
           "label": "La conscience s'éteint totalement et définitivement. Il n'y a plus rien d'autre que le néant absolu.", 
           "scores": {
             "Athéisme_Matérialiste": 5, "Épicurisme": 5, "Nihilisme": 5, "Existentialisme": 4, "Nietzschéisme": 4,
-            "Catholicisme_Orthodoxe": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Bouddhisme_Traditionnel": -5, "Hindouisme": -5, "Spiritualité_New_Age": -5
+            "Catholicisme_Orthodoxe": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Chiite": -5, "Islam_Libéral": -5, "Soufisme": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Bouddhisme_Traditionnel": -5, "Hindouisme": -5, "Spiritualité_New_Age": -5, "Panthéisme": -5, "Déisme": -5
           } 
         },
         { 
           "label": "Il est impossible de le savoir. L'urgence est de vivre moralement le présent sans spéculer sur l'inconnaissable.", 
           "scores": {
             "Agnosticisme": 5, "Stoïcisme": 5, "Humanisme_Séculier": 5, "Bouddhisme_Séculier": 4,
-            "Salafisme": -5, "Islam_Orthodoxe": -5, "Islam_Libéral": -5, "Soufisme": -5, "Protestantisme_Évangélique": -5, "Catholicisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Christianisme_Orthodoxe": -5, "Christianisme_Libéral": -5
+            "Salafisme": -5, "Islam_Orthodoxe": -5, "Islam_Chiite": -5, "Islam_Libéral": -5, "Soufisme": -5, "Protestantisme_Évangélique": -5, "Catholicisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Christianisme_Orthodoxe": -5, "Christianisme_Libéral": -5, "Hindouisme": -5, "Bouddhisme_Traditionnel": -5
           } 
         }
       ]
@@ -273,6 +273,7 @@
         "Protestantisme_Évangélique": 5,
         "Islam_Orthodoxe": -5,
         "Salafisme": -5,
+        "Islam_Chiite": -5,
         "Judaïsme": -5
       }
     },
@@ -288,7 +289,8 @@
         "Protestantisme_Évangélique": -5,
         "Christianisme_Libéral": -3,
         "Islam_Orthodoxe": -5,
-        "Salafisme": -5
+        "Salafisme": -5,
+        "Islam_Chiite": -5
       }
     },
     {
@@ -303,7 +305,8 @@
         "Calvinisme": -5,
         "Protestantisme_Évangélique": -5,
         "Islam_Orthodoxe": -5,
-        "Salafisme": -5
+        "Salafisme": -5,
+        "Islam_Chiite": -5
       }
     },
     {
@@ -318,7 +321,8 @@
         "Catholicisme_Orthodoxe": -5,
         "Christianisme_Orthodoxe": -5,
         "Islam_Orthodoxe": -5,
-        "Salafisme": -5
+        "Salafisme": -5,
+        "Islam_Chiite": -5
       }
     },
     {
@@ -384,6 +388,7 @@
       "scores": {
         "Islam_Orthodoxe": 5,
         "Salafisme": 5,
+        "Islam_Chiite": 5,
         "Catholicisme_Orthodoxe": -5,
         "Christianisme_Orthodoxe": -5,
         "Calvinisme": -5,
@@ -416,9 +421,37 @@
       "scores": {
         "Islam_Orthodoxe": 5,
         "Salafisme": 5,
+        "Islam_Chiite": 5,
         "Islam_Libéral": -4,
         "Humanisme_Séculier": -5,
         "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_islam_chiite_imamat",
+      "type": "crash_test",
+      "cible_identite": "islam",
+      "texte": "L'autorité spirituelle et politique légitime après le Prophète n'appartient pas au consensus de la communauté, mais exclusivement à une lignée de Guides infaillibles désignés par Dieu (les Imams, issus de la famille du Prophète). Eux seuls détiennent l'interprétation absolue de la Révélation.",
+      "scores": {
+        "Islam_Chiite": 5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Calvinisme": -5
+      }
+    },
+    {
+      "id": "q_std_islam_chiite_batin",
+      "type": "standard",
+      "texte": "Le texte sacré possède un sens apparent et littéral, mais il recèle surtout un sens caché et profond (ésotérique). Seul un guide spirituel divinement inspiré peut nous en révéler la véritable signification pour éviter de nous perdre dans une lecture superficielle.",
+      "scores": {
+        "Islam_Chiite": 5,
+        "Soufisme": 4,
+        "Gnosticisme": 3,
+        "Salafisme": -5,
+        "Islam_Orthodoxe": -4,
+        "Protestantisme_Évangélique": -5,
+        "Athéisme_Matérialiste": -5
       }
     },
     {
@@ -957,6 +990,7 @@
         "Luthéranisme": 5,
         "Islam_Orthodoxe": 5,
         "Salafisme": 5,
+        "Islam_Chiite": 5,
         "Judaïsme": 5,
         "Christianisme_Libéral": 4,
         "Islam_Libéral": 4,
@@ -1582,6 +1616,11 @@
       "code": "LITTERALISME_VS_SCIENCE_OBJECTIVE",
       "condition": "rep['ct_epis_litteralisme'] > 0 && (rep['q_meta_nature_objective'] > 0 || rep['q_epis_neuro_determinisme'] > 0)",
       "message": "<strong>Fidéisme Littéral face au Matérialisme Évolutif :</strong> Vous soutenez que la lecture littérale du Texte sacré doit toujours l'emporter sur les découvertes scientifiques modernes (comme l'évolution ou l'âge de la Terre). Or, vous validez par ailleurs des théories scientifiques radicalement matérialistes (l'univers comme mécanique aveugle ou le neuro-déterminisme). C'est une fracture conceptuelle totale : on ne peut pas rejeter la science quand elle contredit la Genèse, pour ensuite l'utiliser afin de prouver que l'humain n'est qu'une machine biologique."
+    },
+    {
+      "code": "IMAMAT_VS_SOLA_SCRIPTURA",
+      "condition": "rep['ct_islam_chiite_imamat'] > 0 && (rep['q_std_sola_scriptura'] > 0 || rep['q_std_sacerdoce_universel'] > 0)",
+      "message": "<strong>Le Guide Infaillible face au Libre Examen :</strong> Vous affirmez que la vérité nécessite l'interprétation absolue d'une lignée de Guides infaillibles désignés par Dieu (l'Imamat chiite), mais vous soutenez simultanément que les Textes se suffisent à eux-mêmes (Sola Scriptura) ou que chaque croyant peut interpréter la volonté divine sans hiérarchie spirituelle (Sacerdoce universel). C'est une contradiction théologique totale : la nécessité vitale d'un Imam infaillible exclut formellement l'idée que le texte soit accessible directement à l'individu sans médiation sacrée."
     }
   ]
 }
