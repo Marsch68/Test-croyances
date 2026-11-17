@@ -1567,6 +1567,21 @@
       "code": "SCIENTISME_VS_EXISTENTIALISME",
       "condition": "rep['q_std_scientisme'] > 0 && (rep['q_std_existentialisme'] > 0 || rep['ct_athe_liberte_radicale'] > 0)",
       "message": "<strong>Scientisme face à la Subjectivité Existentialiste :</strong> Vous affirmez que seule la méthode scientifique expérimentale (ce qui est mesurable et prouvable) a du sens (Scientisme), mais vous soutenez par ailleurs que l'humain est radicalement libre d'inventer le sens de son existence (Existentialisme). C'est un grand écart : pour les existentialistes (comme Sartre ou Camus), l'angoisse, la liberté et le sens de la vie échappent totalement aux microscopes et aux mathématiques. Si la science est l'unique juge du vrai, alors la liberté existentielle n'est qu'une illusion non scientifique."
+    },
+    {
+      "code": "THOMISME_VS_SCIENTISME",
+      "condition": "rep['q_std_thomisme_harmonie'] > 0 && rep['q_std_scientisme'] > 0",
+      "message": "<strong>Harmonie Thomiste face au Scientisme :</strong> Vous affirmez d'un côté que la Foi et la Raison (la science) collaborent harmonieusement vers la vérité (la synthèse de Thomas d'Aquin), mais vous soutenez simultanément que la méthode scientifique expérimentale est l'unique voie valable pour accéder au vrai (Scientisme). C'est une contradiction philosophique : si seule la science mesurable produit de la vérité, alors la théologie et la révélation sont illusoires, ce qui détruit l'idée même que la Foi puisse être une voie vers la vérité."
+    },
+    {
+      "code": "NOMA_VS_MORALE_BIOLOGIQUE",
+      "condition": "rep['q_std_magisteres_separes'] > 0 && rep['q_epis_morale_biologique'] > 0",
+      "message": "<strong>Magistères Séparés face à la Morale Biologique :</strong> Vous affirmez que la science (les faits matériels) et la spiritualité (les valeurs et la morale) sont deux domaines qui ne doivent jamais se croiser (théorie du NOMA). Pourtant, vous soutenez par ailleurs que nos valeurs morales ne sont que des instincts biologiques programmés par l'évolution. C'est paradoxal : si la morale se réduit à de la pure biologie évolutive, alors la science a bel et bien totalement annexé le domaine de la philosophie morale."
+    },
+    {
+      "code": "LITTERALISME_VS_SCIENCE_OBJECTIVE",
+      "condition": "rep['ct_epis_litteralisme'] > 0 && (rep['q_meta_nature_objective'] > 0 || rep['q_epis_neuro_determinisme'] > 0)",
+      "message": "<strong>Fidéisme Littéral face au Matérialisme Évolutif :</strong> Vous soutenez que la lecture littérale du Texte sacré doit toujours l'emporter sur les découvertes scientifiques modernes (comme l'évolution ou l'âge de la Terre). Or, vous validez par ailleurs des théories scientifiques radicalement matérialistes (l'univers comme mécanique aveugle ou le neuro-déterminisme). C'est une fracture conceptuelle totale : on ne peut pas rejeter la science quand elle contredit la Genèse, pour ensuite l'utiliser afin de prouver que l'humain n'est qu'une machine biologique."
     }
   ]
 }
