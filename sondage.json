@@ -28,42 +28,42 @@
           "label": "L'Ancien Testament (Torah / Tanakh)", 
           "scores": {
             "Judaïsme": 5,
-            "Islam_Orthodoxe": -15, "Salafisme": -15, "Islam_Libéral": -15, "Soufisme": -15, "Islam_Chiite": -15, "Catholicisme_Orthodoxe": -15, "Christianisme_Orthodoxe": -15, "Calvinisme": -15, "Luthéranisme": -15, "Christianisme_Libéral": -15, "Protestantisme_Évangélique": -15, "Christianisme_Mystique": -15, "Athéisme_Matérialiste": -15, "Agnosticisme": -15, "Humanisme_Séculier": -15, "Existentialisme": -15, "Nihilisme": -15, "Nietzschéisme": -15, "Déisme": -15, "Panthéisme": -15, "Spinozisme": -15, "Transhumanisme": -15, "Hindouisme": -15, "Bouddhisme_Traditionnel": -15, "Bouddhisme_Séculier": -15, "Spiritualité_New_Age": -15, "Gnosticisme": -15, "Stoïcisme": -15, "Épicurisme": -15
+            "Islam_Orthodoxe": -100, "Salafisme": -100, "Islam_Libéral": -100, "Soufisme": -100, "Islam_Chiite": -100, "Catholicisme_Orthodoxe": -100, "Christianisme_Orthodoxe": -100, "Calvinisme": -100, "Luthéranisme": -100, "Christianisme_Libéral": -100, "Protestantisme_Évangélique": -100, "Christianisme_Mystique": -100, "Athéisme_Matérialiste": -100, "Agnosticisme": -100, "Humanisme_Séculier": -100, "Existentialisme": -100, "Nihilisme": -100, "Nietzschéisme": -100, "Déisme": -100, "Panthéisme": -100, "Spinozisme": -100, "Transhumanisme": -100, "Hindouisme": -100, "Bouddhisme_Traditionnel": -100, "Bouddhisme_Séculier": -100, "Spiritualité_New_Age": -100, "Gnosticisme": -100, "Stoïcisme": -100, "Épicurisme": -100
           } 
         },
         { 
           "label": "Le Nouveau Testament (Évangiles)", 
           "scores": {
             "Catholicisme_Orthodoxe": 5, "Christianisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Protestantisme_Évangélique": 5, "Christianisme_Libéral": 4, "Christianisme_Mystique": 4,
-            "Islam_Orthodoxe": -15, "Salafisme": -15, "Islam_Libéral": -15, "Soufisme": -15, "Islam_Chiite": -15, "Judaïsme": -15, "Athéisme_Matérialiste": -15, "Agnosticisme": -15, "Humanisme_Séculier": -15, "Existentialisme": -15, "Nihilisme": -15, "Nietzschéisme": -15, "Déisme": -15, "Panthéisme": -15, "Spinozisme": -15, "Transhumanisme": -15, "Hindouisme": -15, "Bouddhisme_Traditionnel": -15, "Bouddhisme_Séculier": -15, "Spiritualité_New_Age": -15, "Gnosticisme": -15, "Stoïcisme": -15, "Épicurisme": -15
+            "Islam_Orthodoxe": -100, "Salafisme": -100, "Islam_Libéral": -100, "Soufisme": -100, "Islam_Chiite": -100, "Judaïsme": -100, "Athéisme_Matérialiste": -100, "Agnosticisme": -100, "Humanisme_Séculier": -100, "Existentialisme": -100, "Nihilisme": -100, "Nietzschéisme": -100, "Déisme": -100, "Panthéisme": -100, "Spinozisme": -100, "Transhumanisme": -100, "Hindouisme": -100, "Bouddhisme_Traditionnel": -100, "Bouddhisme_Séculier": -100, "Spiritualité_New_Age": -100, "Gnosticisme": -100, "Stoïcisme": -100, "Épicurisme": -100
           } 
         },
         { 
           "label": "Le Coran", 
           "scores": {
             "Islam_Orthodoxe": 5, "Salafisme": 5, "Islam_Libéral": 4, "Soufisme": 4, "Islam_Chiite": 5,
-            "Catholicisme_Orthodoxe": -15, "Christianisme_Orthodoxe": -15, "Calvinisme": -15, "Luthéranisme": -15, "Protestantisme_Évangélique": -15, "Christianisme_Libéral": -15, "Christianisme_Mystique": -15, "Judaïsme": -15, "Athéisme_Matérialiste": -15, "Agnosticisme": -15, "Humanisme_Séculier": -15, "Existentialisme": -15, "Nihilisme": -15, "Nietzschéisme": -15, "Déisme": -15, "Panthéisme": -15, "Spinozisme": -15, "Transhumanisme": -15, "Hindouisme": -15, "Bouddhisme_Traditionnel": -15, "Bouddhisme_Séculier": -15, "Spiritualité_New_Age": -15, "Gnosticisme": -15, "Stoïcisme": -15, "Épicurisme": -15
+            "Catholicisme_Orthodoxe": -100, "Christianisme_Orthodoxe": -100, "Calvinisme": -100, "Luthéranisme": -100, "Protestantisme_Évangélique": -100, "Christianisme_Libéral": -100, "Christianisme_Mystique": -100, "Judaïsme": -100, "Athéisme_Matérialiste": -100, "Agnosticisme": -100, "Humanisme_Séculier": -100, "Existentialisme": -100, "Nihilisme": -100, "Nietzschéisme": -100, "Déisme": -100, "Panthéisme": -100, "Spinozisme": -100, "Transhumanisme": -100, "Hindouisme": -100, "Bouddhisme_Traditionnel": -100, "Bouddhisme_Séculier": -100, "Spiritualité_New_Age": -100, "Gnosticisme": -100, "Stoïcisme": -100, "Épicurisme": -100
           } 
         },
         { 
           "label": "Le Talmud", 
           "scores": {
             "Judaïsme": 5,
-            "Islam_Orthodoxe": -15, "Salafisme": -15, "Islam_Libéral": -15, "Soufisme": -15, "Islam_Chiite": -15, "Catholicisme_Orthodoxe": -15, "Christianisme_Orthodoxe": -15, "Calvinisme": -15, "Luthéranisme": -15, "Protestantisme_Évangélique": -15, "Christianisme_Libéral": -15, "Christianisme_Mystique": -15, "Athéisme_Matérialiste": -15, "Agnosticisme": -15, "Humanisme_Séculier": -15, "Existentialisme": -15, "Nihilisme": -15, "Nietzschéisme": -15, "Déisme": -15, "Panthéisme": -15, "Spinozisme": -15, "Transhumanisme": -15, "Hindouisme": -15, "Bouddhisme_Traditionnel": -15, "Bouddhisme_Séculier": -15, "Spiritualité_New_Age": -15, "Gnosticisme": -15, "Stoïcisme": -15, "Épicurisme": -15
+            "Islam_Orthodoxe": -100, "Salafisme": -100, "Islam_Libéral": -100, "Soufisme": -100, "Islam_Chiite": -100, "Catholicisme_Orthodoxe": -100, "Christianisme_Orthodoxe": -100, "Calvinisme": -100, "Luthéranisme": -100, "Protestantisme_Évangélique": -100, "Christianisme_Libéral": -100, "Christianisme_Mystique": -100, "Athéisme_Matérialiste": -100, "Agnosticisme": -100, "Humanisme_Séculier": -100, "Existentialisme": -100, "Nihilisme": -100, "Nietzschéisme": -100, "Déisme": -100, "Panthéisme": -100, "Spinozisme": -100, "Transhumanisme": -100, "Hindouisme": -100, "Bouddhisme_Traditionnel": -100, "Bouddhisme_Séculier": -100, "Spiritualité_New_Age": -100, "Gnosticisme": -100, "Stoïcisme": -100, "Épicurisme": -100
           } 
         },
         { 
           "label": "Un autre texte sacré (Védas, Sutras, Tao Te King...)", 
           "scores": {
             "Hindouisme": 5, "Bouddhisme_Traditionnel": 5, "Spiritualité_New_Age": 3,
-            "Islam_Orthodoxe": -15, "Salafisme": -15, "Islam_Libéral": -15, "Soufisme": -15, "Islam_Chiite": -15, "Catholicisme_Orthodoxe": -15, "Christianisme_Orthodoxe": -15, "Calvinisme": -15, "Luthéranisme": -15, "Protestantisme_Évangélique": -15, "Christianisme_Libéral": -15, "Christianisme_Mystique": -15, "Judaïsme": -15, "Athéisme_Matérialiste": -15, "Agnosticisme": -15, "Humanisme_Séculier": -15, "Existentialisme": -15, "Nihilisme": -15, "Nietzschéisme": -15, "Déisme": -15, "Panthéisme": -15, "Spinozisme": -15, "Transhumanisme": -15
+            "Islam_Orthodoxe": -100, "Salafisme": -100, "Islam_Libéral": -100, "Soufisme": -100, "Islam_Chiite": -100, "Catholicisme_Orthodoxe": -100, "Christianisme_Orthodoxe": -100, "Calvinisme": -100, "Luthéranisme": -100, "Protestantisme_Évangélique": -100, "Christianisme_Libéral": -100, "Christianisme_Mystique": -100, "Judaïsme": -100, "Athéisme_Matérialiste": -100, "Agnosticisme": -100, "Humanisme_Séculier": -100, "Existentialisme": -100, "Nihilisme": -100, "Nietzschéisme": -100, "Déisme": -100, "Panthéisme": -100, "Spinozisme": -100, "Transhumanisme": -100
           } 
         },
         { 
           "label": "Les textes dits « sacrés » n'ont pas plus de valeur que les autres œuvres humaines", 
           "scores": {
             "Athéisme_Matérialiste": 5, "Humanisme_Séculier": 5, "Spinozisme": 4, "Agnosticisme": 4, "Nihilisme": 4, "Nietzschéisme": 4, "Existentialisme": 4, "Transhumanisme": 4, "Épicurisme": 4,
-            "Islam_Orthodoxe": -15, "Salafisme": -15, "Islam_Libéral": -15, "Soufisme": -15, "Islam_Chiite": -15, "Catholicisme_Orthodoxe": -15, "Christianisme_Orthodoxe": -15, "Calvinisme": -15, "Luthéranisme": -15, "Protestantisme_Évangélique": -15, "Christianisme_Libéral": -15, "Christianisme_Mystique": -15, "Judaïsme": -15, "Hindouisme": -15, "Bouddhisme_Traditionnel": -15, "Déisme": -10, "Gnosticisme": -10
+            "Islam_Orthodoxe": -100, "Salafisme": -100, "Islam_Libéral": -100, "Soufisme": -100, "Islam_Chiite": -100, "Catholicisme_Orthodoxe": -100, "Christianisme_Orthodoxe": -100, "Calvinisme": -100, "Luthéranisme": -100, "Protestantisme_Évangélique": -100, "Christianisme_Libéral": -100, "Christianisme_Mystique": -100, "Judaïsme": -100, "Hindouisme": -100, "Bouddhisme_Traditionnel": -100, "Déisme": -100, "Gnosticisme": -100
           } 
         }
       ]
@@ -77,35 +77,35 @@
           "label": "L'âme est jugée par un Créateur : elle connaîtra soit le salut (Paradis), soit la damnation (Enfer).", 
           "scores": {
             "Catholicisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Islam_Orthodoxe": 5, "Salafisme": 5, "Islam_Chiite": 5, "Christianisme_Orthodoxe": 5, "Protestantisme_Évangélique": 5, "Judaïsme": 4,
-            "Bouddhisme_Traditionnel": -15, "Bouddhisme_Séculier": -15, "Hindouisme": -15, "Athéisme_Matérialiste": -15, "Épicurisme": -15, "Nihilisme": -15, "Nietzschéisme": -15, "Spiritualité_New_Age": -15, "Panthéisme": -15, "Spinozisme": -15, "Agnosticisme": -15, "Humanisme_Séculier": -15, "Existentialisme": -15, "Transhumanisme": -15, "Déisme": -15, "Christianisme_Libéral": -10, "Islam_Libéral": -10
+            "Bouddhisme_Traditionnel": -100, "Bouddhisme_Séculier": -100, "Hindouisme": -100, "Athéisme_Matérialiste": -100, "Épicurisme": -100, "Nihilisme": -100, "Nietzschéisme": -100, "Spiritualité_New_Age": -100, "Panthéisme": -100, "Spinozisme": -100, "Agnosticisme": -100, "Humanisme_Séculier": -100, "Existentialisme": -100, "Transhumanisme": -100, "Déisme": -100, "Christianisme_Libéral": -100, "Islam_Libéral": -100
           } 
         },
         { 
           "label": "La conscience subit un cycle de renaissances (réincarnation) régi par la loi implacable du Karma.", 
           "scores": {
             "Bouddhisme_Traditionnel": 5, "Hindouisme": 5, "Spiritualité_New_Age": 3,
-            "Catholicisme_Orthodoxe": -15, "Calvinisme": -15, "Luthéranisme": -15, "Christianisme_Orthodoxe": -15, "Protestantisme_Évangélique": -15, "Christianisme_Libéral": -15, "Christianisme_Mystique": -15, "Islam_Orthodoxe": -15, "Salafisme": -15, "Islam_Chiite": -15, "Islam_Libéral": -15, "Soufisme": -15, "Judaïsme": -15, "Athéisme_Matérialiste": -15, "Épicurisme": -15, "Nihilisme": -15, "Nietzschéisme": -15, "Panthéisme": -15, "Spinozisme": -15, "Agnosticisme": -15, "Humanisme_Séculier": -15, "Existentialisme": -15, "Transhumanisme": -15, "Déisme": -15
+            "Catholicisme_Orthodoxe": -100, "Calvinisme": -100, "Luthéranisme": -100, "Christianisme_Orthodoxe": -100, "Protestantisme_Évangélique": -100, "Christianisme_Libéral": -100, "Christianisme_Mystique": -100, "Islam_Orthodoxe": -100, "Salafisme": -100, "Islam_Chiite": -100, "Islam_Libéral": -100, "Soufisme": -100, "Judaïsme": -100, "Athéisme_Matérialiste": -100, "Épicurisme": -100, "Nihilisme": -100, "Nietzschéisme": -100, "Panthéisme": -100, "Spinozisme": -100, "Agnosticisme": -100, "Humanisme_Séculier": -100, "Existentialisme": -100, "Transhumanisme": -100, "Déisme": -100
           } 
         },
         { 
           "label": "L'âme survit ou fusionne paisiblement avec l'Univers, mais l'idée d'un « Enfer » punitif est une invention humaine.", 
           "scores": {
             "Déisme": 5, "Panthéisme": 4, "Spinozisme": 4, "Christianisme_Mystique": 4, "Spiritualité_New_Age": 4, "Soufisme": 4, "Christianisme_Libéral": 3, "Islam_Libéral": 3, "Gnosticisme": 3,
-            "Islam_Orthodoxe": -15, "Salafisme": -15, "Islam_Chiite": -15, "Calvinisme": -15, "Luthéranisme": -15, "Protestantisme_Évangélique": -15, "Catholicisme_Orthodoxe": -15, "Christianisme_Orthodoxe": -15, "Judaïsme": -15, "Athéisme_Matérialiste": -15, "Hindouisme": -15, "Bouddhisme_Traditionnel": -15, "Bouddhisme_Séculier": -15, "Épicurisme": -15, "Nihilisme": -15, "Nietzschéisme": -15, "Agnosticisme": -15, "Humanisme_Séculier": -15, "Existentialisme": -15, "Transhumanisme": -15
+            "Islam_Orthodoxe": -100, "Salafisme": -100, "Islam_Chiite": -100, "Calvinisme": -100, "Luthéranisme": -100, "Protestantisme_Évangélique": -100, "Catholicisme_Orthodoxe": -100, "Christianisme_Orthodoxe": -100, "Judaïsme": -100, "Athéisme_Matérialiste": -100, "Hindouisme": -100, "Bouddhisme_Traditionnel": -100, "Bouddhisme_Séculier": -100, "Épicurisme": -100, "Nihilisme": -100, "Nietzschéisme": -100, "Agnosticisme": -100, "Humanisme_Séculier": -100, "Existentialisme": -100, "Transhumanisme": -100
           } 
         },
         { 
           "label": "La conscience s'éteint totalement et définitivement. Il n'y a plus rien d'autre que le néant absolu.", 
           "scores": {
             "Athéisme_Matérialiste": 5, "Épicurisme": 5, "Nihilisme": 5, "Existentialisme": 4, "Nietzschéisme": 4, "Transhumanisme": 4, "Humanisme_Séculier": 4,
-            "Catholicisme_Orthodoxe": -15, "Christianisme_Orthodoxe": -15, "Calvinisme": -15, "Luthéranisme": -15, "Protestantisme_Évangélique": -15, "Christianisme_Libéral": -15, "Christianisme_Mystique": -15, "Islam_Orthodoxe": -15, "Salafisme": -15, "Islam_Chiite": -15, "Islam_Libéral": -15, "Soufisme": -15, "Judaïsme": -15, "Bouddhisme_Traditionnel": -15, "Hindouisme": -15, "Spiritualité_New_Age": -15, "Panthéisme": -15, "Déisme": -15, "Spinozisme": -15, "Gnosticisme": -15, "Agnosticisme": -15
+            "Catholicisme_Orthodoxe": -100, "Christianisme_Orthodoxe": -100, "Calvinisme": -100, "Luthéranisme": -100, "Protestantisme_Évangélique": -100, "Christianisme_Libéral": -100, "Christianisme_Mystique": -100, "Islam_Orthodoxe": -100, "Salafisme": -100, "Islam_Chiite": -100, "Islam_Libéral": -100, "Soufisme": -100, "Judaïsme": -100, "Bouddhisme_Traditionnel": -100, "Hindouisme": -100, "Spiritualité_New_Age": -100, "Panthéisme": -100, "Déisme": -100, "Spinozisme": -100, "Gnosticisme": -100, "Agnosticisme": -100
           } 
         },
         { 
           "label": "Il est impossible de le savoir. L'urgence est de vivre moralement le présent sans spéculer sur l'inconnaissable.", 
           "scores": {
             "Agnosticisme": 5, "Stoïcisme": 5, "Humanisme_Séculier": 5, "Bouddhisme_Séculier": 4,
-            "Salafisme": -15, "Islam_Orthodoxe": -15, "Islam_Chiite": -15, "Islam_Libéral": -15, "Soufisme": -15, "Protestantisme_Évangélique": -15, "Catholicisme_Orthodoxe": -15, "Calvinisme": -15, "Luthéranisme": -15, "Christianisme_Orthodoxe": -15, "Christianisme_Libéral": -15, "Hindouisme": -15, "Bouddhisme_Traditionnel": -15, "Athéisme_Matérialiste": -15, "Épicurisme": -15, "Nihilisme": -15
+            "Salafisme": -100, "Islam_Orthodoxe": -100, "Islam_Chiite": -100, "Islam_Libéral": -100, "Soufisme": -100, "Protestantisme_Évangélique": -100, "Catholicisme_Orthodoxe": -100, "Calvinisme": -100, "Luthéranisme": -100, "Christianisme_Orthodoxe": -100, "Christianisme_Libéral": -100, "Hindouisme": -100, "Bouddhisme_Traditionnel": -100, "Athéisme_Matérialiste": -100, "Épicurisme": -100, "Nihilisme": -100
           } 
         }
       ]
