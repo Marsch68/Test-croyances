@@ -4,7 +4,7 @@
       "id": "q_identite",
       "type": "identite",
       "texte": "De quel courant religieux ou philosophique vous considérez-vous aujourd'hui le plus proche (culturellement ou spirituellement) ?",
-      "options": [
+    "options": [
         { "valeur": "chretien", "label": "Christianisme (Catholique, Protestant, Orthodoxe...)" },
         { "valeur": "evangelique", "label": "Protestantisme Évangélique (Conversion personnelle, autorité stricte de la Bible)" },
         { "valeur": "judaisme", "label": "Judaïsme (Torah, respect de l'Alliance)" },
@@ -14,7 +14,6 @@
         { "valeur": "theisme_agnostique", "label": "Spiritualité agnostique (Conviction qu'un principe supérieur existe, mais qu'il dépasse l'entendement)" },
         { "valeur": "atheisme", "label": "Athéisme (Conviction que le divin n'existe pas)" },
         { "valeur": "agnosticisme", "label": "Agnosticisme strict (Suspension totale du jugement)" },
-        { "valeur": "autre", "label": "Autre / Sans étiquette" },
         { "valeur": "nietzscheisme", "label": "Nietzschéisme (Volonté de puissance, Surhomme, Amor Fati)" },
         { "valeur": "new_age", "label": "Spiritualité New Age (Énergies, loi de l'attraction, mélange de traditions)" },
         { "valeur": "sans_apriori", "label": "🔍 Découvrir mes croyances profondes (Test aveugle)" }
@@ -1260,17 +1259,16 @@
         "Protestantisme_Évangélique": -4
       }
     },
-    {
-      "id": "q_std_transhumanisme_limites",
+   {
+      "id": "q_std_transhumanisme_fusion",
       "type": "standard",
-      "texte": "La vulnérabilité physique, la vieillesse et la mortalité sont des défauts biologiques que nous avons le droit et le devoir absolu de corriger grâce aux avancées technologiques et génétiques.",
+      "texte": "L'hybridation physique de l'être humain avec la machine et l'Intelligence Artificielle (implants neuronaux, nanotechnologies) est la prochaine étape inévitable et profondément souhaitable de notre évolution pour transcender notre condition charnelle.",
       "scores": {
         "Transhumanisme": 5,
-        "Humanisme_Séculier": 2,
-        "Stoïcisme": -5,
+        "Nietzschéisme": 3,
+        "Spiritualité_New_Age": -5,
         "Catholicisme_Orthodoxe": -5,
-        "Bouddhisme_Traditionnel": -4,
-        "Islam_Orthodoxe": -4,
+        "Bouddhisme_Traditionnel": -5,
         "Protestantisme_Évangélique": -5
       }
     },
