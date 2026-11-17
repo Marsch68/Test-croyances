@@ -4,7 +4,7 @@
       "id": "q_identite",
       "type": "identite",
       "texte": "De quel courant religieux ou philosophique vous considérez-vous aujourd'hui le plus proche (culturellement ou spirituellement) ?",
-    "options": [
+      "options": [
         { "valeur": "chretien", "label": "Christianisme (Catholique, Protestant, Orthodoxe...)" },
         { "valeur": "evangelique", "label": "Protestantisme Évangélique (Conversion personnelle, autorité stricte de la Bible)" },
         { "valeur": "judaisme", "label": "Judaïsme (Torah, respect de l'Alliance)" },
@@ -1259,7 +1259,21 @@
         "Protestantisme_Évangélique": -4
       }
     },
-   {
+    {
+      "id": "q_std_transhumanisme_limites",
+      "type": "standard",
+      "texte": "La vulnérabilité physique, la vieillesse et la mortalité sont des défauts biologiques que nous avons le droit et le devoir absolu de corriger grâce aux avancées technologiques et génétiques.",
+      "scores": {
+        "Transhumanisme": 5,
+        "Humanisme_Séculier": 2,
+        "Stoïcisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Bouddhisme_Traditionnel": -4,
+        "Islam_Orthodoxe": -4,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
       "id": "q_std_transhumanisme_fusion",
       "type": "standard",
       "texte": "L'hybridation physique de l'être humain avec la machine et l'Intelligence Artificielle (implants neuronaux, nanotechnologies) est la prochaine étape inévitable et profondément souhaitable de notre évolution pour transcender notre condition charnelle.",
@@ -1307,6 +1321,52 @@
         "Humanisme_Séculier": -5,
         "Bouddhisme_Traditionnel": -4,
         "Agnosticisme": -5
+      }
+    },
+    {
+      "id": "ct_epis_litteralisme",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Si une théorie scientifique moderne (comme la théorie de l'évolution des espèces ou l'âge de l'univers) contredit la lecture littérale des Textes sacrés, c'est la science qui est dans l'erreur, car la Révélation divine est infaillible sur tous les plans.",
+      "scores": {
+        "Protestantisme_Évangélique": 5,
+        "Salafisme": 5,
+        "Islam_Orthodoxe": 4,
+        "Catholicisme_Orthodoxe": -4,
+        "Christianisme_Libéral": -5,
+        "Athéisme_Matérialiste": -5,
+        "Humanisme_Séculier": -5
+      }
+    },
+    {
+      "id": "q_std_thomisme_harmonie",
+      "type": "standard",
+      "texte": "La Foi et la Raison (la science) sont les deux ailes qui permettent à l'esprit humain de s'élever vers la vérité. Puisqu'elles viennent de la même source, une véritable découverte scientifique ne détruit pas la foi, elle nous oblige simplement à interpréter les Textes sacrés de manière plus spirituelle et métaphorique.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": 4,
+        "Christianisme_Libéral": 3,
+        "Judaïsme": 3,
+        "Islam_Libéral": 3,
+        "Protestantisme_Évangélique": -5,
+        "Salafisme": -5,
+        "Athéisme_Matérialiste": -5,
+        "Nihilisme": -5
+      }
+    },
+    {
+      "id": "q_std_magisteres_separes",
+      "type": "standard",
+      "texte": "La science s'occupe exclusivement d'expliquer le « comment » du monde matériel, tandis que la spiritualité et la philosophie s'occupent uniquement du « pourquoi » (le sens et la morale). Ces deux domaines sont totalement indépendants et ne devraient jamais interférer l'un avec l'autre.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Humanisme_Séculier": 4,
+        "Christianisme_Libéral": 4,
+        "Islam_Libéral": 4,
+        "Catholicisme_Orthodoxe": -3,
+        "Protestantisme_Évangélique": -5,
+        "Salafisme": -5,
+        "Athéisme_Matérialiste": -2
       }
     },
     {
