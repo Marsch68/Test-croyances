@@ -1,861 +1,1514 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La Boussole Philosophique et Religieuse</title>
-  
-  <!-- Librairie Chart.js pour le graphique Radar -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    /* ----- CSS : Typographie, Couleurs et Variables (Modern UI) ----- */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-
-    :root {
-      --bg-color: #f8fafc;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --card-bg: #ffffff;
-      --border-color: #e2e8f0;
-      --primary: #3b82f6;
-      --primary-hover: #2563eb;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-      --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
-    }
-
-    #app-container {
-      background: var(--card-bg);
-      max-width: 650px;
-      width: 100%;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: var(--shadow-lg);
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    /* ----- Zone Sondage ----- */
-    #progress-text {
-      font-size: 0.85em;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-weight: 600;
-    }
-
-    #question-texte {
-      font-size: 1.4em;
-      line-height: 1.5;
-      margin-bottom: 35px;
-      min-height: 90px;
-      font-weight: 600;
-      color: #0f172a;
-    }
-
-    .choices-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .btn-choix {
-      appearance: none;
-      background-color: var(--card-bg);
-      border: 2px solid var(--border-color);
-      border-radius: 10px;
-      padding: 16px 20px;
-      font-size: 1.05em;
-      font-family: inherit;
-      color: var(--text-main);
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.2s ease-in-out;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .btn-choix:hover {
-      background-color: #f1f5f9;
-      border-color: #cbd5e1;
-      transform: translateY(-1px);
-    }
-    .btn-choix:active { transform: translateY(1px); }
-
-    .btn-decouverte {
-      background: linear-gradient(135deg, #f59e0b, #f97316) !important;
-      color: white !important;
-      border: none !important;
-      margin-top: 20px !important;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-    }
-    .btn-decouverte:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
-    }
-
-    .btn-retour {
-      background-color: transparent;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      margin-top: 25px;
-      font-size: 0.95em;
-      transition: color 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .btn-retour:hover { color: var(--text-main); text-decoration: underline; }
-
-    /* ----- Écran de Résultats ----- */
-    #resultats { display: none; }
-    #resultats h2 { font-size: 1.8em; color: #0f172a; margin-bottom: 30px; }
-
-    #bloc-dissonance-global {
-      margin-bottom: 25px;
-      padding: 25px;
-      background-color: #f8fafc;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-    #titre-dissonance {
-      font-size: 0.85em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      letter-spacing: 1.5px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-    #valeur-dissonance { font-size: 3.5em; font-weight: 700; margin: 5px 0 15px 0; line-height: 1; }
-    #texte-dissonance { font-size: 1em; margin: 0; color: var(--text-main); line-height: 1.5; }
-    
-    #bloc-synthese {
-      background-color: #f0f9ff;
-      border-left: 5px solid var(--primary);
-      padding: 25px;
-      margin-bottom: 35px;
-      text-align: left;
-      border-radius: 0 12px 12px 0;
-      font-size: 1.05em;
-      line-height: 1.7;
-      color: #0f172a;
-      box-shadow: var(--shadow-sm);
-    }
-    #bloc-synthese h3 {
-      margin-top: 0; color: var(--primary); font-size: 1.1em;
-      margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;
-    }
-
-    .chart-container { position: relative; width: 100%; max-width: 450px; margin: 0 auto 40px auto; }
-    
-    /* ----- Barres d'affinités ----- */
-    .resultat-item { margin-bottom: 25px; text-align: left; }
-    .resultat-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; color: #334155; }
-    .barre-fond { width: 100%; background-color: #e2e8f0; border-radius: 8px; overflow: hidden; height: 14px; }
-    .barre-remplissage {
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary), #60a5fa);
-      border-radius: 8px;
-      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    /* ----- Alertes Dissonance ----- */
-    #alertes-dissonance {
-      margin-top: 35px; padding: 20px; background-color: #fff7ed;
-      border-left: 5px solid #f97316; text-align: left;
-      border-radius: 0 12px 12px 0; box-shadow: var(--shadow-sm);
-    }
-    .alerte-item { margin-bottom: 12px; font-size: 0.95em; line-height: 1.6; }
-
-    /* ----- Boîte Blanche (Audit) ----- */
-    #bloc-logique {
-      display: none; margin-top: 30px; padding: 25px; background-color: #f8fafc; 
-      border: 2px dashed #cbd5e1; border-radius: 12px; text-align: left; 
-      font-size: 0.95em; color: #334155;
-    }
-    #bloc-logique li {
-      margin-bottom: 20px; padding: 20px; background: #ffffff; 
-      border-radius: 8px; border-left: 4px solid var(--primary);
-      box-shadow: var(--shadow-sm);
-    }
-
-    @media print {
-      body { background-color: #fff; padding: 0; }
-      #app-container { box-shadow: none; max-width: 100%; padding: 0; }
-      .zone-boutons-fin { display: none !important; }
-      #bloc-dissonance-global, .barre-fond, .barre-remplissage, #bloc-synthese, #alertes-dissonance, #bloc-logique {
-        print-color-adjust: exact; -webkit-print-color-adjust: exact;
-      }
-      .chart-container, .resultat-item, #bloc-dissonance-global, #bloc-synthese {
-        page-break-inside: avoid;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <div id="app-container">
-    
-    <!-- ÉCRAN DU SONDAGE -->
-    <div id="sondage">
-      <div id="progress-text">Initialisation...</div>
-      <div id="question-texte">Chargement des données...</div>
-      <div id="choices-container" class="choices-grid"></div>
-      <div id="nav-container"></div>
-    </div>
-
-    <!-- ÉCRAN DES RÉSULTATS -->
-    <div id="resultats">
-      <h2>Vos Résultats</h2>
-      
-      <div id="bloc-dissonance-global">
-        <div id="titre-dissonance">Indice de Dissonance Cognitive</div>
-        <div id="valeur-dissonance">0%</div>
-        <p id="texte-dissonance"></p>
-      </div>
-
-      <div id="bloc-synthese" style="display: none;">
-        <h3>Analyse de votre profil</h3>
-        <div id="texte-synthese-redigee"></div>
-      </div>
-
-      <div class="chart-container">
-        <canvas id="radarChart"></canvas>
-      </div>
-
-      <div id="affinites-container"></div>
-
-      <div id="alertes-dissonance" style="display: none;">
-        <h3 style="margin-top: 0; color: #d35400;">Contradictions philosophiques détectées :</h3>
-        <div id="alertes-liste"></div>
-      </div>
-
-      <!-- Zone de boutons de fin -->
-      <div class="zone-boutons-fin" style="display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
-        <button class="btn-choix" style="border-color: #95a5a6; font-weight: bold;" onclick="imprimerResultats()">🖨️ Imprimer / PDF</button>
-        <button class="btn-choix" id="btn-partage" style="border-color: #f39c12; background-color: #fcf3cf; font-weight: bold; color: #d35400;" onclick="partagerResultats()">🔗 Partager mes résultats</button>
-        <button class="btn-choix" style="border-color: #8e44ad; background-color: #f4ecf7; font-weight: bold; color: #8e44ad;" onclick="basculerLogique()">🧠 Comprendre mon résultat</button>
-        <button class="btn-choix" style="border-color: var(--primary); font-weight: bold;" onclick="recommencerSondage()">↺ Refaire le test</button>
-      </div>
-      
-      <!-- Rapport d'audit algorithmique -->
-      <div id="bloc-logique">
-        <h3 style="color: #2c3e50; margin-top: 0; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">Transparence de l'Algorithme</h3>
-        <div id="contenu-logique"></div>
-      </div>
-
-    </div>
-  </div>
-
-  <script>
-    // --- VARIABLES GLOBALES ---
-    let toutesQuestions = [];
-    let toutesDissonances = [];
-    
-    let reponsesUtilisateur = {};
-    let fileAttente = [];
-    let questionsDisponibles = [];
-    let indexCourant = 0;
-    
-    let radarChartInstance = null;
-
-    const elProgress = document.getElementById("progress-text");
-    const elQuestionTexte = document.getElementById("question-texte");
-    const elChoicesContainer = document.getElementById("choices-container");
-    const elNavContainer = document.getElementById("nav-container");
-
-    // --- INITIALISATION ---
-    async function initApp() {
-      try {
-        const response = await fetch('sondage.json');
-        if (!response.ok) throw new Error("Fichier non trouvé");
-        const data = await response.json();
-        
-        toutesQuestions = data.questions;
-        toutesDissonances = data.dissonances;
-
-        const questionIdentite = toutesQuestions.find(q => q.type === "identite");
-        if (questionIdentite) {
-          fileAttente.push(questionIdentite);
-          afficherQuestion();
-        } else {
-          elQuestionTexte.textContent = "Erreur : Question d'identité introuvable.";
-        }
-      } catch (error) {
-        console.error(error);
-        elProgress.textContent = "Erreur fatale";
-        elQuestionTexte.textContent = "Impossible de charger sondage.json. Utilisez un serveur web (ex: Live Server).";
-      }
-    }
-
-    // --- AFFICHAGE DE LA QUESTION ---
-    function afficherQuestion() {
-      const q = fileAttente[indexCourant];
-      elQuestionTexte.textContent = q.texte;
-      elChoicesContainer.innerHTML = ""; 
-      elNavContainer.innerHTML = "";
-
-      if (q.type === "identite") {
-        elProgress.textContent = "Introduction";
-        q.options.forEach(opt => {
-          const btn = document.createElement("button");
-          btn.className = "btn-choix";
-          btn.textContent = opt.label;
-          if (opt.valeur === "sans_apriori") btn.classList.add("btn-decouverte");
-          btn.onclick = () => traiterIdentite(opt.valeur, q.id);
-          elChoicesContainer.appendChild(btn);
-        });
-        
-      } else if (q.type === "qcm") {
-        elProgress.textContent = `Question ${indexCourant} / ${fileAttente.length - 1}`;
-        q.options.forEach(opt => {
-          const btn = document.createElement("button");
-          btn.className = "btn-choix";
-          btn.textContent = opt.label;
-          btn.onclick = () => {
-             reponsesUtilisateur[q.id] = { type: "qcm", scores: opt.scores };
-             preparerQuestionSuivante();
-          };
-          elChoicesContainer.appendChild(btn);
-        });
-        
-      } else {
-        elProgress.textContent = `Question ${indexCourant} / ${fileAttente.length - 1}`;
-        const echelle = [
-          { val: 2, label: "Tout à fait d'accord" },
-          { val: 1, label: "Plutôt d'accord" },
-          { val: 0, label: "Neutre / Sans opinion" },
-          { val: -1, label: "Plutôt pas d'accord" },
-          { val: -2, label: "Pas du tout d'accord" }
-        ];
-
-        echelle.forEach(item => {
-          const btn = document.createElement("button");
-          btn.className = "btn-choix";
-          btn.textContent = item.label;
-          btn.onclick = () => enregistrerChoix(item.val, q.id); 
-          elChoicesContainer.appendChild(btn);
-        });
-      }
-
-      if (indexCourant > 0) {
-        const btnRetour = document.createElement("button");
-        btnRetour.className = "btn-retour";
-        btnRetour.textContent = "← Retour à la question précédente";
-        btnRetour.onclick = questionPrecedente;
-        elNavContainer.appendChild(btnRetour);
-      }
-    }
-
-    function melangerTableau(array) {
-      const nouveauTableau = [...array];
-      for (let i = nouveauTableau.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [nouveauTableau[i], nouveauTableau[j]] = [nouveauTableau[j], nouveauTableau[i]];
-      }
-      return nouveauTableau;
-    }
-
-    // --- LE FILTRE FAMILLE CORRIGÉ ---
-    function traiterIdentite(valeurIdentite, qId) {
-      reponsesUtilisateur[qId] = valeurIdentite;
-      let questionsPourTest = [];
-      
-      const famillesProfils = {
-        "chretien": ["Catholicisme_Orthodoxe", "Christianisme_Orthodoxe", "Calvinisme", "Luthéranisme", "Protestantisme_Évangélique", "Christianisme_Libéral", "Christianisme_Mystique"],
-        "judaisme": ["Judaïsme"],
-        "islam": ["Islam_Orthodoxe", "Salafisme", "Islam_Libéral", "Soufisme"],
-        "sagesses_asiatiques": ["Bouddhisme_Traditionnel", "Bouddhisme_Séculier", "Hindouisme"],
-        "antiquite": ["Stoïcisme", "Épicurisme"],
-        "theisme_agnostique": ["Déisme", "Panthéisme", "Spinozisme"],
-        "atheisme": ["Athéisme_Matérialiste", "Humanisme_Séculier", "Existentialisme", "Nihilisme", "Transhumanisme"],
-        "agnosticisme": ["Agnosticisme"],
-        "nietzscheisme": ["Nietzschéisme"],
-        "new_age": ["Spiritualité_New_Age", "Gnosticisme"]
-      };
-      
-      if (valeurIdentite === "sans_apriori") {
-          // CORRECTION : En mode aveugle, on exclut formellement les crash-tests dogmatiques
-          questionsPourTest = toutesQuestions.filter(q => q.type === "standard" || q.type === "qcm");
-      } else {
-          // Mode ciblé : QCM universels + Crash tests de la famille + Standards qui touchent la famille
-          const qcms = toutesQuestions.filter(q => q.type === "qcm");
-          const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
-          
-          const profilsFamille = famillesProfils[valeurIdentite] || [];
-          const standardsFiltrees = toutesQuestions.filter(q => {
-              if (q.type !== "standard") return false;
-              if (!q.scores) return false;
-              return Object.keys(q.scores).some(profil => profilsFamille.includes(profil));
-          });
-
-          questionsPourTest = [...qcms, ...crashTests, ...standardsFiltrees];
-      }
-      
-      questionsDisponibles = melangerTableau(questionsPourTest);
-      preparerQuestionSuivante();
-    }
-
-    function enregistrerChoix(valeur, qId) {
-      reponsesUtilisateur[qId] = valeur;
-      preparerQuestionSuivante();
-    }
-
-    // --- LE MOTEUR "HYBRIDE" (ENTONNOIR + EXPLORATION + TRAQUE ÉLARGIE) ---
-    function preparerQuestionSuivante() {
-      const LIMITE_QUESTIONS = 25; // Mode expert à 25 questions
-
-      if (questionsDisponibles.length === 0 || fileAttente.length >= LIMITE_QUESTIONS) {
-        if (indexCourant === fileAttente.length - 1) {
-          terminerSondage();
-          return;
-        } else {
-          indexCourant++;
-          afficherQuestion();
-          return;
-        }
-      }
-
-      let indexProchaine = -1;
-
-      // NIVEAU 1 : QCM (Filtres macroscopiques universels obligatoires)
-      let qcmsDispos = questionsDisponibles.map((q, idx) => ({q, idx})).filter(item => item.q.type === "qcm");
-      
-      if (qcmsDispos.length > 0) {
-        indexProchaine = qcmsDispos[Math.floor(Math.random() * qcmsDispos.length)].idx;
-      } 
-      else {
-        // NIVEAU 2 : Crash Tests de famille (Si identité religieuse/philosophique choisie)
-        let crashDispos = questionsDisponibles.map((q, idx) => ({q, idx})).filter(item => item.q.type === "crash_test");
-        
-        if (crashDispos.length > 0 && reponsesUtilisateur["q_identite"] !== "sans_apriori") {
-          indexProchaine = crashDispos[Math.floor(Math.random() * crashDispos.length)].idx;
-        }
-        // NIVEAU 3 : LE MOTEUR HYBRIDE
-        else {
-          // A. Phase d'Exploration (Jusqu'à la 12e question)
-          if (fileAttente.length <= 12) {
-             indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
+{
+  "questions": [
+    {
+      "id": "q_identite",
+      "type": "identite",
+      "texte": "De quel courant religieux ou philosophique vous considérez-vous aujourd'hui le plus proche (culturellement ou spirituellement) ?",
+      "options": [
+        { "valeur": "chretien", "label": "Christianisme (Catholique, Protestant, Orthodoxe...)" },
+        { "valeur": "evangelique", "label": "Protestantisme Évangélique (Conversion personnelle, autorité stricte de la Bible)" },
+        { "valeur": "judaisme", "label": "Judaïsme (Torah, respect de l'Alliance)" },
+        { "valeur": "islam", "label": "Islam" },
+        { "valeur": "sagesses_asiatiques", "label": "Bouddhisme et Sagesses asiatiques (Hindouisme, Zen...)" },
+        { "valeur": "antiquite", "label": "Philosophies antiques (Stoïcisme, Épicurisme...)" },
+        { "valeur": "theisme_agnostique", "label": "Spiritualité agnostique (Conviction qu'un principe supérieur existe, mais qu'il dépasse l'entendement)" },
+        { "valeur": "atheisme", "label": "Athéisme (Conviction que le divin n'existe pas)" },
+        { "valeur": "agnosticisme", "label": "Agnosticisme strict (Suspension totale du jugement)" },
+        { "valeur": "autre", "label": "Autre / Sans étiquette" },
+        { "valeur": "nietzscheisme", "label": "Nietzschéisme (Volonté de puissance, Surhomme, Amor Fati)" },
+        { "valeur": "new_age", "label": "Spiritualité New Age (Énergies, loi de l'attraction, mélange de traditions)" },
+        { "valeur": "sans_apriori", "label": "🔍 Découvrir mes croyances profondes (Test aveugle)" }
+      ]
+    },
+    {
+      "id": "qcm_livre_sacre",
+      "type": "qcm",
+      "texte": "Parmi ces écrits, lequel a pour vous le statut d'autorité spirituelle absolue et indépassable ?",
+      "options": [
+        { 
+          "label": "L'Ancien Testament (Torah / Tanakh)", 
+          "scores": {
+            "Judaïsme": 5,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Christianisme_Libéral": -5, "Athéisme_Matérialiste": -5
           } 
-          // B. Phase d'Affinage et de Traque (À partir de la 13e question)
-          else {
-             const classementProvisoire = calculerAffinities(reponsesUtilisateur, false);
-             if (classementProvisoire.length > 0) {
-                const maxTop = Math.min(4, classementProvisoire.length);
-                const indexLeaderChoisi = Math.floor(Math.random() * maxTop);
-                const profilCible = classementProvisoire[indexLeaderChoisi].profil;
-                
-                let questionsCibles = questionsDisponibles.map((q, idx) => ({q, idx}))
-                  .filter(item => item.q.scores && item.q.scores[profilCible]);
-                  
-                if (questionsCibles.length > 0) {
-                   questionsCibles.sort((a, b) => Math.abs(b.q.scores[profilCible]) - Math.abs(a.q.scores[profilCible]));
-                   indexProchaine = questionsCibles[0].idx;
-                }
-             }
-             if (indexProchaine === -1) {
-                indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
-             }
-          }
-        }
-      }
-
-      const qSuivante = questionsDisponibles.splice(indexProchaine, 1)[0];
-      
-      if (indexCourant < fileAttente.length - 1) {
-        fileAttente.length = indexCourant + 1;
-      }
-      
-      fileAttente.push(qSuivante);
-      indexCourant++;
-      afficherQuestion();
-    }
-
-    function questionPrecedente() {
-      if (indexCourant > 0) {
-        indexCourant--;
-        const qActuelle = fileAttente[indexCourant];
-        delete reponsesUtilisateur[qActuelle.id];
-        questionsDisponibles.push(fileAttente.pop());
-        afficherQuestion();
-      }
-    }
-
-    // --- CALCUL DES RÉSULTATS ---
-    function terminerSondage() {
-      document.getElementById("sondage").style.display = "none";
-      document.getElementById("resultats").style.display = "block";
-
-      const affinites = calculerAffinities(reponsesUtilisateur, true);
-      dessinerGraphique(affinites);
-
-      const affinitesContainer = document.getElementById("affinites-container");
-      affinitesContainer.innerHTML = "";
-
-      affinites.forEach(a => {
-        const item = document.createElement("div");
-        item.className = "resultat-item";
-        item.innerHTML = `
-          <div class="resultat-header">
-            <span>${a.profil.replace(/_/g, ' ')}</span>
-            <span>${a.pourcentage}%</span>
-          </div>
-          <div class="barre-fond">
-            <div class="barre-remplissage" style="width: 0%"></div>
-          </div>
-        `;
-        affinitesContainer.appendChild(item);
-        setTimeout(() => { item.querySelector(".barre-remplissage").style.width = a.pourcentage + "%"; }, 100);
-      });
-
-      const alertes = evaluerDissonances(reponsesUtilisateur);
-      const valDissonance = document.getElementById("valeur-dissonance");
-      const texteDissonance = document.getElementById("texte-dissonance");
-      const divAlertes = document.getElementById("alertes-dissonance");
-      const listeAlertes = document.getElementById("alertes-liste");
-
-      let pourcentageDissonance = Math.min(alertes.length * 15, 100);
-      valDissonance.textContent = pourcentageDissonance + "%";
-      
-      if (pourcentageDissonance === 0) {
-        valDissonance.style.color = "#27ae60";
-        texteDissonance.innerHTML = "Félicitations. Votre pensée est d'une grande cohérence logique et architecturale.";
-        divAlertes.style.display = "none";
-      } else if (pourcentageDissonance <= 30) {
-        valDissonance.style.color = "#f39c12";
-        texteDissonance.innerHTML = "Une pensée globale structurée, malgré quelques tensions philosophiques.";
-      } else {
-        valDissonance.style.color = "#c0392b";
-        texteDissonance.innerHTML = "Votre système de pensée est fracturé par des croyances fondamentalement incompatibles.";
-      }
-
-      if (alertes.length > 0) {
-        divAlertes.style.display = "block";
-        listeAlertes.innerHTML = alertes.map(a => `<div class="alerte-item">${a}</div>`).join('');
-      }
-
-      genererTexteSynthese(affinites, alertes, pourcentageDissonance);
-    }
-
-    function calculerAffinities(reponses, appliquerBouclier = true) {
-      const totaux = {};
-      const maxPossibles = {};
-
-      for (const [qId, rep] of Object.entries(reponses)) {
-        if (qId === "q_identite") continue; 
-        const question = toutesQuestions.find(q => q.id === qId);
-        if (!question) continue;
-
-        if (typeof rep === "object" && rep.type === "qcm") {
-          const profilsImpliques = new Set();
-          question.options.forEach(opt => {
-              if (opt.scores) Object.keys(opt.scores).forEach(p => profilsImpliques.add(p));
-          });
-          
-          profilsImpliques.forEach(p => {
-              if (!totaux[p]) { totaux[p] = 0; maxPossibles[p] = 0; }
-              maxPossibles[p] += 5; 
-          });
-          
-          if (rep.scores) {
-              for (const [profil, pointsQcm] of Object.entries(rep.scores)) {
-                  totaux[profil] += pointsQcm;
-              }
-          }
-        } 
-        else if (question.scores && typeof rep === "number") {
-          for (const [profil, poids] of Object.entries(question.scores)) {
-            if (!totaux[profil]) { totaux[profil] = 0; maxPossibles[profil] = 0; }
-            if (rep !== 0) {
-                totaux[profil] += poids * rep;
-                maxPossibles[profil] += Math.abs(poids) * 2;
-            }
-          }
-        }
-      }
-
-      const resultats = [];
-      for (const profil in totaux) {
-        if (!appliquerBouclier || maxPossibles[profil] >= 10) {
-          let ratio = 0;
-          if (maxPossibles[profil] > 0) {
-             ratio = totaux[profil] / maxPossibles[profil];
-          }
-          if (ratio < 0) ratio = 0;
-          let pourcentage = Math.pow(ratio, 2) * 100;
-          resultats.push({ profil: profil, pourcentage: Math.round(pourcentage) });
-        }
-      }
-      return resultats.sort((a, b) => b.pourcentage - a.pourcentage);
-    }
-
-    function evaluerDissonances(rep) {
-      const alertes = [];
-      toutesDissonances.forEach(regle => {
-        try {
-          const evalFunction = new Function('rep', `return ${regle.condition};`);
-          if (evalFunction(rep)) alertes.push(regle.message);
-        } catch (e) { console.error("Erreur règle :", regle.code, e); }
-      });
-      return alertes;
-    }
-
-    // --- LE BILAN RÉDIGÉ (AVEC LE DICTIONNAIRE) ---
-    const descriptionsProfils = {
-      "Catholicisme_Orthodoxe": "Fondé sur l'autorité de la Tradition (le Magistère), la réalité sacramentelle (comme l'Eucharistie) et l'existence d'une morale absolue dictée par Dieu pour sauver l'humanité du péché.",
-      "Protestantisme_Évangélique": "Centré sur la conversion personnelle ('nouvelle naissance'), l'autorité stricte de la Bible, et le devoir de partager sa foi. Il rejette la hiérarchie cléricale au profit d'un rapport direct au Christ.",
-      "Calvinisme": "Marqué par l'insistance sur la souveraineté absolue de Dieu (la prédestination) et la corruption de la nature humaine, qui nécessite l'intervention souveraine de la Grâce pour être sauvée.",
-      "Luthéranisme": "Fondé sur le salut par la foi et la Grâce seules. Il conçoit le croyant comme simultanément pécheur et justifié, s'en remettant exclusivement à la miséricorde divine plutôt qu'à la performance morale.",
-      "Christianisme_Orthodoxe": "Héritier de la tradition de l'Orient, il met l'accent sur les mystères, la liturgie cosmique et la divinisation de l'homme (théosis), tout en rejetant l'infaillibilité du Pape de Rome.",
-      "Christianisme_Libéral": "Une approche moderniste qui interprète les textes sacrés avec un recul historique. Il privilégie l'action sociale et l'esprit d'amour du message de Jésus, quitte à délaisser les dogmes surnaturels stricts.",
-      "Christianisme_Mystique": "La dimension intérieure de la foi chrétienne qui vise l'union intime, personnelle et transformatrice de l'âme avec le Divin, bien au-delà de la stricte observance des institutions.",
-      "Islam_Orthodoxe": "Soumission stricte au Tawhid (Dieu unique) et au Coran perçu comme parole incréée. Il encadre la vie par les pratiques rituelles obligatoires et la loi religieuse immuable (Charia).",
-      "Salafisme": "Courant rigoriste prônant un retour absolu aux pratiques des premiers musulmans (les Salafs), rejetant fermement toute interprétation allégorique du texte ou toute innovation religieuse contemporaine.",
-      "Islam_Libéral": "Défend une lecture historico-critique du Coran. Il rejette les anciennes lois juridiques (Charia) pour affirmer la compatibilité de l'Islam avec la laïcité, l'égalité et la liberté de conscience.",
-      "Soufisme": "Le versant ésotérique et mystique de l'Islam. La quête ne réside pas dans la peur de l'Enfer mais dans l'extinction de l'ego par un amour divin passionné et contemplatif.",
-      "Judaïsme": "Religion de l'Alliance perpétuelle. Axé sur l'étude (Torah, Talmud) et la pratique rigoureuse de la loi (Halakha), il accorde une valeur sacrée aux actions d'ici-bas plutôt qu'aux seules spéculations sur l'au-delà.",
-      "Bouddhisme_Traditionnel": "Vise à briser le cycle cosmique des souffrances et des renaissances (Samsara). Il prône l'extinction du désir et de l'ego par l'ascèse morale et méditative pour atteindre le Nirvana.",
-      "Bouddhisme_Séculier": "Occidentalisation de la sagesse asiatique. Il en conserve la philosophie du détachement et de l'impermanence pour trouver la paix mentale, mais en rejette les dogmes surnaturels (le Karma cosmique).",
-      "Hindouisme": "Vaste ensemble de traditions orientales reposant sur le cycle cosmique des réincarnations (Karma) et l'existence d'une essence éternelle (Atman) appelée à fusionner avec l'Absolu (Brahman).",
-      "Stoïcisme": "Philosophie antique de la sagesse pratique. Elle enseigne l'acceptation rationnelle et joyeuse du destin (que nous ne contrôlons pas) pour se concentrer uniquement sur la maîtrise vertueuse de sa volonté intérieure.",
-      "Épicurisme": "Une pensée rationnelle et matérialiste antique. Considérant que la mort n'est qu'une désintégration d'atomes, elle propose d'atteindre la tranquillité absolue en cultivant de manière calculée les plaisirs simples et naturels.",
-      "Spinozisme": "Rationalisme moniste absolu identifiant Dieu à la Nature entière (Deus sive Natura). Rejetant le libre-arbitre et le Dieu juge, il affirme que la liberté s'atteint par la compréhension mathématique de la réalité.",
-      "Existentialisme": "Philosophie affirmant que 'l'existence précède l'essence'. Dans un univers indifférent et sans Dieu, l'homme naît sans but prédéfini : il est radicalement libre et doit inventer ses propres valeurs par ses actes.",
-      "Nietzschéisme": "Philosophie tragique et vitaliste célébrant la 'Volonté de Puissance'. Elle rejette les idéaux d'au-delà et la morale de la pitié pour affirmer puissamment la vie terrestre, jusqu'à aimer inconditionnellement son destin (Amor Fati).",
-      "Nihilisme": "La conviction vertigineuse que le monde, la vie humaine et l'ensemble de nos valeurs (morales, esthétiques, religieuses) sont fondamentalement vides de tout sens et de toute vérité objective.",
-      "Déisme": "Croyance rationnelle en un Dieu concepteur (le Grand Horloger) qui a ordonné les lois mathématiques de l'univers, mais qui n'intervient jamais dans les affaires humaines par des miracles ou des livres révélés.",
-      "Panthéisme": "Doctrine selon laquelle tout ce qui compose l'univers (la matière, le vivant) est divin. Le sacré n'est pas extérieur au monde, la Nature entière elle-même est Dieu.",
-      "Agnosticisme": "Position de prudence philosophique stricte affirmant que l'intelligence humaine est incapable de statuer sur l'existence ou l'inexistence d'un principe créateur. Il exige de suspendre tout jugement dogmatique.",
-      "Athéisme_Matérialiste": "Conviction ferme que la matière est la seule réalité. Il réfute l'existence de toute divinité, d'âme immatérielle ou d'au-delà, considérant la conscience comme un phénomène neurologique éphémère.",
-      "Humanisme_Séculier": "Courant éthique affirmant que l'humanité doit fonder sa propre boussole morale sur la seule raison, l'empathie et la science, assumant la solidarité terrestre sans aucune référence surnaturelle.",
-      "Spiritualité_New_Age": "Syncrétisme contemporain holistique. Il croit aux lois de l'attraction, aux champs énergétiques et à la souveraineté du 'divin intérieur', considérant la vie sur Terre comme une école d'évolution pour l'âme.",
-      "Gnosticisme": "Courant ésotérique antique percevant le monde matériel comme une prison corrompue. Le salut spirituel s'obtient par la 'Gnose', une illumination secrète permettant à notre étincelle divine de fuir la matière.",
-      "Transhumanisme": "Mouvement technologique affirmant que la condition biologique humaine (vieillesse, vulnérabilité) est un défaut archaïque qu'il faut transcender grâce aux avancées scientifiques (génétique, intelligence artificielle)."
-    };
-
-    function genererTexteSynthese(affinites, alertes, pourcentageDissonance) {
-      const bloc = document.getElementById("bloc-synthese");
-      const texte = document.getElementById("texte-synthese-redigee");
-      bloc.style.display = "block";
-
-      if (affinites.length === 0) {
-        texte.innerHTML = "Vos réponses sont trop neutres ou dispersées pour dégager une doctrine ou une philosophie dominante.";
-        return;
-      }
-
-      const dom1 = affinites[0].profil;
-      const nomDom1 = dom1.replace(/_/g, ' ');
-      
-      let redaction = `Votre logiciel idéologique s'articule prioritairement autour du <strong>${nomDom1}</strong>. `;
-      
-      let dom2 = null;
-      let nomDom2 = "";
-      if (affinites.length > 1 && affinites[1].pourcentage > 0) {
-        dom2 = affinites[1].profil;
-        nomDom2 = dom2.replace(/_/g, ' ');
-        redaction += `Il est également fortement teinté de <strong>${nomDom2}</strong>.`;
-      }
-
-      redaction += `<br><br><div style="background-color: #ffffff; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); margin: 15px 0; font-size: 0.95em;">`;
-      redaction += `<strong style="color: var(--primary);">📌 Ce que cela signifie :</strong><br><br>`;
-      
-      const desc1 = descriptionsProfils[dom1] || "Une approche philosophique riche et complexe.";
-      redaction += `<strong>${nomDom1} :</strong> ${desc1}`;
-
-      if (dom2) {
-        const desc2 = descriptionsProfils[dom2] || "Une doctrine complémentaire influente dans votre pensée.";
-        redaction += `<br><br><strong>${nomDom2} :</strong> ${desc2}`;
-      }
-      redaction += `</div>`;
-
-      if (pourcentageDissonance === 0) {
-        redaction += "Ce socle est remarquablement stable : vous n'avez validé aucun paradoxe logique ou métaphysique flagrant lors de ce test. Vos réponses sont d'une grande cohérence architecturale.";
-      } else if (pourcentageDissonance <= 30) {
-        redaction += `Bien que votre ligne directrice soit claire, le test a relevé une légère porosité intellectuelle. L'algorithme a notamment détecté la dissonance suivante : <br><em>"${alertes[0].split('</strong>')[0].replace('<strong>', '')}"</em>.`;
-      } else {
-        redaction += `Toutefois, cette dominante cache un profond chaos architectural. Votre système de pensée emprunte des concepts qui s'excluent mutuellement dans la réalité logique. Votre contradiction la plus violente concerne : <br><em>"${alertes[0].split('</strong>')[0].replace('<strong>', '')}"</em>.`;
-      }
-
-      texte.innerHTML = redaction;
-    }
-
-    // --- GRAPHIQUE RADAR ---
-    function dessinerGraphique(affinites) {
-      const ctx = document.getElementById('radarChart').getContext('2d');
-      if (radarChartInstance) radarChartInstance.destroy();
-      
-      const top6 = affinites.slice(0, 6);
-      const labels = top6.map(a => a.profil.replace(/_/g, ' '));
-      const data = top6.map(a => a.pourcentage);
-
-      let couleurFond = 'rgba(59, 130, 246, 0.3)';
-      let couleurBord = 'rgba(59, 130, 246, 1)';
-      
-      if (top6.length > 0) {
-        const profilDominant = top6[0].profil;
-        if (profilDominant.includes('Bouddhisme')) {
-          couleurFond = 'rgba(230, 126, 34, 0.4)'; couleurBord = 'rgba(230, 126, 34, 1)';
-        } else if (profilDominant.includes('Islam') || profilDominant.includes('Soufisme')) {
-          couleurFond = 'rgba(46, 204, 113, 0.4)'; couleurBord = 'rgba(46, 204, 113, 1)';
-        } else if (profilDominant.includes('Athéisme') || profilDominant.includes('Matérialisme') || profilDominant.includes('Épicurisme') || profilDominant.includes('Nietzschéisme')) {
-          couleurFond = 'rgba(239, 68, 68, 0.4)'; couleurBord = 'rgba(239, 68, 68, 1)';
-        } else if (profilDominant.includes('Catholicisme') || profilDominant.includes('Protestantisme') || profilDominant.includes('Calvinisme') || profilDominant.includes('Christianisme')) {
-          couleurFond = 'rgba(168, 85, 247, 0.4)'; couleurBord = 'rgba(168, 85, 247, 1)';
-        } else if (profilDominant.includes('Existentialisme') || profilDominant.includes('Agnosticisme')) {
-          couleurFond = 'rgba(148, 163, 184, 0.4)'; couleurBord = 'rgba(148, 163, 184, 1)';
-        } else if (profilDominant.includes('Spinozisme') || profilDominant.includes('Panthéisme') || profilDominant.includes('Stoïcisme') || profilDominant.includes('Déisme')) {
-          couleurFond = 'rgba(14, 165, 233, 0.4)'; couleurBord = 'rgba(14, 165, 233, 1)';
-        }
-      }
-
-      radarChartInstance = new Chart(ctx, {
-        type: 'radar',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: 'Affinité (%)', data: data,
-            backgroundColor: couleurFond, borderColor: couleurBord,
-            pointBackgroundColor: '#fff', pointBorderColor: couleurBord,
-            pointHoverBackgroundColor: couleurBord, pointHoverBorderColor: '#fff', borderWidth: 2
-          }]
         },
-        options: {
-          scales: {
-            r: {
-              angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-              grid: { color: 'rgba(0, 0, 0, 0.1)' },
-              pointLabels: { font: { size: 12, family: "'Inter', sans-serif", weight: '600' }, color: '#475569' },
-              ticks: { display: false, min: 0, max: 100 }
-            }
-          },
-          plugins: { legend: { display: false } }
+        { 
+          "label": "Le Nouveau Testament (Évangiles)", 
+          "scores": {
+            "Catholicisme_Orthodoxe": 5, "Christianisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Protestantisme_Évangélique": 5, "Christianisme_Libéral": 4, "Christianisme_Mystique": 4,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "Le Coran", 
+          "scores": {
+            "Islam_Orthodoxe": 5, "Salafisme": 5, "Islam_Libéral": 4, "Soufisme": 4,
+            "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "Le Talmud", 
+          "scores": {
+            "Judaïsme": 5,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "Un autre texte sacré (Védas, Sutras, Tao Te King...)", 
+          "scores": {
+            "Hindouisme": 5, "Bouddhisme_Traditionnel": 5, "Spiritualité_New_Age": 3,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "Les textes dits « sacrés » n'ont pas plus de valeur que les autres œuvres humaines", 
+          "scores": {
+            "Athéisme_Matérialiste": 5, "Humanisme_Séculier": 5, "Spinozisme": 4, "Agnosticisme": 4, "Nihilisme": 4, "Nietzschéisme": 4,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Catholicisme_Orthodoxe": -5, "Christianisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Hindouisme": -5
+          } 
         }
-      });
-    }
-
-    // --- FONCTIONNALITÉS ANNEXES (Boutons d'action) ---
-    function imprimerResultats() { window.print(); }
-
-    function partagerResultats() {
-      const syntheseBrute = document.getElementById("texte-synthese-redigee").innerText;
-      const indiceDissonance = document.getElementById("valeur-dissonance").innerText;
-      const btnPartage = document.getElementById("btn-partage");
-      
-      const texteReseaux = 
-`J'ai passé le test de la Boussole Philosophique ! 🧭
-
-Voici mon profil :
-${syntheseBrute}
-
-Indice de Dissonance Cognitive : ${indiceDissonance}
-
-Venez tester vos propres croyances et paradoxes !`;
-
-      navigator.clipboard.writeText(texteReseaux).then(() => {
-        const texteOriginal = btnPartage.innerHTML;
-        btnPartage.innerHTML = "✅ Copié dans le presse-papiers !";
-        btnPartage.style.backgroundColor = "#dcfce7"; 
-        btnPartage.style.borderColor = "#22c55e";
-        btnPartage.style.color = "#166534";
-        
-        setTimeout(() => {
-          btnPartage.innerHTML = texteOriginal;
-          btnPartage.style.backgroundColor = "#fcf3cf";
-          btnPartage.style.borderColor = "#f39c12";
-          btnPartage.style.color = "#d35400";
-        }, 3000);
-      }).catch(err => {
-        console.error("Erreur copie :", err);
-        alert("Copie automatique refusée par le navigateur. Vous pouvez sélectionner le texte à la main.");
-      });
-    }
-
-    function basculerLogique() {
-      const bloc = document.getElementById("bloc-logique");
-      const contenu = document.getElementById("contenu-logique");
-      if (bloc.style.display === "block") { bloc.style.display = "none"; return; }
-      
-      bloc.style.display = "block";
-      let html = "<p>Voici la décomposition exacte des points attribués en coulisses :</p><ul style='padding-left: 0; list-style-type: none;'>";
-      
-      for (const [qId, rep] of Object.entries(reponsesUtilisateur)) {
-        if (qId === "q_identite") continue; 
-        const qDef = toutesQuestions.find(q => q.id === qId);
-        if (!qDef) continue;
-        
-        html += `<li style="margin-bottom: 20px; padding: 15px; background: #ffffff; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: var(--shadow-sm);">
-                   <strong>Question :</strong> <em>${qDef.texte}</em><br>`;
-                   
-        if (typeof rep === "object" && rep.type === "qcm") {
-           const optionChoisie = qDef.options.find(opt => JSON.stringify(opt.scores) === JSON.stringify(rep.scores));
-           html += `<strong style="color: var(--primary);">Votre choix :</strong> ${optionChoisie ? optionChoisie.label : "Option QCM"}<br><strong>Points attribués :</strong> `;
-           const impacts = [];
-           for (const [profil, pts] of Object.entries(rep.scores)) {
-             const couleur = pts > 0 ? '#16a34a' : '#dc2626';
-             impacts.push(`${profil.replace(/_/g, ' ')} (<span style="color: ${couleur}; font-weight:bold;">${pts > 0 ? '+' : ''}${pts}</span>)`);
-           }
-           html += impacts.length > 0 ? impacts.join(', ') : "Aucun";
-        } 
-        else if (typeof rep === "number") {
-           const mapReponse = { "2": "Tout à fait d'accord (x2)", "1": "Plutôt d'accord (x1)", "0": "Neutre (Ignoré)", "-1": "Plutôt pas d'accord (x-1)", "-2": "Pas du tout d'accord (x-2)" };
-           html += `<strong style="color: var(--primary);">Votre choix :</strong> ${mapReponse[rep]}<br>`;
-           if (rep !== 0 && qDef.scores) {
-             html += `<strong>Points attribués :</strong> `;
-             const impacts = [];
-             for (const [profil, poids] of Object.entries(qDef.scores)) {
-               const pts = poids * rep;
-               const couleur = pts > 0 ? '#16a34a' : '#dc2626';
-               impacts.push(`${profil.replace(/_/g, ' ')} (<span style="color: ${couleur}; font-weight:bold;">${pts > 0 ? '+' : ''}${pts}</span>)`);
-             }
-             html += impacts.join(', ');
-           }
+      ]
+    },
+    {
+      "id": "qcm_au_dela",
+      "type": "qcm",
+      "texte": "Selon vous, que se passe-t-il véritablement au moment de la mort physique ?",
+      "options": [
+        { 
+          "label": "L'âme est jugée par un Créateur : elle connaîtra soit le salut (Paradis), soit la damnation (Enfer).", 
+          "scores": {
+            "Catholicisme_Orthodoxe": 5, "Calvinisme": 5, "Luthéranisme": 5, "Islam_Orthodoxe": 5, "Salafisme": 5, "Christianisme_Orthodoxe": 5, "Protestantisme_Évangélique": 5,
+            "Bouddhisme_Traditionnel": -5, "Hindouisme": -5, "Athéisme_Matérialiste": -5, "Épicurisme": -5, "Nihilisme": -5, "Nietzschéisme": -5, "Spiritualité_New_Age": -5
+          } 
+        },
+        { 
+          "label": "La conscience subit un cycle de renaissances (réincarnation) régi par la loi implacable du Karma.", 
+          "scores": {
+            "Bouddhisme_Traditionnel": 5, "Hindouisme": 5,
+            "Catholicisme_Orthodoxe": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Judaïsme": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "L'âme survit ou fusionne paisiblement avec l'Univers, mais l'idée d'un « Enfer » punitif est une invention humaine.", 
+          "scores": {
+            "Déisme": 5, "Panthéisme": 4, "Spinozisme": 4, "Christianisme_Mystique": 4, "Spiritualité_New_Age": 4, "Soufisme": 4, "Christianisme_Libéral": 3, "Islam_Libéral": 3,
+            "Islam_Orthodoxe": -5, "Salafisme": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Athéisme_Matérialiste": -5
+          } 
+        },
+        { 
+          "label": "La conscience s'éteint totalement et définitivement. Il n'y a plus rien d'autre que le néant absolu.", 
+          "scores": {
+            "Athéisme_Matérialiste": 5, "Épicurisme": 5, "Nihilisme": 5, "Existentialisme": 4, "Nietzschéisme": 4,
+            "Catholicisme_Orthodoxe": -5, "Islam_Orthodoxe": -5, "Salafisme": -5, "Islam_Libéral": -5, "Soufisme": -5, "Calvinisme": -5, "Protestantisme_Évangélique": -5, "Christianisme_Libéral": -5, "Christianisme_Mystique": -5, "Judaïsme": -5, "Bouddhisme_Traditionnel": -5, "Hindouisme": -5, "Spiritualité_New_Age": -5
+          } 
+        },
+        { 
+          "label": "Il est impossible de le savoir. L'urgence est de vivre moralement le présent sans spéculer sur l'inconnaissable.", 
+          "scores": {
+            "Agnosticisme": 5, "Stoïcisme": 5, "Humanisme_Séculier": 5, "Bouddhisme_Séculier": 4,
+            "Salafisme": -5, "Islam_Orthodoxe": -5, "Islam_Libéral": -5, "Soufisme": -5, "Protestantisme_Évangélique": -5, "Catholicisme_Orthodoxe": -5, "Calvinisme": -5, "Luthéranisme": -5, "Christianisme_Orthodoxe": -5, "Christianisme_Libéral": -5
+          } 
         }
-        html += `</li>`;
+      ]
+    },
+    {
+      "id": "q_poli_etat_raison",
+      "type": "standard",
+      "texte": "L'État et les lois, même imparfaits, sont absolument nécessaires pour garantir la sécurité. Rien n'est plus utile à un être humain qu'un autre être humain guidé par la raison : la véritable liberté s'atteint par la coopération civique et la politique, non par la destruction des institutions.",
+      "scores": {
+        "Spinozisme": 5,
+        "Humanisme_Séculier": 4,
+        "Stoïcisme": 3,
+        "Nihilisme": -5,
+        "Épicurisme": -4,
+        "Nietzschéisme": -4
       }
-      html += "</ul>";
-      contenu.innerHTML = html;
-      bloc.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function recommencerSondage() {
-      reponsesUtilisateur = {};
-      fileAttente = [];
-      questionsDisponibles = [];
-      indexCourant = 0;
-      
-      document.getElementById("affinites-container").innerHTML = "";
-      document.getElementById("alertes-liste").innerHTML = "";
-      document.getElementById("alertes-dissonance").style.display = "none";
-      document.getElementById("bloc-synthese").style.display = "none";
-      document.getElementById("bloc-logique").style.display = "none";
-
-      document.getElementById("resultats").style.display = "none";
-      document.getElementById("sondage").style.display = "block";
-
-      const questionIdentite = toutesQuestions.find(q => q.type === "identite");
-      if (questionIdentite) {
-        fileAttente.push(questionIdentite);
-        afficherQuestion();
+    },
+    {
+      "id": "q_epis_neuro_determinisme",
+      "type": "standard",
+      "texte": "Ce que nous appelons notre « libre-arbitre » n'est qu'une illusion générée par notre cerveau. Chacun de nos choix est l'aboutissement mécanique d'une chaîne ininterrompue de causes neurobiologiques, hormonales et environnementales.",
+      "scores": {
+        "Spinozisme": 5,
+        "Athéisme_Matérialiste": 4,
+        "Existentialisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Humanisme_Séculier": -3,
+        "Spiritualité_New_Age": -4,
+        "Protestantisme_Évangélique": -5,
+        "Judaïsme": -5,
+        "Christianisme_Libéral": -4,
+        "Islam_Libéral": -4
+      }
+    },
+    {
+      "id": "q_ethi_responsabilite_morale",
+      "type": "standard",
+      "texte": "Le « mérite » et la « culpabilité » morale n'existent pas fondamentalement. La justice ne devrait jamais chercher à punir moralement un coupable, mais uniquement à protéger la société et à le réhabiliter.",
+      "scores": {
+        "Spinozisme": 5,
+        "Bouddhisme_Séculier": 3,
+        "Athéisme_Matérialiste": 2,
+        "Nietzschéisme": 4,
+        "Existentialisme": -5,
+        "Calvinisme": -4,
+        "Catholicisme_Orthodoxe": -5,
+        "Protestantisme_Évangélique": -5,
+        "Judaïsme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
+      }
+    },
+    {
+      "id": "q_meta_fantome_machine",
+      "type": "standard",
+      "texte": "La conscience et l'esprit humain ne sont que des sous-produits de l'activité biochimique complexe de la matière. Il n'y a pas de dimension spirituelle qui puisse s'abstraire des lois implacables de la physique.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Nihilisme": 4,
+        "Spinozisme": 3,
+        "Gnosticisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Judaïsme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Spiritualité_New_Age": -5,
+        "Hindouisme": -5
+      }
+    },
+    {
+      "id": "q_std_matiere_divine",
+      "type": "standard",
+      "texte": "Le monde matériel et physique n'est pas une illusion dont il faudrait se détacher, mais une expression divine et parfaite en soi. Embrasser la réalité de la matière telle qu'elle est, c'est comprendre le divin.",
+      "scores": {
+        "Spinozisme": 5,
+        "Panthéisme": 4,
+        "Spiritualité_New_Age": 3,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -4,
+        "Gnosticisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Protestantisme_Évangélique": -5,
+        "Judaïsme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
+      }
+    },
+    {
+      "id": "q_std_epicurisme",
+      "type": "standard",
+      "texte": "Le seul but raisonnable de l'existence est de cultiver des plaisirs simples et rationnels (l'amitié, le savoir) pour atteindre l'absence totale de trouble et la paix de l'âme.",
+      "scores": {
+        "Épicurisme": 5,
+        "Athéisme_Matérialiste": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Spiritualité_New_Age": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_ethi_attachement_souffrance",
+      "type": "standard",
+      "texte": "Tout plaisir lié au monde physique ou à nos relations humaines porte en germe la souffrance, car tout est voué à disparaître. La véritable guérison de l'esprit exige de trancher à la racine notre attachement affectif et matériel aux choses éphémères.",
+      "scores": {
+        "Bouddhisme_Traditionnel": 5,
+        "Bouddhisme_Séculier": 4,
+        "Gnosticisme": 4,
+        "Épicurisme": -5,
+        "Spinozisme": -5,
+        "Nietzschéisme": -5,
+        "Protestantisme_Évangélique": -4
+      }
+    },
+    {
+      "id": "q_std_raison_mysticisme",
+      "type": "standard",
+      "texte": "Ma connexion au « Tout » ou à la Nature ne passe pas par une adoration mystique, romantique ou priante, mais par la raison pure : c'est en comprenant scientifiquement et logiquement les lois de l'univers que j'atteins la vraie sérénité.",
+      "scores": {
+        "Spinozisme": 5,
+        "Stoïcisme": 3,
+        "Athéisme_Matérialiste": 3,
+        "Bouddhisme_Séculier": 2,
+        "Panthéisme": -3,
+        "Spiritualité_New_Age": -4,
+        "Catholicisme_Orthodoxe": -4,
+        "Protestantisme_Évangélique": -5,
+        "Soufisme": -5,
+        "Christianisme_Mystique": -5
+      }
+    },
+    {
+      "id": "q_std_extinction_desir",
+      "type": "standard",
+      "texte": "Le but ultime de la pratique spirituelle ou philosophique est l'extinction totale du désir et de l'attachement, afin de se libérer définitivement de la souffrance et de l'agitation du monde.",
+      "scores": {
+        "Bouddhisme_Traditionnel": 5,
+        "Bouddhisme_Séculier": 4,
+        "Stoïcisme": 2,
+        "Spinozisme": -4,
+        "Épicurisme": -3,
+        "Nietzschéisme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_chret_incarnation",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Jésus-Christ n'est pas un simple prophète ou un maître spirituel : il est véritablement le Fils de Dieu, Dieu fait homme (l'Incarnation), mort et ressuscité pour le salut de l'humanité.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Calvinisme": 5,
+        "Luthéranisme": 5,
+        "Protestantisme_Évangélique": 5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5
+      }
+    },
+    {
+      "id": "ct_chret_transsubstantiation",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Lors de la communion (l'Eucharistie), le pain et le vin deviennent véritablement, physiquement et substantiellement le corps et le sang du Christ ; il ne s'agit pas d'un simple rite symbolique ou mémoriel.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Calvinisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Christianisme_Libéral": -3,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
+      }
+    },
+    {
+      "id": "ct_chret_magistere",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Le Pape, évêque de Rome, est le chef suprême de l'Église universelle. Lorsqu'il s'exprime ex cathedra sur la foi ou la morale, il est infaillible.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": -5,
+        "Luthéranisme": -5,
+        "Calvinisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
+      }
+    },
+    {
+      "id": "ct_chret_sola_gratia",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Le salut de l'âme dépend exclusivement de la grâce divine et de la foi personnelle. Les œuvres humaines, l'intercession des saints ou les rites n'y contribuent en rien.",
+      "scores": {
+        "Luthéranisme": 5,
+        "Calvinisme": 5,
+        "Protestantisme_Évangélique": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
+      }
+    },
+    {
+      "id": "ct_chret_predestination",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Dieu a, de toute éternité, choisi souverainement ceux qui seront sauvés et ceux qui seront damnés (la double prédestination), sans que nos choix ou nos œuvres ne puissent y changer quoi que ce soit.",
+      "scores": {
+        "Calvinisme": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Protestantisme_Évangélique": -4,
+        "Luthéranisme": -3,
+        "Christianisme_Libéral": -5
+      }
+    },
+    {
+      "id": "ct_chret_marie_saints",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "La Vierge Marie et les Saints qui sont au Paradis peuvent entendre nos prières et intercéder pour nous auprès de Dieu. Il est donc légitime et pieux de les prier ou d'honorer leurs icônes.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Christianisme_Libéral": -4
+      }
+    },
+    {
+      "id": "ct_chret_purgatoire",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "Même pardonnées, certaines âmes doivent passer par un état de purification par la souffrance après la mort (le Purgatoire) avant de pouvoir accéder à la pleine vision de Dieu au Paradis.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": -3,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Christianisme_Libéral": -5
+      }
+    },
+    {
+      "id": "ct_chret_grace_irresistible",
+      "type": "crash_test",
+      "cible_identite": "chretien",
+      "texte": "La Grâce de Dieu est totalement irrésistible. Lorsqu'Il élit un individu pour le sauver, celui-ci ne peut s'y opposer par son libre-arbitre, et il lui sera absolument impossible de perdre ce salut par la suite.",
+      "scores": {
+        "Calvinisme": 5,
+        "Luthéranisme": -4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Christianisme_Libéral": -5
+      }
+    },
+    {
+      "id": "ct_islam_tawhid",
+      "type": "crash_test",
+      "cible_identite": "islam",
+      "texte": "Dieu est strictement Un et indivisible (Tawhid). Il n'a ni associé, ni fils, et ne s'est jamais incarné en homme. Reconnaître Jésus comme Fils de Dieu ou partie d'une Trinité est une hérésie absolue. Muhammad est le sceau et le dernier des prophètes.",
+      "scores": {
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_islam_coran",
+      "type": "crash_test",
+      "cible_identite": "islam",
+      "texte": "Le Coran est la parole incréée et littérale de Dieu. Son contenu légal et social est intemporel et ne peut être relativisé par son contexte historique ou les lois humaines modernes.",
+      "scores": {
+        "Salafisme": 5,
+        "Islam_Orthodoxe": 4,
+        "Islam_Libéral": -5,
+        "Soufisme": -3,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_islam_pratique",
+      "type": "crash_test",
+      "cible_identite": "islam",
+      "texte": "La loi divine (la Charia) et les pratiques rituelles (prière, jeûne, aumône) ne sont pas de simples démarches de bien-être personnel ou des métaphores, mais des obligations sacrées supérieures aux lois humaines.",
+      "scores": {
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Islam_Libéral": -4,
+        "Humanisme_Séculier": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_boud_karma",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "Après la mort, la conscience renaît inévitablement selon la loi implacable du Karma ; le but ultime est de briser ce cycle des renaissances.",
+      "scores": {
+        "Bouddhisme_Traditionnel": 5,
+        "Bouddhisme_Séculier": -4,
+        "Athéisme_Matérialiste": -5,
+        "Protestantisme_Évangélique": -5,
+        "Islam_Orthodoxe": -5,
+        "Judaïsme": -5
+      }
+    },
+    {
+      "id": "ct_asie_atman",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "Au-delà des illusions du monde matériel, il existe en chaque être vivant une âme véritable, un « Soi » profond et éternel (l'Atman) qui est relié à l'Absolu de l'univers.",
+      "scores": {
+        "Hindouisme": 5,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -5,
+        "Athéisme_Matérialiste": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_asie_maya",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "Le monde phénoménal tel que nous le percevons (la matière, l'ego) est fondamentalement impermanent ou illusoire (Maya). La véritable sagesse consiste à s'en détacher plutôt qu'à chercher à y bâtir un bonheur matériel durable.",
+      "scores": {
+        "Bouddhisme_Traditionnel": 5,
+        "Hindouisme": 5,
+        "Athéisme_Matérialiste": -5,
+        "Épicurisme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_asie_divin_interieur",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "Au fond de moi se trouve une étincelle sacrée, un « Moi supérieur » de nature divine que je dois éveiller et développer pour accomplir ma destinée cosmique.",
+      "scores": {
+        "Hindouisme": 5,
+        "Spiritualité_New_Age": 5,
+        "Gnosticisme": 4,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -5,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "ct_asie_bouddhisme_laic",
+      "type": "crash_test",
+      "cible_identite": "sagesses_asiatiques",
+      "texte": "La méditation et la pleine conscience sont d'excellents outils psychologiques pour réduire le stress et vivre l'instant présent, mais je ne crois absolument pas aux concepts surnaturels de réincarnation ou de karma cosmique.",
+      "scores": {
+        "Bouddhisme_Séculier": 5,
+        "Athéisme_Matérialiste": 3,
+        "Humanisme_Séculier": 3,
+        "Bouddhisme_Traditionnel": -5,
+        "Hindouisme": -5,
+        "Spiritualité_New_Age": -5
+      }
+    },
+    {
+      "id": "q_std_new_age_abondance",
+      "type": "standard",
+      "texte": "Le but de la spiritualité n'est pas de renoncer à nos désirs matériels, mais d'apprendre à élever notre fréquence vibratoire pour manifester nos rêves et attirer à nous l'abondance, le succès et le bonheur matériel.",
+      "scores": {
+        "Spiritualité_New_Age": 5,
+        "Bouddhisme_Traditionnel": -5,
+        "Bouddhisme_Séculier": -5,
+        "Stoïcisme": -5,
+        "Épicurisme": -4,
+        "Athéisme_Matérialiste": -5,
+        "Calvinisme": -5
+      }
+    },
+    {
+      "id": "q_ethi_dharma",
+      "type": "standard",
+      "texte": "L'univers repose sur un ordre cosmique et moral strict (le Dharma). Mon devoir premier n'est pas d'inventer mes propres valeurs ou de faire ce qui me plaît, mais d'accomplir avec justesse le rôle et les devoirs qui m'ont été attribués par mon karma.",
+      "scores": {
+        "Hindouisme": 5,
+        "Existentialisme": -5,
+        "Humanisme_Séculier": -5,
+        "Nietzschéisme": -5,
+        "Spiritualité_New_Age": -3,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "ct_new_age_gnosticisme",
+      "type": "crash_test",
+      "cible_identite": "new_age",
+      "texte": "Le monde matériel dans lequel nous vivons n'est ni divin ni sacré ; c'est une illusion profondément corrompue, une matrice ou une prison créée par des forces inférieures, dont notre étincelle spirituelle doit s'évader par la Connaissance secrète (la Gnose).",
+      "scores": {
+        "Gnosticisme": 5,
+        "Bouddhisme_Traditionnel": 3,
+        "Panthéisme": -5,
+        "Spinozisme": -5,
+        "Spiritualité_New_Age": -4,
+        "Athéisme_Matérialiste": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Judaïsme": -5,
+        "Islam_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "ct_antiq_providence",
+      "type": "crash_test",
+      "cible_identite": "antiquite",
+      "texte": "L'univers n'est pas le fruit du hasard, il est ordonné par une Raison universelle (le Logos ou la Nature). Mon devoir est de comprendre et d'aligner ma volonté sur cet ordre que je ne contrôle pas.",
+      "scores": {
+        "Stoïcisme": 5,
+        "Spinozisme": 4,
+        "Épicurisme": -5,
+        "Nihilisme": -5,
+        "Protestantisme_Évangélique": -3
+      }
+    },
+    {
+      "id": "ct_antiq_epicure",
+      "type": "crash_test",
+      "cible_identite": "antiquite",
+      "texte": "L'univers n'est qu'un assemblage matériel d'atomes. Il n'y a ni destin préécrit, ni dieux qui jugent les hommes. L'âme disparaît totalement à la mort, ce qui fait que la mort n'est pas à craindre.",
+      "scores": {
+        "Épicurisme": 5,
+        "Stoïcisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5
+      }
+    },
+    {
+      "id": "ct_antiq_ataraxie",
+      "type": "crash_test",
+      "cible_identite": "antiquite",
+      "texte": "L'objectif ultime de l'existence n'est ni le salut divin, ni la gloire, mais l'Ataraxie : la paix absolue de l'âme, l'absence de troubles, obtenue par la maîtrise de nos désirs et de nos jugements.",
+      "scores": {
+        "Stoïcisme": 4,
+        "Épicurisme": 5,
+        "Existentialisme": -3,
+        "Calvinisme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_theisme_principe",
+      "type": "crash_test",
+      "cible_identite": "theisme_agnostique",
+      "texte": "L'ordre, la complexité et l'existence même de l'univers prouvent de manière évidente qu'une Cause Première ou un principe structurant existe au-delà du pur hasard matériel.",
+      "scores": {
+        "Déisme": 5,
+        "Panthéisme": 4,
+        "Spinozisme": 3,
+        "Protestantisme_Évangélique": 3,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "ct_theisme_inconnaissable",
+      "type": "crash_test",
+      "cible_identite": "theisme_agnostique",
+      "texte": "Ce principe supérieur échappe totalement aux concepts humains. Il est absurde de croire qu'il éprouve des sentiments (colère, amour) ou qu'il s'intéresse à notre vie personnelle.",
+      "scores": {
+        "Déisme": 5,
+        "Spinozisme": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_theisme_revelation",
+      "type": "crash_test",
+      "cible_identite": "theisme_agnostique",
+      "texte": "Le Divin ne s'est jamais révélé de manière exclusive à un peuple ou dans un livre sacré. Toutes les religions organisées sont des inventions humaines pour tenter d'expliquer l'inexplicable.",
+      "scores": {
+        "Déisme": 5,
+        "Agnosticisme": 3,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_theisme_immanence",
+      "type": "crash_test",
+      "cible_identite": "theisme_agnostique",
+      "texte": "Il est absurde d'imaginer un principe créateur qui serait « à l'extérieur » de l'univers pour le fabriquer comme un horloger. Le divin et la Nature matérielle ne font qu'un : la Nature obéit à ses propres lois géométriques, et c'est cela qu'on appelle Dieu.",
+      "scores": {
+        "Spinozisme": 5,
+        "Panthéisme": 5,
+        "Déisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Catholicisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "ct_athe_materiel",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "La matière et l'énergie sont les seules réalités de l'univers. Toute notion de « spirituel », d'« âme » ou de « surnaturel » n'est qu'une illusion ou une superstition.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Hindouisme": -5,
+        "Spiritualité_New_Age": -5,
+        "Protestantisme_Évangélique": -5,
+        "Christianisme_Libéral": -5,
+        "Islam_Libéral": -5,
+        "Déisme": -5,
+        "Soufisme": -5
+      }
+    },
+    {
+      "id": "ct_athe_finitude",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "À l'instant de la mort physique, la conscience s'éteint de manière absolue et définitive. Il n'existe strictement aucune survivance, ni au paradis, ni par la réincarnation.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Nihilisme": 5,
+        "Bouddhisme_Traditionnel": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Spiritualité_New_Age": -5,
+        "Protestantisme_Évangélique": -5,
+        "Hindouisme": -5,
+        "Soufisme": -5
+      }
+    },
+    {
+      "id": "ct_athe_humanisme",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "Puisqu'il n'y a pas de divinité pour nous juger, c'est aux êtres humains de définir leurs propres valeurs morales et de construire leur destin par la seule raison et la solidarité.",
+      "scores": {
+        "Humanisme_Séculier": 5,
+        "Athéisme_Matérialiste": 4,
+        "Existentialisme": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "ct_athe_liberte_radicale",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "Bien qu'il n'y ait pas de Dieu, l'être humain n'est pas pour autant une simple machine biologique déterminée par ses gènes. Notre conscience est radicalement libre, et nous sommes les auteurs uniques et responsables de nos valeurs.",
+      "scores": {
+        "Existentialisme": 5,
+        "Humanisme_Séculier": 4,
+        "Athéisme_Matérialiste": -5,
+        "Spinozisme": -5,
+        "Nihilisme": -4
+      }
+    },
+    {
+      "id": "ct_athe_progres_moral",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "L'humanité progresse : grâce à la science, aux droits humains et à l'éducation, nous sommes en train de bâtir un monde intrinsèquement plus moral, plus juste et plus éclairé que par le passé.",
+      "scores": {
+        "Humanisme_Séculier": 5,
+        "Christianisme_Libéral": 3,
+        "Nihilisme": -5,
+        "Nietzschéisme": -5,
+        "Calvinisme": -4
+      }
+    },
+    {
+      "id": "ct_athe_nihilisme_absolu",
+      "type": "crash_test",
+      "cible_identite": "atheisme",
+      "texte": "Non seulement l'univers n'a aucun sens, mais toutes nos tentatives humaines pour lui en donner un (l'art, la morale, l'amour, les grands projets) sont d'illusoires et pathétiques distractions face au vide absolu de l'existence.",
+      "scores": {
+        "Nihilisme": 5,
+        "Existentialisme": -5,
+        "Humanisme_Séculier": -5,
+        "Transhumanisme": -5,
+        "Épicurisme": -5,
+        "Stoïcisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_scientisme",
+      "type": "standard",
+      "texte": "La méthode scientifique expérimentale est l'unique voie valable pour accéder à la vérité. Toute question qui ne peut pas être testée, mesurée et prouvée par la science est fondamentalement vide de sens ou illusoire.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Transhumanisme": 4,
+        "Existentialisme": -4,
+        "Agnosticisme": -3,
+        "Spiritualité_New_Age": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_epis_morale_biologique",
+      "type": "standard",
+      "texte": "Nos valeurs morales (l'altruisme, l'empathie, le sens de la justice) ne sont que des instincts de survie sélectionnés par l'évolution biologique pour préserver notre espèce animale. Elles n'ont aucune valeur absolue en dehors de cette utilité évolutive.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Nietzschéisme": 4,
+        "Nihilisme": 4,
+        "Épicurisme": 3,
+        "Humanisme_Séculier": -3,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Judaïsme": -5
+      }
+    },
+    {
+      "id": "q_std_apatheisme",
+      "type": "standard",
+      "texte": "Savoir si un Dieu existe ou non est, au fond, une question sans réelle importance. Le vrai défi est d'améliorer la condition humaine ici et maintenant, sans perdre son temps dans des débats théologiques ou anti-religieux stériles.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Humanisme_Séculier": 4,
+        "Épicurisme": 3,
+        "Bouddhisme_Séculier": 3,
+        "Athéisme_Matérialiste": -3,
+        "Salafisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Catholicisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "ct_agno_doute_absolu",
+      "type": "crash_test",
+      "cible_identite": "agnosticisme",
+      "texte": "Il est fondamentalement et définitivement impossible pour le cerveau humain de savoir si un Dieu existe ou non. Toute certitude dogmatique à ce sujet est un abus de la raison.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Athéisme_Matérialiste": -4
+      }
+    },
+    {
+      "id": "ct_agno_renvoi_dos",
+      "type": "crash_test",
+      "cible_identite": "agnosticisme",
+      "texte": "L'athéisme militant (la certitude absolue que rien n'existe) est une croyance presque aussi dogmatique que le fondamentalisme religieux. Les deux camps affirment savoir l'inconnaissable.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Athéisme_Matérialiste": -5,
+        "Nihilisme": -4
+      }
+    },
+    {
+      "id": "ct_agno_pragmatisme",
+      "type": "crash_test",
+      "cible_identite": "agnosticisme",
+      "texte": "L'absence de certitude sur l'au-delà ne doit pas nous paralyser. La sagesse consiste à vivre et à agir moralement ici-bas sans faire dépendre nos choix de croyances métaphysiques invérifiables.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Humanisme_Séculier": 4,
+        "Stoïcisme": 3,
+        "Calvinisme": -4,
+        "Protestantisme_Évangélique": -4
+      }
+    },
+    {
+      "id": "q_std_spinoza",
+      "type": "standard",
+      "texte": "Le mot « Dieu » ne désigne pas une entité personnelle qui juge ou écoute les prières, mais correspond simplement à l'ordre géométrique, absolu et nécessaire de la Nature.",
+      "scores": {
+        "Spinozisme": 5,
+        "Panthéisme": 4,
+        "Stoïcisme": 2,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_deisme",
+      "type": "standard",
+      "texte": "L'existence d'un Créateur (un « Grand Horloger ») se déduit par l'observation rationnelle de l'univers, mais il n'intervient jamais dans l'histoire humaine par des miracles ou des prophètes.",
+      "scores": {
+        "Déisme": 5,
+        "Spinozisme": 2,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Athéisme_Matérialiste": -4
+      }
+    },
+    {
+      "id": "q_std_existentialisme",
+      "type": "standard",
+      "texte": "Dans un univers indifférent, c'est à nous seuls, par nos choix absolument libres, de créer et d'inventer le sens et les valeurs de notre propre existence.",
+      "scores": {
+        "Existentialisme": 5,
+        "Nietzschéisme": 4,
+        "Agnosticisme": 2,
+        "Catholicisme_Orthodoxe": -4,
+        "Calvinisme": -5,
+        "Spinozisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_agnosticisme",
+      "type": "standard",
+      "texte": "L'esprit humain est par nature limité ; il est fondamentalement impossible de prouver ou de réfuter l'existence d'un principe créateur, il faut donc suspendre son jugement.",
+      "scores": {
+        "Agnosticisme": 5,
+        "Athéisme_Matérialiste": -4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_determinisme_absolu",
+      "type": "standard",
+      "texte": "Le libre-arbitre est une illusion ; chacun de nos choix est le résultat inévitable d'une chaîne de causes (biologiques, sociales, ou divines) qui nous échappent.",
+      "scores": {
+        "Spinozisme": 5,
+        "Calvinisme": 5,
+        "Athéisme_Matérialiste": 3,
+        "Existentialisme": -5,
+        "Catholicisme_Orthodoxe": -4,
+        "Protestantisme_Évangélique": -4
+      }
+    },
+    {
+      "id": "q_std_stoicisme",
+      "type": "standard",
+      "texte": "Il est inutile de chercher à modifier magiquement le cours des événements ; la véritable sagesse consiste à accepter ce qui ne dépend pas de nous et à fortifier notre seule volonté intérieure.",
+      "scores": {
+        "Stoïcisme": 5,
+        "Spinozisme": 3,
+        "Bouddhisme_Séculier": 3,
+        "Islam_Orthodoxe": -2,
+        "Catholicisme_Orthodoxe": -2,
+        "Spiritualité_New_Age": -3,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_esoterisme",
+      "type": "standard",
+      "texte": "Les textes sacrés révèlent leur véritable sens non pas dans leur lecture littérale, mais par une quête spirituelle ésotérique cherchant l'union intime avec le divin.",
+      "scores": {
+        "Soufisme": 5,
+        "Gnosticisme": 5,
+        "Christianisme_Mystique": 4,
+        "Spiritualité_New_Age": 4,
+        "Salafisme": -5,
+        "Athéisme_Matérialiste": -4,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_ame_immortelle",
+      "type": "standard",
+      "texte": "Je possède une âme individuelle, immatérielle et permanente qui survivra d'une manière ou d'une autre à la destruction de mon corps physique.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Protestantisme_Évangélique": 5,
+        "Calvinisme": 5,
+        "Luthéranisme": 5,
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Judaïsme": 5,
+        "Christianisme_Libéral": 4,
+        "Islam_Libéral": 4,
+        "Spiritualité_New_Age": 3,
+        "Déisme": 2,
+        "Bouddhisme_Traditionnel": -4,
+        "Athéisme_Matérialiste": -5,
+        "Épicurisme": -5,
+        "Nietzschéisme": -5
+      }
+    },
+    {
+      "id": "q_std_bouddhisme_anatta",
+      "type": "standard",
+      "texte": "L'idée même d'un « Moi » permanent ou d'une âme individuelle est une illusion génératrice de souffrance ; tout dans l'univers est fondamentalement éphémère et interdépendant.",
+      "scores": {
+        "Bouddhisme_Traditionnel": 5,
+        "Bouddhisme_Séculier": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_probleme_du_mal",
+      "type": "standard",
+      "texte": "L'existence de souffrances extrêmes et injustes dans le monde est la preuve logique et définitive qu'un Dieu à la fois tout-puissant et infiniment bon ne peut pas exister.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Agnosticisme": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Nietzschéisme": -5,
+        "Déisme": -3
+      }
+    },
+    {
+      "id": "q_ethi_devoir_absolu",
+      "type": "standard",
+      "texte": "Il existe des devoirs moraux absolus et universels qu'il ne faut jamais transgresser, quelles qu'en soient les conséquences positives. Par exemple, sacrifier délibérément la vie d'un innocent pour en sauver cent autres reste un crime moralement inacceptable.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Islam_Orthodoxe": 5,
+        "Protestantisme_Évangélique": 5,
+        "Stoïcisme": 4,
+        "Athéisme_Matérialiste": -4,
+        "Épicurisme": -5,
+        "Transhumanisme": -5,
+        "Nietzschéisme": -5,
+        "Spiritualité_New_Age": -4
+      }
+    },
+    {
+      "id": "q_meta_nature_objective",
+      "type": "standard",
+      "texte": "La nature est purement « objective » et non « projective ». L'évolution de l'univers et de la vie est le fruit d'une mécanique aveugle (hasard et nécessité). Il n'y a aucun grand dessein, aucune intention cachée ni aucun but final à l'existence.",
+      "scores": {
+        "Athéisme_Matérialiste": 5,
+        "Nihilisme": 5,
+        "Existentialisme": 4,
+        "Spinozisme": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5,
+        "Déisme": -5,
+        "Spiritualité_New_Age": -5,
+        "Protestantisme_Évangélique": -5,
+        "Hindouisme": -5,
+        "Soufisme": -5
+      }
+    },
+    {
+      "id": "q_esthe_beaute_objective",
+      "type": "standard",
+      "texte": "La Beauté n'est pas qu'une simple affaire de goût subjectif, de biologie ou de conditionnement culturel. Il existe une Beauté objective, universelle et transcendante, et le rôle de l'Art est de nous élever vers cette vérité supérieure.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Soufisme": 5,
+        "Christianisme_Mystique": 4,
+        "Islam_Orthodoxe": 4,
+        "Protestantisme_Évangélique": 3,
+        "Athéisme_Matérialiste": -5,
+        "Nihilisme": -5,
+        "Existentialisme": -4,
+        "Épicurisme": -3
+      }
+    },
+    {
+      "id": "q_ethi_morale_revelee",
+      "type": "standard",
+      "texte": "Le Bien et le Mal ne sont pas de simples conventions humaines, des idéaux philosophiques ou des impératifs biologiques. Ce qui est moralement bon, c'est très exactement ce que Dieu ordonne dans Ses révélations, même si la raison humaine ne le comprend pas toujours.",
+      "scores": {
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Catholicisme_Orthodoxe": 5,
+        "Calvinisme": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Protestantisme_Évangélique": 5,
+        "Humanisme_Séculier": -5,
+        "Athéisme_Matérialiste": -5,
+        "Spinozisme": -5,
+        "Existentialisme": -5,
+        "Spiritualité_New_Age": -5,
+        "Nietzschéisme": -5
+      }
+    },
+    {
+      "id": "q_epis_tradition_revelation",
+      "type": "standard",
+      "texte": "La vérité ultime sur le sens de la vie ne se découvre pas par l'introspection personnelle, la philosophie ou la méthode scientifique. Elle s'accueille par la soumission obéissante aux Textes sacrés et à la Tradition religieuse authentique qui nous a été transmise.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Athéisme_Matérialiste": -5,
+        "Humanisme_Séculier": -5,
+        "Bouddhisme_Séculier": -4,
+        "Stoïcisme": -3,
+        "Agnosticisme": -4,
+        "Spiritualité_New_Age": -5,
+        "Nietzschéisme": -5,
+        "Protestantisme_Évangélique": -3
+      }
+    },
+    {
+      "id": "q_ethi_peche_originel",
+      "type": "standard",
+      "texte": "L'être humain ne naît pas fondamentalement bon ou moralement neutre. Par nature, depuis ses origines, sa volonté est corrompue et encline au mal (le péché originel). Sans l'intervention de la grâce divine, il est incapable de s'élever moralement par ses seules forces.",
+      "scores": {
+        "Calvinisme": 5,
+        "Luthéranisme": 5,
+        "Protestantisme_Évangélique": 5,
+        "Catholicisme_Orthodoxe": 4,
+        "Christianisme_Orthodoxe": 4,
+        "Humanisme_Séculier": -5,
+        "Athéisme_Matérialiste": -5,
+        "Spinozisme": -5,
+        "Judaïsme": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Christianisme_Libéral": -5,
+        "Islam_Libéral": -5,
+        "Bouddhisme_Séculier": -4,
+        "Spiritualité_New_Age": -5,
+        "Nietzschéisme": -5
+      }
+    },
+    {
+      "id": "q_std_revelation_christ",
+      "type": "standard",
+      "texte": "La Révélation divine s'est achevée de manière définitive avec le Nouveau Testament et les apôtres. Tout texte sacré ultérieur prétendant la corriger ou la supplanter (comme le Coran) ne peut être la véritable parole de Dieu.",
+      "scores": {
+        "Catholicisme_Orthodoxe": 5,
+        "Christianisme_Orthodoxe": 5,
+        "Calvinisme": 5,
+        "Luthéranisme": 5,
+        "Protestantisme_Évangélique": 5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5,
+        "Judaïsme": -5
+      }
+    },
+    {
+      "id": "q_std_revelation_coran",
+      "type": "standard",
+      "texte": "Les textes bibliques (Torah, Évangiles) ont été partiellement altérés, falsifiés ou mal traduits par les hommes au fil des siècles. Seul le Coran constitue la parole inaltérée, définitive et parfaite de Dieu.",
+      "scores": {
+        "Islam_Orthodoxe": 5,
+        "Salafisme": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Judaïsme": -5
+      }
+    },
+    {
+      "id": "q_std_revelation_torah",
+      "type": "standard",
+      "texte": "La Révélation ultime, parfaite et inaltérée a été donnée au mont Sinaï (la Torah). L'Alliance conclue par Dieu est éternelle et n'a jamais été annulée, remplacée par une « Nouvelle Alliance » (Nouveau Testament), ni corrigée par une révélation ultérieure (Coran).",
+      "scores": {
+        "Judaïsme": 5,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Luthéranisme": -5,
+        "Protestantisme_Évangélique": -5,
+        "Islam_Orthodoxe": -5,
+        "Salafisme": -5
+      }
+    },
+    {
+      "id": "q_std_sacerdoce_universel",
+      "type": "standard",
+      "texte": "Chaque croyant a un accès direct et personnel à Dieu sans aucune nécessité de passer par un prêtre, un saint ou une institution ecclésiastique. La hiérarchie religieuse (le clergé) ne possède aucun statut spirituel supérieur à celui des laïcs.",
+      "scores": {
+        "Luthéranisme": 5,
+        "Calvinisme": 5,
+        "Protestantisme_Évangélique": 5,
+        "Déisme": 4,
+        "Islam_Libéral": 3,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5
+      }
+    },
+    {
+      "id": "q_std_sola_scriptura",
+      "type": "standard",
+      "texte": "Les Textes sacrés sont la seule et unique source infaillible d'autorité spirituelle. Les dogmes, les conciles, les traditions ecclésiastiques et les chefs religieux (comme le Pape) sont purement humains et peuvent tout à fait se tromper.",
+      "scores": {
+        "Luthéranisme": 5,
+        "Calvinisme": 5,
+        "Protestantisme_Évangélique": 5,
+        "Islam_Orthodoxe": 3,
+        "Salafisme": 4,
+        "Catholicisme_Orthodoxe": -5,
+        "Christianisme_Orthodoxe": -5,
+        "Christianisme_Mystique": -3
+      }
+    },
+    {
+      "id": "q_ethi_simul_justus",
+      "type": "standard",
+      "texte": "Même s'il est pardonné par Dieu, l'être humain reste jusqu'à son dernier souffle un pécheur corrompu. Il est strictement impossible d'atteindre un état de « sainteté », de perfection morale ou de pureté spirituelle ici-bas par la discipline ou les bonnes actions.",
+      "scores": {
+        "Luthéranisme": 5,
+        "Calvinisme": 4,
+        "Catholicisme_Orthodoxe": -4,
+        "Bouddhisme_Traditionnel": -5,
+        "Stoïcisme": -5,
+        "Humanisme_Séculier": -4,
+        "Islam_Orthodoxe": -3
+      }
+    },
+    {
+      "id": "q_std_lecture_critique",
+      "type": "standard",
+      "texte": "Les textes sacrés (Bible, Coran) ont été écrits par des hommes situés dans une époque et une culture précises. Il ne faut surtout pas les lire au sens littéral ou comme des codes juridiques intemporels, mais en extraire uniquement le message spirituel et moral (amour, justice), quitte à en rejeter les passages obsolètes ou violents.",
+      "scores": {
+        "Christianisme_Libéral": 5,
+        "Islam_Libéral": 5,
+        "Humanisme_Séculier": 3,
+        "Salafisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_islam_liberal_charia",
+      "type": "standard",
+      "texte": "Les châtiments corporels et les anciennes règles juridiques (la Charia) n'ont plus leur place aujourd'hui. Un croyant moderne doit se soumettre aux lois laïques et démocratiques de son pays, car l'esprit d'équité voulu par le Divin est infiniment supérieur à la lettre ancienne de la Loi.",
+      "scores": {
+        "Islam_Libéral": 5,
+        "Christianisme_Libéral": 4,
+        "Humanisme_Séculier": 4,
+        "Salafisme": -5,
+        "Islam_Orthodoxe": -5,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_christianisme_social",
+      "type": "standard",
+      "texte": "Le véritable message religieux ne consiste pas à adhérer à des dogmes complexes (Trinité, infaillibilité) ou à célébrer de grands rites liturgiques. Il consiste exclusivement à combattre les injustices sociales, à défendre les opprimés et à pratiquer l'amour inconditionnel du prochain.",
+      "scores": {
+        "Christianisme_Libéral": 5,
+        "Islam_Libéral": 4,
+        "Humanisme_Séculier": 4,
+        "Catholicisme_Orthodoxe": -4,
+        "Christianisme_Orthodoxe": -4,
+        "Calvinisme": -4,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_soufisme_amour",
+      "type": "standard",
+      "texte": "La relation au Divin ne doit être fondée ni sur la peur de l'Enfer, ni sur l'espoir du Paradis, ni sur l'obéissance stricte à un code pénal. Elle doit être une quête intime, passionnée et presque poétique d'Amour pur, cherchant l'union où l'ego s'efface.",
+      "scores": {
+        "Soufisme": 5,
+        "Christianisme_Mystique": 5,
+        "Spiritualité_New_Age": 3,
+        "Salafisme": -5,
+        "Athéisme_Matérialiste": -5,
+        "Calvinisme": -4,
+        "Protestantisme_Évangélique": -4
+      }
+    },
+    {
+      "id": "q_std_transhumanisme_limites",
+      "type": "standard",
+      "texte": "La vulnérabilité physique, la vieillesse et la mortalité sont des défauts biologiques que nous avons le droit et le devoir absolu de corriger grâce aux avancées technologiques et génétiques.",
+      "scores": {
+        "Transhumanisme": 5,
+        "Humanisme_Séculier": 2,
+        "Stoïcisme": -5,
+        "Catholicisme_Orthodoxe": -5,
+        "Bouddhisme_Traditionnel": -4,
+        "Islam_Orthodoxe": -4,
+        "Protestantisme_Évangélique": -5
+      }
+    },
+    {
+      "id": "q_std_evang_nouvelle_naissance",
+      "type": "standard",
+      "texte": "Pour être sauvé et avoir une véritable relation avec Dieu, il ne suffit pas d'être né dans une culture chrétienne, de faire de bonnes œuvres ou d'avoir été baptisé bébé. Il faut vivre une conversion personnelle, une « nouvelle naissance », en acceptant consciemment Jésus-Christ comme son Sauveur personnel.",
+      "scores": {
+        "Protestantisme_Évangélique": 5,
+        "Catholicisme_Orthodoxe": -4,
+        "Christianisme_Orthodoxe": -4,
+        "Christianisme_Libéral": -3,
+        "Athéisme_Matérialiste": -5
+      }
+    },
+    {
+      "id": "q_std_evang_inerrance",
+      "type": "standard",
+      "texte": "La Bible est la parole inspirée de Dieu, infaillible et sans aucune erreur. Elle fait autorité non seulement sur le plan spirituel et moral, mais elle est également exacte dans ses affirmations historiques et sur l'origine du monde (création).",
+      "scores": {
+        "Protestantisme_Évangélique": 5,
+        "Calvinisme": 4,
+        "Christianisme_Libéral": -5,
+        "Athéisme_Matérialiste": -5,
+        "Agnosticisme": -5
+      }
+    },
+    {
+      "id": "q_std_evang_proselytisme",
+      "type": "standard",
+      "texte": "Puisque la foi personnelle en Christ est l'unique chemin pour échapper à la damnation, le devoir premier et absolu du croyant est de partager activement sa foi pour convertir les autres et sauver leurs âmes, bien avant de se contenter de faire de l'action sociale ou du dialogue interreligieux.",
+      "scores": {
+        "Protestantisme_Évangélique": 5,
+        "Salafisme": 3,
+        "Christianisme_Libéral": -5,
+        "Humanisme_Séculier": -5,
+        "Bouddhisme_Traditionnel": -4,
+        "Agnosticisme": -5
+      }
+    },
+    {
+      "id": "q_std_stoicisme_jugement",
+      "type": "standard",
+      "texte": "Ce qui nous blesse et nous trouble, ce ne sont jamais les événements extérieurs eux-mêmes (la maladie, la perte, les critiques), mais uniquement l'opinion et le jugement subjectif que nous portons sur eux.",
+      "scores": {
+        "Stoïcisme": 5,
+        "Bouddhisme_Séculier": 3,
+        "Spinozisme": 2,
+        "Existentialisme": -3,
+        "Protestantisme_Évangélique": -3,
+        "Catholicisme_Orthodoxe": -3
+      }
+    },
+    {
+      "id": "q_std_spinoza_conatus",
+      "type": "standard",
+      "texte": "Chaque individu s'efforce naturellement de persévérer dans son être. Le bien absolu n'existe pas en soi : nous jugeons qu'une chose est « bonne » uniquement parce qu'elle augmente notre joie et notre puissance d'agir.",
+      "scores": {
+        "Spinozisme": 5,
+        "Nietzschéisme": 4,
+        "Épicurisme": 3,
+        "Athéisme_Matérialiste": 2,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Humanisme_Séculier": -3
+      }
+    },
+    {
+      "id": "q_std_spinoza_affects",
+      "type": "standard",
+      "texte": "Les émotions négatives (la haine, la tristesse, la jalousie) ne sont pas des fautes morales ou des péchés. La véritable libération ne consiste pas à les réprimer par la volonté, mais à comprendre rationnellement et mathématiquement les causes qui les ont déterminées.",
+      "scores": {
+        "Spinozisme": 5,
+        "Stoïcisme": 4,
+        "Bouddhisme_Séculier": 3,
+        "Catholicisme_Orthodoxe": -5,
+        "Islam_Orthodoxe": -5,
+        "Calvinisme": -5,
+        "Existentialisme": -4
       }
     }
-
-    // --- LANCEMENT DE L'APPLICATION ---
-    window.onload = initApp;
-  </script>
-</body>
-</html>
+  ],
+  "dissonances": [
+    {
+      "code": "CATH_TRADI_VS_SYMBOLE",
+      "condition": "rep['ct_chret_magistere'] > 0 && rep['ct_chret_transsubstantiation'] < 0",
+      "message": "<strong>Autorité Papale vs Réalité Sacramentelle :</strong> Vous reconnaissez l'infaillibilité du Pape et l'autorité de Rome, mais vous rejetez la réalité matérielle de l'Eucharistie (la transsubstantiation) pour n'y voir qu'un symbole. C'est une contradiction théologique majeure au sein de l'orthodoxie catholique."
+    },
+    {
+      "code": "PANTHEISME_VS_LIBRE_ARBITRE",
+      "condition": "rep['q_std_spinoza'] > 0 && rep['q_std_existentialisme'] > 0",
+      "message": "<strong>L'Ordre Nécessaire vs Le Libre-Arbitre :</strong> Vous concevez Dieu comme l'ordre géométrique et nécessaire de la Nature, mais vous affirmez simultanément que l'humain est radicalement libre de créer son destin. Philosophiquement, si l'univers obéit à la stricte nécessité naturelle, la volonté humaine ne peut pas en être soustraite."
+    },
+    {
+      "code": "AME_VS_IMPERMANENCE",
+      "condition": "rep['q_std_ame_immortelle'] > 0 && rep['q_std_bouddhisme_anatta'] > 0",
+      "message": "<strong>Âme Éternelle vs Impermanence (Anatta) :</strong> Vous adhérez à l'idée d'une âme individuelle et immortelle, tout en validant le concept d'impermanence absolue et l'illusion du 'Moi'. C'est un syncrétisme courant entre les doctrines abrahamiques (l'âme substantielle) et orientales (l'interdépendance vide d'essence)."
+    },
+    {
+      "code": "LITTERALISME_VS_ESOTERISME",
+      "condition": "rep['ct_islam_coran'] > 0 && rep['q_std_esoterisme'] > 0",
+      "message": "<strong>Littéralisme Dogmatique vs Ésotérisme :</strong> Vous affirmez que le texte sacré doit être lu au premier degré comme une loi intemporelle indépassable, mais vous validez également l'idée que sa véritable nature est ésotérique et allégorique. Ces deux lectures sont historiquement et théologiquement opposées."
+    },
+    {
+      "code": "DEISME_VS_MIRACLES",
+      "condition": "rep['q_std_deisme'] > 0 && (rep['ct_chret_magistere'] > 0 || rep['ct_islam_coran'] > 0)",
+      "message": "<strong>Déisme vs Révélation Divine :</strong> Vous considérez que Dieu n'intervient jamais par des miracles ou des révélations (Déisme), tout en validant l'autorité absolue d'un texte révélé ou d'un dogme (qui nécessitent précisément une intervention surnaturelle dans l'histoire)."
+    },
+    {
+      "code": "MATERIALISME_VS_AME",
+      "condition": "rep['q_std_epicurisme'] > 0 && rep['q_std_ame_immortelle'] > 0",
+      "message": "<strong>Matérialisme Strict vs Dualisme Spirituel :</strong> Vous affirmez que l'univers est purement matériel et qu'il n'y a pas de survivance après la mort (Matérialisme/Épicurisme), tout en croyant posséder une âme immatérielle et immortelle. C'est une contradiction philosophique directe entre le monisme matériel et le dualisme spirituel."
+    },
+    {
+      "code": "DETERMINISME_VS_EXISTENTIALISME",
+      "condition": "rep['q_std_determinisme_absolu'] > 0 && rep['q_std_existentialisme'] > 0",
+      "message": "<strong>Déterminisme Absolu vs Liberté Existentialiste :</strong> Vous affirmez simultanément que l'humain est radicalement libre de créer son destin (Existentialisme) et que le libre-arbitre n'est qu'une illusion soumise à des causes inévitables (Déterminisme). Ces deux conceptions de la condition humaine s'excluent logiquement."
+    },
+    {
+      "code": "ATHEISME_VS_SPIRITUALITE",
+      "condition": "rep['q_identite'] === 'atheisme' && (rep['q_std_ame_immortelle'] > 0 || rep['ct_boud_karma'] > 0 || rep['q_std_esoterisme'] > 0)",
+      "message": "<strong>Athéisme Philosophique vs Spiritualité Surnaturelle :</strong> Vous vous définissez formellement comme athée, mais vous adhérez à des concepts métaphysiques surnaturels (l'âme immortelle, le cycle du Karma ou l'ésotérisme). C'est un paradoxe contemporain très courant : l'athéisme philosophique strict s'accompagne logiquement d'un matérialisme qui exclut toute mécanique cosmique invisible ou survivance de l'esprit."
+    },
+    {
+      "code": "MATERIALISME_VS_KARMA",
+      "condition": "rep['ct_boud_karma'] > 0 && (rep['q_meta_fantome_machine'] > 0 || rep['q_std_epicurisme'] > 0)",
+      "message": "<strong>Matérialisme Biologique vs Loi du Karma :</strong> Vous croyez à la loi du Karma et au cycle des renaissances, tout en affirmant que l'esprit n'est qu'un pur phénomène biochimique matériel voué à disparaître avec le corps. Si la conscience n'est qu'une mécanique organique éphémère dictée par la biologie, elle ne possède aucun support physique pour transmigrer ni pour porter le poids moral de ses actes d'une vie à l'autre."
+    },
+    {
+      "code": "INEFFABLE_VS_DOGME",
+      "condition": "rep['q_identite'] === 'theisme_agnostique' && (rep['q_std_spinoza'] > 0 || rep['q_std_ame_immortelle'] > 0)",
+      "message": "<strong>L'Ineffable face au Dogme :</strong> Vous adhérez à une spiritualité agnostique affirmant que le principe supérieur dépasse totalement notre entendement, mais vous validez simultanément des certitudes métaphysiques très précises (l'existence d'une âme immortelle, ou la définition géométrique de Dieu chez Spinoza). C'est un paradoxe : on ne peut pas déclarer le divin inconnaissable tout en définissant avec certitude la nature de l'au-delà ou la structure rationnelle de l'univers."
+    },
+    {
+      "code": "MORALE_ABSOLUE_VS_DETERMINISME",
+      "condition": "rep['q_ethi_devoir_absolu'] > 0 && (rep['q_epis_neuro_determinisme'] > 0 || rep['q_std_determinisme_absolu'] > 0)",
+      "message": "<strong>Le Devoir Kantien face au Neuro-déterminisme :</strong> Vous affirmez l'existence de devoirs moraux absolus tout en soutenant que le libre-arbitre n'est qu'une illusion soumise au déterminisme (biologique ou naturel). C'est une contradiction philosophique majeure : la morale absolue exige la liberté de choix. Si nos actes sont entièrement déterminés par nos neurones, la notion même de 'faute' ou de 'devoir' moral perd toute consistance."
+    },
+    {
+      "code": "PREDESTINATION_VS_EXISTENTIALISME",
+      "condition": "rep['ct_chret_predestination'] > 0 && rep['q_std_existentialisme'] > 0",
+      "message": "<strong>Prédestination Divine vs Liberté Existentialiste :</strong> Vous affirmez que Dieu a défini le salut et la damnation de toute éternité sans que nos choix n'y changent rien (Prédestination), mais vous validez simultanément l'idée que l'humain naît sans destin et crée librement son essence (Existentialisme). Ces deux visions s'excluent formellement : on ne peut pas être l'auteur absolu et libre de sa vie si le scénario a déjà été écrit souverainement par un Créateur."
+    },
+    {
+      "code": "STOICISME_VS_EXISTENTIALISME",
+      "condition": "(rep['ct_antiq_providence'] > 0 || rep['q_std_stoicisme'] > 0) && rep['q_std_existentialisme'] > 0",
+      "message": "<strong>L'Ordre Stoïcien face à la Révolte Absurde :</strong> Vous validez l'idée d'accepter avec sagesse ce qui ne dépend pas de nous dans un univers ordonné (Stoïcisme), mais vous affirmez simultanément que l'univers est radicalement indifférent et que nous devons y créer librement notre propre sens (Existentialisme). C'est un grand écart philosophique : on ne peut pas à la fois faire confiance à l'ordre cosmique (Logos) pour y trouver la paix, et affirmer l'absurdité muette du monde qui appelle à la révolte et à l'affirmation de la volonté libre (Camus, Sartre)."
+    },
+    {
+      "code": "MORALE_REVELEE_VS_EPICURISME",
+      "condition": "rep['q_ethi_morale_revelee'] > 0 && (rep['q_ethi_calcul_plaisirs'] > 0 || rep['q_std_epicurisme'] > 0)",
+      "message": "<strong>Loi Divine face au Calcul des Plaisirs :</strong> Vous affirmez d'un côté que le Bien et le Mal sont des décrets divins absolus auxquels il faut obéir (Morale Révélée), mais de l'autre, vous adhérez à l'Épicurisme, pour qui le but de la vie est la maximisation des plaisirs naturels et la fuite de la douleur. C'est une contradiction fondamentale : la loi divine exige très souvent le sacrifice, l'ascèse ou le devoir (qui génèrent de la peine), ce qui s'oppose formellement au pragmatisme hédoniste qui ne juge une action qu'à son utilité pour le bonheur."
+    },
+    {
+      "code": "ALLIANCE_VS_DETERMINISME",
+      "condition": "rep['q_std_revelation_torah'] > 0 && (rep['q_epis_neuro_determinisme'] > 0 || rep['q_std_determinisme_absolu'] > 0)",
+      "message": "<strong>L'Alliance Divine face au Déterminisme :</strong> Vous affirmez la validité éternelle de la Torah et de l'Alliance (Judaïsme), mais vous soutenez simultanément que le libre-arbitre est une illusion soumise au déterminisme. C'est une contradiction théologique fondamentale : l'observance de la Loi (Halakha) et l'idée même d'une Alliance exigent que l'homme soit radicalement libre de choisir entre l'obéissance et la transgression. Si nos actes sont mécaniquement déterminés à l'avance, l'injonction biblique fondatrice « Choisis la vie » perd tout son sens."
+    },
+    {
+      "code": "SOLA_SCRIPTURA_VS_RELATIVISME_ESOTERISME",
+      "condition": "rep['q_std_sola_scriptura'] > 0 && (rep['q_std_existentialisme'] > 0 || rep['q_std_esoterisme'] > 0)",
+      "message": "<strong>L'Écriture Seule face à l'Invention de Soi et à l'Ésotérisme :</strong> Vous affirmez l'autorité absolue et suffisante du Texte sacré (Sola Scriptura), mais vous soutenez simultanément que l'homme crée librement son propre sens (Existentialisme) ou que la véritable signification de la révélation est cachée, allégorique et mystique (Ésotérisme). C'est une collision doctrinale : le principe de l'Écriture Seule postule que le message divin est clair, achevé et accessible objectivement à la lecture. Cela exclut radicalement l'idée que la vérité soit à inventer par l'individu (Sartre) ou qu'elle dépende d'une quête initiatique cherchant un sens caché au-delà des mots."
+    },
+    {
+      "code": "SACERDOCE_VS_MAGISTERE",
+      "condition": "rep['q_std_sacerdoce_universel'] > 0 && rep['ct_chret_magistere'] > 0",
+      "message": "<strong>Sacerdoce Universel face à l'Infaillibilité Papale :</strong> Vous affirmez d'un côté que tout croyant possède un accès direct à Dieu sans nécessiter de hiérarchie ecclésiastique (Sacerdoce universel), mais vous reconnaissez simultanément l'autorité suprême et infaillible du Pape (Magistère). C'est une contradiction théologique et institutionnelle absolue : l'essence même de la Réforme protestante était d'abolir la figure du pontife et du prêtre médiateur au profit de l'égalité spirituelle stricte de tous les baptisés."
+    },
+    {
+      "code": "SOLA_SCRIPTURA_VS_MAGISTERE",
+      "condition": "rep['q_std_sola_scriptura'] > 0 && rep['ct_chret_magistere'] > 0",
+      "message": "<strong>L'Écriture Seule face à l'Infaillibilité Papale :</strong> Vous affirmez que la Bible est l'unique source d'autorité infaillible (Sola Scriptura), mais vous reconnaissez simultanément l'infaillibilité du Pape lorsqu'il s'exprime ex cathedra. C'est la contradiction fondamentale qui a provoqué le schisme de la Réforme au XVIe siècle : si le texte biblique se suffit à lui-même en tant qu'autorité ultime, aucune institution humaine, pas même le Magistère romain, ne peut ajouter de dogmes qui auraient le même niveau de divinité ou d'infaillibilité."
+    },
+    {
+      "code": "NEW_AGE_VS_DETERMINISME",
+      "condition": "rep['q_std_new_age_energies'] > 0 && rep['q_epis_neuro_determinisme'] > 0",
+      "message": "<strong>La Loi de l'Attraction face au Neuro-déterminisme :</strong> Vous croyez pouvoir influencer l'univers et manifester votre réalité par la force de vos pensées et intentions (New Age), mais vous affirmez simultanément que votre libre-arbitre n'est qu'une illusion générée par les réactions chimiques de votre cerveau. Ces deux visions s'excluent radicalement : si la chimie décide mécaniquement de tout à l'avance, la pensée ne possède aucun libre-arbitre, ni aucun pouvoir « magique » pour influencer le cosmos."
+    },
+    {
+      "code": "NEW_AGE_VS_MATERIALISME",
+      "condition": "rep['q_std_new_age_guerison'] > 0 && (rep['q_meta_fantome_machine'] > 0 || rep['ct_athe_materiel'] > 0 || rep['q_std_epicurisme'] > 0)",
+      "message": "<strong>Médecine Énergétique face au Matérialisme Strict :</strong> Vous affirmez que la maladie est liée à un déséquilibre d'énergies invisibles ou à une leçon spirituelle (approche holistique/New Age), mais vous soutenez par ailleurs que l'univers est purement matériel et que l'esprit n'est que de la biochimie (Matérialisme/Épicurisme). C'est une contradiction philosophique et scientifique majeure : on ne peut pas invoquer l'action de chakras, d'ondes spirituelles ou de mémoires de l'âme si l'on considère que seule la matière physique et la mécanique biologique constituent le réel."
+    },
+    {
+      "code": "NIETZSCHE_VS_HUMANISME",
+      "condition": "rep['ct_nietzsche_morale_esclaves'] > 0 && (rep['ct_athe_humanisme'] > 0 || rep['q_ethi_devoir_absolu'] > 0)",
+      "message": "<strong>Le Surhomme face à la Morale Universelle :</strong> Vous validez la critique nietzschéenne de l'égalitarisme et de la pitié (assumant une éthique aristocratique de la puissance), mais vous affirmez simultanément l'existence de devoirs moraux absolus ou d'un humanisme fondé sur la solidarité universelle. C'est une fracture philosophique majeure : Nietzsche considère la morale des droits de l'homme et l'égalité universelle comme une « morale d'esclaves » destinée à brider la vitalité des créateurs."
+    },
+    {
+      "code": "NIETZSCHE_VS_RENONCEMENT",
+      "condition": "(rep['ct_nietzsche_amor_fati'] > 0 || rep['q_std_nietzsche_volonte_puissance'] > 0) && (rep['q_std_extinction_desir'] > 0 || rep['q_ethi_attachement_souffrance'] > 0 || rep['q_ethi_calcul_plaisirs'] > 0)",
+      "message": "<strong>Amor Fati face au Renoncement :</strong> Vous affirmez vouloir embrasser la vie dans toute sa tragédie et sa puissance (l'Amor Fati ou Volonté de Puissance nietzschéenne), mais vous validez par ailleurs la nécessité d'éteindre vos désirs, de fuir l'attachement pour éviter la souffrance, ou de calculer tièdement vos plaisirs. Nietzsche méprisait profondément ces sagesses du renoncement (Bouddhisme, Épicurisme) qu'il qualifiait de « nihilisme passif » : pour lui, vouloir supprimer la souffrance, c'est vouloir supprimer l'énergie même de la vie."
+    },
+    {
+      "code": "LIBERALISME_VS_INFAILLIBILITE",
+      "condition": "rep['q_std_lecture_critique'] > 0 && (rep['ct_chret_magistere'] > 0 || rep['ct_islam_coran'] > 0 || rep['q_epis_tradition_revelation'] > 0)",
+      "message": "<strong>Lecture Critique face à l'Infaillibilité Dogmatique :</strong> Vous affirmez d'un côté qu'il faut lire les textes sacrés avec un recul critique, moral et historique (Christianisme ou Islam libéral), mais vous validez simultanément l'infaillibilité absolue d'un dogme ancien (le Pape, le Coran incréé et littéral, ou la Tradition intouchable). C'est une contradiction théologique majeure : l'approche libérale moderne exige de reconnaître la part d'erreur et de contexte humain dans la religion. Si un texte est littéralement dicté par Dieu ou si un Pape est infaillible, le libre-examen critique n'a plus lieu d'être."
+    },
+    {
+      "code": "EVANGELIQUE_VS_NEW_AGE",
+      "condition": "rep['q_std_evang_inerrance'] > 0 && rep['q_std_new_age_energies'] > 0",
+      "message": "<strong>Inerrance Biblique face aux Énergies Vibratoires :</strong> Vous affirmez que la Bible est la parole infaillible et l'unique autorité (approche Évangélique stricte), mais vous adhérez par ailleurs à la loi de l'attraction et aux théories des champs vibratoires de l'univers (Spiritualité New Age). C'est une dissonance théologique majeure : l'orthodoxie biblique considère généralement ces pratiques énergétiques comme des croyances ésotériques incompatibles avec la souveraineté d'un Dieu personnel."
+    },
+    {
+      "code": "MONOTHEISME_VS_PANTHEISME",
+      "condition": "(rep['q_identite'] === 'chretien' || rep['q_identite'] === 'islam' || rep['q_identite'] === 'judaisme') && (rep['q_std_spinoza'] > 0 || rep['ct_theisme_immanence'] > 0)",
+      "message": "<strong>Le Dieu Révélé face au Dieu-Nature :</strong> Vous vous identifiez à un monothéisme abrahamique (qui postule un Dieu Créateur personnel, transcendant et extérieur au monde qui juge et aime), mais vous validez simultanément l'idée spinoziste ou panthéiste que Dieu n'est rien d'autre que l'ordre géométrique aveugle de la Nature. C'est une hérésie philosophique majeure pour ces trois religions : le Créateur ne peut absolument pas être confondu avec Sa création matérielle."
+    },
+    {
+      "code": "CREATION_VS_HASARD_AVEUGLE",
+      "condition": "(rep['q_identite'] === 'chretien' || rep['q_identite'] === 'islam' || rep['q_identite'] === 'judaisme') && rep['q_meta_nature_objective'] > 0",
+      "message": "<strong>Le Dessein Divin face au Hasard Aveugle :</strong> Vous vous rattachez à une tradition biblique ou coranique, mais vous validez l'affirmation purement matérialiste selon laquelle l'évolution de l'univers est le fruit d'une mécanique aveugle, sans intention ni but final (hasard et nécessité). Or, l'essence même du monothéisme est la certitude absolue qu'il existe une Providence (un plan divin) pour la création et pour l'humanité."
+    },
+    {
+      "code": "AME_CREEE_VS_BIOCHIMIE",
+      "condition": "(rep['q_identite'] === 'chretien' || rep['q_identite'] === 'islam' || rep['q_identite'] === 'judaisme') && rep['q_meta_fantome_machine'] > 0",
+      "message": "<strong>L'Âme Spirituelle face au Matérialisme Biologique :</strong> Vous vous réclamez d'une foi postulant l'existence d'une âme immatérielle, éternelle et insufflée par Dieu (appelée à survivre pour le Jugement), tout en affirmant que l'esprit humain n'est qu'un simple sous-produit biochimique de la matière. C'est une contradiction frontale absolue entre l'anthropologie spirituelle et le matérialisme scientifique pur."
+    },
+    {
+      "code": "RENONCEMENT_VS_ABONDANCE",
+      "condition": "(rep['q_std_extinction_desir'] > 0 || rep['ct_asie_maya'] > 0) && (rep['q_std_new_age_abondance'] > 0 || rep['q_std_new_age_energies'] > 0)",
+      "message": "<strong>L'Extinction du Désir face à la Loi de l'Attraction :</strong> Vous affirmez d'un côté que la sagesse exige d'éteindre le désir et de se détacher du monde matériel (vision bouddhiste ou ascétique), mais vous cherchez simultanément à utiliser les « énergies vibratoires » pour manifester l'abondance et accomplir vos désirs matériels (New Age). C'est un grand écart philosophique : on ne peut pas vouloir se libérer du désir tout en cherchant magiquement à l'assouvir."
+    },
+    {
+      "code": "ANATTA_VS_MOI_SUPERIEUR",
+      "condition": "rep['q_std_bouddhisme_anatta'] > 0 && rep['ct_asie_divin_interieur'] > 0",
+      "message": "<strong>Le Non-Soi (Anatta) face au Moi Supérieur :</strong> Vous validez le concept bouddhiste fondamental de l'Anatta (le « Moi » permanent est une illusion génératrice de souffrance), mais vous soutenez par ailleurs qu'il existe en vous une âme éternelle ou un « Moi supérieur » divin à éveiller (Hindouisme ou spiritualité New Age). C'est la ligne de fracture historique absolue entre la pensée bouddhiste (qui détruit l'idée d'âme) et l'hindouisme (qui postule l'Atman)."
+    },
+    {
+      "code": "MATERIALISME_VS_TRANSCENDANCE",
+      "condition": "(rep['ct_athe_materiel'] > 0 || rep['q_meta_fantome_machine'] > 0) && (rep['q_ethi_devoir_absolu'] > 0 || rep['q_esthe_beaute_objective'] > 0)",
+      "message": "<strong>Matérialisme Strict face à l'Absolu (Moral ou Esthétique) :</strong> Vous affirmez que l'univers est exclusivement composé de matière et que l'esprit n'est qu'un phénomène biochimique, mais vous soutenez simultanément l'existence de devoirs moraux absolus ou d'une Beauté transcendante. C'est une contradiction philosophique majeure : dans un univers purement physique, aveugle et mécanique, le Bien, le Mal et la Beauté ne peuvent être que des constructions sociales subjectives ou des instincts évolutifs. Ils n'ont aucune existence objective ou « transcendante »."
+    },
+    {
+      "code": "SCIENTISME_VS_EXISTENTIALISME",
+      "condition": "rep['q_std_scientisme'] > 0 && (rep['q_std_existentialisme'] > 0 || rep['ct_athe_liberte_radicale'] > 0)",
+      "message": "<strong>Scientisme face à la Subjectivité Existentialiste :</strong> Vous affirmez que seule la méthode scientifique expérimentale (ce qui est mesurable et prouvable) a du sens (Scientisme), mais vous soutenez par ailleurs que l'humain est radicalement libre d'inventer le sens de son existence (Existentialisme). C'est un grand écart : pour les existentialistes (comme Sartre ou Camus), l'angoisse, la liberté et le sens de la vie échappent totalement aux microscopes et aux mathématiques. Si la science est l'unique juge du vrai, alors la liberté existentielle n'est qu'une illusion non scientifique."
+    }
+  ]
+}
