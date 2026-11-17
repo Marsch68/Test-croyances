@@ -310,6 +310,15 @@
       elChoicesContainer.innerHTML = ""; 
       elNavContainer.innerHTML = "";
 
+      // On compte les questions utiles pour informer l'utilisateur de sa vraie progression
+      let nbUtiles = 0;
+      for (const [qId, rep] of Object.entries(reponsesUtilisateur)) {
+        if (qId === "q_identite") continue;
+        if (typeof rep === "object" || (typeof rep === "number" && rep !== 0)) {
+          nbUtiles++;
+        }
+      }
+
       if (q.type === "identite") {
         elProgress.textContent = "Introduction";
         q.options.forEach(opt => {
@@ -322,7 +331,7 @@
         });
         
       } else if (q.type === "qcm") {
-        elProgress.textContent = `Question ${indexCourant} / ${fileAttente.length - 1}`;
+        elProgress.textContent = `Progression : ${nbUtiles} / 25 (Question n°${indexCourant})`;
         q.options.forEach(opt => {
           const btn = document.createElement("button");
           btn.className = "btn-choix";
@@ -335,7 +344,7 @@
         });
         
       } else {
-        elProgress.textContent = `Question ${indexCourant} / ${fileAttente.length - 1}`;
+        elProgress.textContent = `Progression : ${nbUtiles} / 25 (Question posée n°${indexCourant})`;
         const echelle = [
           { val: 2, label: "Tout à fait d'accord" },
           { val: 1, label: "Plutôt d'accord" },
@@ -371,7 +380,7 @@
       return nouveauTableau;
     }
 
-    // --- LE FILTRE FAMILLE CORRIGÉ ---
+    // --- LE FILTRE FAMILLE ---
     function traiterIdentite(valeurIdentite, qId) {
       reponsesUtilisateur[qId] = valeurIdentite;
       let questionsPourTest = [];
@@ -390,10 +399,8 @@
       };
       
       if (valeurIdentite === "sans_apriori") {
-          // CORRECTION : En mode aveugle, on exclut formellement les crash-tests dogmatiques
           questionsPourTest = toutesQuestions.filter(q => q.type === "standard" || q.type === "qcm");
       } else {
-          // Mode ciblé : QCM universels + Crash tests de la famille + Standards qui touchent la famille
           const qcms = toutesQuestions.filter(q => q.type === "qcm");
           const crashTests = toutesQuestions.filter(q => q.type === "crash_test" && q.cible_identite === valeurIdentite);
           
@@ -416,11 +423,22 @@
       preparerQuestionSuivante();
     }
 
-    // --- LE MOTEUR "HYBRIDE" (ENTONNOIR + EXPLORATION + TRAQUE ÉLARGIE) ---
+    // --- LE MOTEUR HYBRIDE IGNORANT LES QUESTIONS NEUTRES ---
     function preparerQuestionSuivante() {
-      const LIMITE_QUESTIONS = 25; // Mode expert à 25 questions
+      const LIMITE_QUESTIONS_UTILES = 25;
 
-      if (questionsDisponibles.length === 0 || fileAttente.length >= LIMITE_QUESTIONS) {
+      // On calcule combien de fois l'utilisateur s'est réellement engagé
+      let nbUtiles = 0;
+      for (const [qId, rep] of Object.entries(reponsesUtilisateur)) {
+        if (qId === "q_identite") continue;
+        // On valide les QCM (qui sont des objets) et les valeurs différentes de 0 (Neutre)
+        if (typeof rep === "object" || (typeof rep === "number" && rep !== 0)) {
+          nbUtiles++;
+        }
+      }
+
+      // Condition de fin : la base est vide OU l'utilisateur a donné 25 VRAIES réponses
+      if (questionsDisponibles.length === 0 || nbUtiles >= LIMITE_QUESTIONS_UTILES) {
         if (indexCourant === fileAttente.length - 1) {
           terminerSondage();
           return;
@@ -433,26 +451,25 @@
 
       let indexProchaine = -1;
 
-      // NIVEAU 1 : QCM (Filtres macroscopiques universels obligatoires)
+      // NIVEAU 1 : QCM
       let qcmsDispos = questionsDisponibles.map((q, idx) => ({q, idx})).filter(item => item.q.type === "qcm");
       
       if (qcmsDispos.length > 0) {
         indexProchaine = qcmsDispos[Math.floor(Math.random() * qcmsDispos.length)].idx;
       } 
       else {
-        // NIVEAU 2 : Crash Tests de famille (Si identité religieuse/philosophique choisie)
+        // NIVEAU 2 : Crash Tests
         let crashDispos = questionsDisponibles.map((q, idx) => ({q, idx})).filter(item => item.q.type === "crash_test");
         
         if (crashDispos.length > 0 && reponsesUtilisateur["q_identite"] !== "sans_apriori") {
           indexProchaine = crashDispos[Math.floor(Math.random() * crashDispos.length)].idx;
         }
-        // NIVEAU 3 : LE MOTEUR HYBRIDE
+        // NIVEAU 3 : MOTEUR HYBRIDE
         else {
-          // A. Phase d'Exploration (Jusqu'à la 12e question)
-          if (fileAttente.length <= 12) {
+          // L'exploration dure le temps d'obtenir 12 réponses UTILES
+          if (nbUtiles <= 12) {
              indexProchaine = Math.floor(Math.random() * questionsDisponibles.length);
           } 
-          // B. Phase d'Affinage et de Traque (À partir de la 13e question)
           else {
              const classementProvisoire = calculerAffinities(reponsesUtilisateur, false);
              if (classementProvisoire.length > 0) {
